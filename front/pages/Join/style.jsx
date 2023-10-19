@@ -179,3 +179,90 @@ export const UserContent = styled.div`
     padding-top: 10px;
     text-align: left;
 `;
+
+// 일반 유저 회원가입
+export const JoinBox = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const JoinContent = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 30px;
+    padding-top: 50px;
+    text-align: left;
+`;
+
+
+export const JoinInput = styled.input`
+    font-family: 'Pretendard';
+    width: 340px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 25px;
+    ::placeholder {
+        font-family: 'Pretendard';
+        font-size: 25px; 
+        color: #aaaaaa; 
+    }
+    padding-left: 10px;
+    margin-top: 20px;
+`;
+
+export const JoinChooseBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+`;
+
+export const JoinInputButton = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 115px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: #FFFFFF;
+    margin-right: 20px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const Contract = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0px 30px 0px;
+    justify-content: center;
+    align-items: center;
+    
+`;
+
+export const ContractTitle = styled.div`
+    font-family: 'NotoSansKR-Regular';
+    font-size: 25px;
+    padding-left: 20px;
+`;
+
+export const ContractButton = styled.button`
+    font-family: 'Pretendard-Bold';
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 25px;
+    border: 1px solid black;
+`;
+
+export const JoinButton = styled.button`
+    font-family: 'Pretendard-Bold';
+    width: 150px;
+    height: 65px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 25px;
+    color: white;
+    background-color: #712EFF;
+    margin-top: 30px;
+`;

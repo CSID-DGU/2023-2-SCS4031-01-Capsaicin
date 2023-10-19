@@ -1,7 +1,13 @@
 import React from 'react';
 import * as S from "./style";
+// import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+    // const navigate = useNavigate();
+
+    // const handleJoinClick = () => {
+    //     navigate('/join');
+    // };
     return (
         <>
             <S.Container>
@@ -20,9 +26,11 @@ export default function LoginPage() {
 
                 <S.LoginButton>로그인</S.LoginButton>
 
-                <S.Join>계정이 없으신가요? 회원가입</S.Join>
+                <S.Join>
+                    "계정이 없으신가요? 회원가입
+                </S.Join>
                 <S.IDfinder>아이디/비밀번호 찾기</S.IDfinder>
-            </S.Container>
+            </S.Container >
         </>
     );
 }
