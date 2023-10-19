@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from "./style";
 
-export default function JoinPage() {
+export default function LoginPage() {
     return (
         <>
             <S.Container>

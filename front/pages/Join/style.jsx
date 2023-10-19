@@ -3,10 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     position: relative;
-    text-align: center;
 `;
 
 
@@ -108,4 +106,76 @@ export const IDfinder = styled.div`
     font-size: 25px;
     padding-top: 20px;
     text-decoration: underline;
+`;
+
+// 회원가입
+export const LoginTitle = styled.div`
+    font-family: 'NanumSquareRoundEB';
+    font-size: 50px;
+    position: relative;
+    padding-right: 150px;
+    z-index: 2;
+    color: #FFFFFF;
+`;
+
+export const ChooseUser = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding: 60px 100px 0px 0px;
+    color: #000000;
+`;
+
+export const User = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding-top: 30px;
+`;
+
+export const MyUser = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 200px;
+    border: 0.5px solid black;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 50px;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const GuardianUser = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 200px;
+    border: 0.5px solid black;
+    border-radius: 0px 5px 5px 0px;
+    font-size: 50px;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const UserExplain = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-right: 100px;
+`;
+
+
+export const UserTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding-top: 50px;
+    text-align: left;
+`;
+
+export const UserContent = styled.div`
+    font-family: 'NotoSansKR-Median';
+    font-size: 25px;
+    padding-top: 10px;
+    text-align: left;
 `;

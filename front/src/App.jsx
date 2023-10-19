@@ -1,12 +1,14 @@
 // import { useState } from 'react'
-import JoinMain from '../pages/Join/JoinMain'
+import LoginMain from '../pages/Join/LoginMain'
+import Join from '../pages/Join/Join'
 import './App.css'
 
 function App() {
 
   return (
     <>
-      <JoinMain></JoinMain>
+      {/* <LoginMain></LoginMain> */}
+      <Join></Join>
     </>
   )
 }
