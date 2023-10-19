@@ -20,7 +20,7 @@ export default function LoginPage() {
                     src="../../assets/images/logo_black.png" />
 
                 <S.Input>
-                    <S.InputID type="text" placeholder='아이디'></S.InputID>
+                    <S.InputID type="text" placeholder='전화번호'></S.InputID>
                     <S.InputPW type="password" placeholder='비밀번호'></S.InputPW>
                 </S.Input>
 
