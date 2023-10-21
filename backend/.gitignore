@@ -1,3 +1,5 @@
+drf_env
+
 ### Django ###
 *.log
 *.pot
