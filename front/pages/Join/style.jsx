@@ -3,10 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     position: relative;
-    text-align: center;
 `;
 
 
@@ -108,4 +106,163 @@ export const IDfinder = styled.div`
     font-size: 25px;
     padding-top: 20px;
     text-decoration: underline;
+`;
+
+// 회원가입
+export const LoginTitle = styled.div`
+    font-family: 'NanumSquareRoundEB';
+    font-size: 50px;
+    position: relative;
+    padding-right: 150px;
+    z-index: 2;
+    color: #FFFFFF;
+`;
+
+export const ChooseUser = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding: 60px 100px 0px 0px;
+    color: #000000;
+`;
+
+export const User = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding-top: 30px;
+`;
+
+export const MyUser = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 200px;
+    border: 0.5px solid black;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 50px;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const GuardianUser = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 200px;
+    border: 0.5px solid black;
+    border-radius: 0px 5px 5px 0px;
+    font-size: 50px;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const UserExplain = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-right: 100px;
+`;
+
+
+export const UserTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding-top: 50px;
+    text-align: left;
+`;
+
+export const UserContent = styled.div`
+    font-family: 'NotoSansKR-Median';
+    font-size: 25px;
+    padding-top: 10px;
+    text-align: left;
+`;
+
+// 일반 유저 회원가입
+export const JoinBox = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const JoinContent = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 30px;
+    padding-top: 50px;
+    text-align: left;
+`;
+
+
+export const JoinInput = styled.input`
+    font-family: 'Pretendard';
+    width: 340px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 25px;
+    ::placeholder {
+        font-family: 'Pretendard';
+        font-size: 25px; 
+        color: #aaaaaa; 
+    }
+    padding-left: 10px;
+    margin-top: 20px;
+`;
+
+export const JoinChooseBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+`;
+
+export const JoinInputButton = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 115px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: #FFFFFF;
+    margin-right: 20px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const Contract = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin: 50px 0px 30px 0px;
+    justify-content: center;
+    align-items: center;
+    
+`;
+
+export const ContractTitle = styled.div`
+    font-family: 'NotoSansKR-Regular';
+    font-size: 25px;
+    padding-left: 20px;
+`;
+
+export const ContractButton = styled.button`
+    font-family: 'Pretendard-Bold';
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 25px;
+    border: 1px solid black;
+`;
+
+export const JoinButton = styled.button`
+    font-family: 'Pretendard-Bold';
+    width: 150px;
+    height: 65px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 25px;
+    color: white;
+    background-color: #712EFF;
+    margin-top: 30px;
 `;

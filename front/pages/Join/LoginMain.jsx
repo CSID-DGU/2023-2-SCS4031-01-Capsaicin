@@ -1,7 +1,13 @@
 import React from 'react';
 import * as S from "./style";
+// import { useNavigate } from "react-router-dom";
 
-export default function JoinPage() {
+export default function LoginPage() {
+    // const navigate = useNavigate();
+
+    // const handleJoinClick = () => {
+    //     navigate('/join');
+    // };
     return (
         <>
             <S.Container>
@@ -14,15 +20,17 @@ export default function JoinPage() {
                     src="../../assets/images/logo_black.png" />
 
                 <S.Input>
-                    <S.InputID type="text" placeholder='아이디'></S.InputID>
+                    <S.InputID type="text" placeholder='전화번호'></S.InputID>
                     <S.InputPW type="password" placeholder='비밀번호'></S.InputPW>
                 </S.Input>
 
                 <S.LoginButton>로그인</S.LoginButton>
 
-                <S.Join>계정이 없으신가요? 회원가입</S.Join>
+                <S.Join>
+                    "계정이 없으신가요? 회원가입
+                </S.Join>
                 <S.IDfinder>아이디/비밀번호 찾기</S.IDfinder>
-            </S.Container>
+            </S.Container >
         </>
     );
 }
