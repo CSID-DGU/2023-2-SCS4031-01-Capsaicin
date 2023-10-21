@@ -38,7 +38,7 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
-    username = None
+    username = models.CharField(_('username'), unique=True, max_length=4)
     phone_number = models.CharField(_('phone number'), unique=True, max_length=11)
 
     USERNAME_FIELD = 'phone_number'
