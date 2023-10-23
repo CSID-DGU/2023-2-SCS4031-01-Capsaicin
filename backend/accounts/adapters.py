@@ -8,8 +8,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
 
         user = super().save_user(request, user, form, False)
         phone_number = data.get("phone_number")
+        fullname = data.get("fullname")
 
         user.phone_number = phone_number
+        user.fullname = fullname
 
         user.save()
         return user

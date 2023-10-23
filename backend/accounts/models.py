@@ -10,14 +10,16 @@ class CustomUserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
-    """
-    def create_user(self, phone_number, password, **extra_fields):
+    """        
+    def create_user(self, phone_number, fullname, password, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
         if not phone_number:
             raise ValueError(_('The phone_number must be set'))
-        user = self.model(phone_number=phone_number, **extra_fields)
+        if not fullname:
+            raise ValueError(_('The fullname must be set'))
+        user = self.model(phone_number=phone_number, fullname=fullname, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -35,17 +37,20 @@ class CustomUserManager(BaseUserManager):
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
         return self.create_user(phone_number, password, **extra_fields)
+    
 
 
 class User(AbstractUser):
-    username = models.CharField(_('username'), unique=True, max_length=4)
+    fullname = models.CharField(_('fullname'), max_length=4)
     phone_number = models.CharField(_('phone number'), unique=True, max_length=11)
+    password = models.CharField('password', max_length=128)
+    username = models.CharField(max_length=1, null=True)
 
     USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ['password', 'fullname']
 
     objects = CustomUserManager()
-    
+
 
     def __str__(self):
         return self.phone_number
