@@ -11,7 +11,7 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """        
-    def create_user(self, phone_number, fullname, password, **extra_fields):
+    def create_user(self, phone_number, fullname, password, birth, gender, userType, guardPhoneNumber, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
@@ -19,7 +19,7 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('The phone_number must be set'))
         if not fullname:
             raise ValueError(_('The fullname must be set'))
-        user = self.model(phone_number=phone_number, fullname=fullname, **extra_fields)
+        user = self.model(phone_number=phone_number, fullname=fullname, birth=birth, gender=gender, userType=userType, guardPhoneNumber=guardPhoneNumber, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -45,9 +45,14 @@ class User(AbstractUser):
     phone_number = models.CharField(_('phone number'), unique=True, max_length=11)
     password = models.CharField('password', max_length=128)
     username = models.CharField(max_length=1, null=True)
+    
+    birth = models.IntegerField('birth')
+    gender = models.CharField('gender', max_length=1)
+    userType = models.CharField('userType', max_length=10)
+    guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True)
 
     USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['password', 'fullname']
+    REQUIRED_FIELDS = ['password', 'fullname', 'birth', 'gender', 'userType']
 
     objects = CustomUserManager()
 
