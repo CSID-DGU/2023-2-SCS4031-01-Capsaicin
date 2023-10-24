@@ -50,6 +50,9 @@ class User(AbstractUser):
     gender = models.CharField('gender', max_length=1)
     userType = models.CharField('userType', max_length=10)
     guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True)
+    
+
+    
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['password', 'fullname', 'birth', 'gender', 'userType']
@@ -59,3 +62,13 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.phone_number
+<<<<<<< Updated upstream
+    
+=======
+    
+class BloodPressure(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    systolic = models.IntegerField()
+    diastolic = models.IntegerField()
+    measurement_date = models.DateTimeField(auto_now_add=True)
+>>>>>>> Stashed changes

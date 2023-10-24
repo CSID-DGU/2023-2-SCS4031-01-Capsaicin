@@ -1,4 +1,5 @@
 from allauth.account.adapter import DefaultAccountAdapter
+from accounts.models import BloodPressure
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
@@ -13,6 +14,9 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         gender = data.get("gender")
         userType = data.get("userType")
         guardPhoneNumber = data.get("guardPhoneNumber")
+        
+        systolic = data.get("systolic")
+        diastolic = data.get("diastolic")
 
 
         user.phone_number = phone_number
@@ -21,6 +25,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.gender = gender
         user.userType = userType
         user.guardPhoneNumber = guardPhoneNumber
+        user.systolic = systolic
+        user.diastolic = diastolic
 
         user.save()
         return user
+
+    
