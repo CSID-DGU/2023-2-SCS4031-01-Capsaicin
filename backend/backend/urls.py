@@ -19,7 +19,7 @@ from django.urls import path
 from django.urls import include
 
 from rest_framework import routers
-from accounts.views import UserViewSet
+from accounts.views import UserViewSet, BloodPressureAV
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 
@@ -28,6 +28,8 @@ urlpatterns = [
     path('', include(router.urls)),
     path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/registration', include('dj_rest_auth.registration.urls')),
+    #path('accounts/registration', UserAV.as_view(), name='user'),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
+    path('accounts/bloodpressure',BloodPressureAV.as_view(), name='bloodpressure'),
 ]
