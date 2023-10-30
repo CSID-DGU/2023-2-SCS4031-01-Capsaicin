@@ -17,9 +17,10 @@ from accounts import urls
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from main import urls
 
 from rest_framework import routers
-from accounts.views import UserViewSet, BloodPressureAV
+from accounts.views import UserViewSet
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 
@@ -31,5 +32,5 @@ urlpatterns = [
     #path('accounts/registration', UserAV.as_view(), name='user'),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
-    path('accounts/bloodpressure',BloodPressureAV.as_view(), name='bloodpressure'),
+    path('main/', include('main.urls')),
 ]

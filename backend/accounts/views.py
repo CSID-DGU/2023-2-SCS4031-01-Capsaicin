@@ -1,21 +1,17 @@
 from rest_framework import viewsets
 from rest_framework import serializers
-from accounts.models import User, BloodPressure
+from accounts.models import User
+from main.serializers import BloodPressureSerializer, WeightSerializer
 
-from rest_framework.views import APIView
+
 #추가
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
-class BloodPressureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BloodPressure
-        fields = "__all__"
-
-
 class UserSerializer(serializers.ModelSerializer):
-    bloodpressure = BloodPressureSerializer(many=True)
+    bloodpressure = BloodPressureSerializer()
+    weights = WeightSerializer()
 
     class Meta:
         model = User
@@ -38,20 +34,6 @@ class UserViewSet(viewsets.ModelViewSet):
 #                 return Response(serializer.data, status=status.HTTP_201_CREATED)
 #         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class BloodPressureAV(APIView):
-
-    def get(self, request):
-        bloodpressure = BloodPressure.objects.all()
-        serializer = BloodPressureSerializer(bloodpressure, many=True, context={'request':request})
-        return Response(serializer.data)
-    
-    def post(self, request):
-        serializer = BloodPressureSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
 
 
 # @api_view(['POST'])
