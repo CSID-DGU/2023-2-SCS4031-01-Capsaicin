@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import User
-from main.models import BloodPressure, Weight
+from main.models import BloodPressure, Weight, FoodCategory
 
 class BloodPressureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,4 +10,9 @@ class BloodPressureSerializer(serializers.ModelSerializer):
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight
+        fields = "__all__"
+
+class FoodCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FoodCategory
         fields = "__all__"
