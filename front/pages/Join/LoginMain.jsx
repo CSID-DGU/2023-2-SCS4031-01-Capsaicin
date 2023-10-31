@@ -24,7 +24,7 @@ export default function LoginPage() {
 
                 <S.LoginButton onClick={() => navigate(`/main`)}>로그인</S.LoginButton>
 
-                <S.Join>
+                <S.Join onClick={() => navigate(`/join`)}>
                     계정이 없으신가요? 회원가입
                 </S.Join>
                 <S.IDfinder>아이디/비밀번호 찾기</S.IDfinder>

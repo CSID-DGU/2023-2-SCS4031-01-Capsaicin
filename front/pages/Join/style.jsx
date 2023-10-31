@@ -113,22 +113,23 @@ export const LoginTitle = styled.div`
     font-family: 'NanumSquareRoundEB';
     font-size: 50px;
     position: relative;
-    padding-right: 150px;
+    padding-right: 120px;
     z-index: 2;
     color: #FFFFFF;
 `;
 
 export const ChooseUser = styled.div`
     font-family: 'NotoSansKR-Bold';
+    width: 100%;
     font-size: 25px;
-    padding: 60px 100px 0px 0px;
+    padding: 70px 80px 0px 0px;
     color: #000000;
 `;
 
 export const User = styled.div`
     display: flex;
     flex-direction: row;
-    padding-top: 30px;
+    padding-top: 50px;
 `;
 
 export const MyUser = styled.button`
@@ -162,7 +163,7 @@ export const GuardianUser = styled.button`
 export const UserExplain = styled.div`
     display: flex;
     flex-direction: column;
-    padding-right: 100px;
+    padding-right: 70px;
 `;
 
 
