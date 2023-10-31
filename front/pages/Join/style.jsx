@@ -113,22 +113,24 @@ export const LoginTitle = styled.div`
     font-family: 'NanumSquareRoundEB';
     font-size: 50px;
     position: relative;
-    padding-right: 150px;
+    padding-right: 120px;
     z-index: 2;
     color: #FFFFFF;
+    margin-bottom: 30px;
 `;
 
 export const ChooseUser = styled.div`
     font-family: 'NotoSansKR-Bold';
+    width: 100%;
     font-size: 25px;
-    padding: 60px 100px 0px 0px;
+    padding: 70px 80px 0px 0px;
     color: #000000;
 `;
 
 export const User = styled.div`
     display: flex;
     flex-direction: row;
-    padding-top: 30px;
+    padding-top: 50px;
 `;
 
 export const MyUser = styled.button`
@@ -162,7 +164,7 @@ export const GuardianUser = styled.button`
 export const UserExplain = styled.div`
     display: flex;
     flex-direction: column;
-    padding-right: 100px;
+    padding-right: 70px;
 `;
 
 
@@ -184,6 +186,13 @@ export const UserContent = styled.div`
 export const JoinBox = styled.div`
     display: flex;
     flex-direction: column;
+`;
+
+export const JoinBoxSex = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 20px;
 `;
 
 export const JoinContent = styled.div`
@@ -253,6 +262,16 @@ export const ContractButton = styled.button`
     border-style: none;
     font-size: 25px;
     border: 1px solid black;
+        // 체크표시 스타일 적용
+        &:checked::before {
+        content: 'V'; // 체크 아이콘을 여기에 넣어주세요.
+        display: inline-block;
+        width: 12px; // 체크표시 너비
+        height: 12px; // 체크표시 높이
+        margin-right: 6px; // 체크표시와 텍스트 사이 여백
+        font-size: 12px; // 폰트 크기
+        color: #ff0000; // 체크표시 색상
+    }
 `;
 
 export const JoinButton = styled.button`
