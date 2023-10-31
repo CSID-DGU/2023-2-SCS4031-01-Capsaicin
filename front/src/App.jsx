@@ -1,10 +1,9 @@
-// import { useNavigate } from 'react'
-// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LoginMain from '../pages/Join/LoginMain'
-import Join from '../pages/Join/Join'
+import { BrowserRouter } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import LoginMain from '../pages/Join/LoginMain';
+import Join from '../pages/Join/Join';
+import Main from '../pages/Main/Main';
 import './App.css'
-import NormalJoin from '../pages/Join/Term'
-import Main from '../pages/Main/Main'
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 
@@ -55,28 +54,22 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Basic = styled.div`
-  /* background-color: #f1f0f0; */
   width: 100vw;
   height: 100vh;
 `;
 
 function App() {
 
-  // const navigate = useNavigate();
-
-  // const Gotosignup = () => {
-  //   navigate("/")
-  // }
-
   return (
     <>
       <GlobalStyle />
-      {/* <Basic> */}
-      {/* <LoginMain></LoginMain> */}
-      {/* <Join></Join> */}
-      {/* <NormalJoin></NormalJoin> */}
-      <Main></Main>
-      {/* </Basic> */}
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LoginMain />} />
+          <Route path="/join" element={<Join />} />
+          <Route path="/main" element={<Main />} />
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
