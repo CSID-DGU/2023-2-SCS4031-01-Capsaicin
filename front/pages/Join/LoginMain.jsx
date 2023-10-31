@@ -1,13 +1,11 @@
 import React from 'react';
 import * as S from "./style";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
-    // const navigate = useNavigate();
 
-    // const handleJoinClick = () => {
-    //     navigate('/join');
-    // };
+    const navigate = useNavigate();
+
     return (
         <>
             <S.Container>
@@ -24,10 +22,10 @@ export default function LoginPage() {
                     <S.InputPW type="password" placeholder='비밀번호'></S.InputPW>
                 </S.Input>
 
-                <S.LoginButton>로그인</S.LoginButton>
+                <S.LoginButton onClick={() => navigate(`/main`)}>로그인</S.LoginButton>
 
-                <S.Join>
-                    "계정이 없으신가요? 회원가입
+                <S.Join onClick={() => navigate(`/join`)}>
+                    계정이 없으신가요? 회원가입
                 </S.Join>
                 <S.IDfinder>아이디/비밀번호 찾기</S.IDfinder>
             </S.Container >
