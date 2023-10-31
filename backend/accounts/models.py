@@ -45,7 +45,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     fullname = models.CharField(_('fullname'), max_length=4)
     phone_number = models.CharField(_('phone number'), unique=True, max_length=11)
-    password = models.CharField('password', max_length=128)
+    password = models.CharField('password', max_length=4)
     username = models.CharField(max_length=1, null=True)
     
     birth = models.IntegerField('birth')
@@ -68,9 +68,5 @@ class User(AbstractUser):
     def __str__(self):
         return self.phone_number
 
-class BloodPressure(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    systolic = models.IntegerField()
-    diastolic = models.IntegerField()
-    measurement_date = models.DateTimeField(auto_now_add=True)
+
 
