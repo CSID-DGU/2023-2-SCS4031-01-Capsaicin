@@ -285,3 +285,35 @@ export const JoinButton = styled.button`
     background-color: #712EFF;
     margin-top: 30px;
 `;
+
+export const TermContent = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 30px;
+    padding-top: 50px;
+    text-align: left;
+    margin: 0 auto 20px;
+`;
+
+export const TermBody = styled.p`
+    margin: 0px;
+    fontSize: 20px;
+    border: 1px solid;
+    color: gray;
+    width: 370px;
+    height:400px;
+    margin: 0 auto;
+    textAlign: left;
+    overflow: auto;
+`;
+
+export const TermButton = styled.button`
+    margin: 0px;
+    fontSize: 20px;
+    border: 1px solid;
+    color: gray;
+    width: 370px;
+    height:400px;
+    margin: 0 auto;
+    textAlign: left;
+    overflow: auto;
+`;
