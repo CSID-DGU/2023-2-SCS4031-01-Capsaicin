@@ -6,6 +6,8 @@ import Main from '../pages/Main/Main';
 import './App.css'
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
+import NormalJoin from '../pages/Join/NormalJoin';
+import Term from '../pages/Join/Term';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -67,7 +69,9 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginMain />} />
           <Route path="/join" element={<Join />} />
+          <Route path="/normaljoin" element={<NormalJoin />} />
           <Route path="/main" element={<Main />} />
+          <Route path="/term" element={<Term />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -116,6 +116,7 @@ export const LoginTitle = styled.div`
     padding-right: 120px;
     z-index: 2;
     color: #FFFFFF;
+    margin-bottom: 30px;
 `;
 
 export const ChooseUser = styled.div`
@@ -187,6 +188,13 @@ export const JoinBox = styled.div`
     flex-direction: column;
 `;
 
+export const JoinBoxSex = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 20px;
+`;
+
 export const JoinContent = styled.div`
     font-family: 'NotoSansKR-Bold';
     font-size: 30px;
@@ -254,6 +262,16 @@ export const ContractButton = styled.button`
     border-style: none;
     font-size: 25px;
     border: 1px solid black;
+        // 체크표시 스타일 적용
+        &:checked::before {
+        content: 'V'; // 체크 아이콘을 여기에 넣어주세요.
+        display: inline-block;
+        width: 12px; // 체크표시 너비
+        height: 12px; // 체크표시 높이
+        margin-right: 6px; // 체크표시와 텍스트 사이 여백
+        font-size: 12px; // 폰트 크기
+        color: #ff0000; // 체크표시 색상
+    }
 `;
 
 export const JoinButton = styled.button`
