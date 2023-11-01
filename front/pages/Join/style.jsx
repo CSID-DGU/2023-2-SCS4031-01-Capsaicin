@@ -267,7 +267,7 @@ export const JoinButton = styled.button`
     margin-top: 30px;
 `;
 
-export const TermContent = styled.div`
+export const TitleContent = styled.div`
     font-family: 'NotoSansKR-Bold';
     font-size: 30px;
     padding-top: 50px;
@@ -298,3 +298,65 @@ export const TermButton = styled.button`
     textAlign: left;
     overflow: auto;
 `;
+
+export const Blood = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 150px;
+    border: 0.5px solid black;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 40px;
+    background-color: #FFFFFF;
+    padding-left: 0px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const Weight = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 175px;
+    height: 150px;
+    border: 0.5px solid black;
+    border-radius: 0px 5px 5px 0px;
+    font-size: 40px;
+    background-color: #FFFFFF;
+    padding-left: 10px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const LeftTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 40px;
+    padding-top: 30px;
+    align-items: left;
+    margin: 0 auto 5px;
+    font-weight: bold;
+    padding-right:170px;
+`;
+
+export const InfoInput = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 350px;
+    height: 150px;
+    border: 0.5px solid black;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 35px;
+    background-color: #FFFFFF;
+    padding-left: 160px;
+    font-weight: bold;
+    
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+// export const ImageIn = styled.img`
+//     width: 200px;
+//     top: -40px;
+//     left: 50%;
+//     transform: translateX(-50%); /* 이미지를 수평으로 가운데 정렬 */
+//     position: absolute;
+//     z-index: 1;
+// `;

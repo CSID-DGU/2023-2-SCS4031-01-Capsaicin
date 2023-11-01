@@ -3,7 +3,7 @@
 import LoginMain from '../pages/Join/LoginMain'
 import Join from '../pages/Join/Join'
 import './App.css'
-import NormalJoin from '../pages/Join/Term'
+import NormalJoin from '../pages/Join/InputInfo'
 
 function App() {
 

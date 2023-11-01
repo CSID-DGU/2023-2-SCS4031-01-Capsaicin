@@ -13,7 +13,7 @@ export default function Term() {
                     src="../../assets/images/login_box.png" />
                 <S.TitleSubText>내 손 안의 작은 스마트 경로당</S.TitleSubText>
                 <S.TitleSubTitle>고혈압, 스톱!</S.TitleSubTitle>
-                <S.TermContent><a href="#">&lt;</a>   이용약관</S.TermContent>
+                <S.TitleContent><a href="#">&lt;</a>   이용약관</S.TitleContent>
                 {/* <S.JoinBox>
                     <label style={{ margin: '10px' }}>
                         <S.ContractButton></S.ContractButton>
