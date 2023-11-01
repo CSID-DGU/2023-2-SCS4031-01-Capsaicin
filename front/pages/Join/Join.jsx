@@ -1,7 +1,11 @@
 import React from 'react';
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 export default function Join() {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <S.Container>
@@ -11,7 +15,7 @@ export default function Join() {
 
                 <S.ChooseUser>회원 유형을 선택하세요.</S.ChooseUser>
                 <S.User>
-                    <S.MyUser>일반<br></br>유저</S.MyUser>
+                    <S.MyUser onClick={() => navigate(`/normaljoin`)}>일반<br></br>유저</S.MyUser>
                     <S.GuardianUser>보호자<br></br>유저</S.GuardianUser>
                 </S.User>
                 <S.UserExplain>
