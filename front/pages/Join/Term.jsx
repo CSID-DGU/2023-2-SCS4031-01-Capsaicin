@@ -13,27 +13,7 @@ export default function Term() {
                     src="../../assets/images/login_box.png" />
                 <S.TitleSubText>내 손 안의 작은 스마트 경로당</S.TitleSubText>
                 <S.TitleSubTitle>고혈압, 스톱!</S.TitleSubTitle>
-<<<<<<< HEAD
                 <S.TitleContent><a href="#">&lt;</a>   이용약관</S.TitleContent>
-                {/* <S.JoinBox>
-                    <label style={{ margin: '10px' }}>
-                        <S.ContractButton></S.ContractButton>
-                        <span style={{ fontSize: '25px' }}>  전체 동의하기</span>
-                    </label>
-                    <p style={{ margin: '0px', fontSize: '20px' }}>본 서비스는 맟춤 서비스・긴급 알림<br>
-                    </br> 정보 수신(선택) 동의를 포함합니다</p>
-                </S.JoinBox> */}
-
-                {/* <S.JoinBox>
-                    <label style={{ margin: '40px' }}>
-                        <S.ContractButton></S.ContractButton>
-                        <span style={{ fontSize: '18px' }}> [필수] 개인정보 수집 및 이용 동의 약관</span>
-                    </label> */}
-                    {/* <S.TermBox> */}
-=======
-                <S.TermContent><a href="#">&lt;</a>   이용약관</S.TermContent>
-             
->>>>>>> 63a2df0f524728fe833409fb5ee70f9a26221dd9
                 <S.TermBody>1. 수집 및 이용목적
                     <br></br>1.1. [고,스톱] 애플리케이션(이하 "앱")은 사용자의 혈압, 키, 몸무게, 나이 및 기타 건강 정보를 수집합니다. 이 정보는 다음과 같은 목적으로 수집 및 이용됩니다:
                     <br></br>개인화된 건강 상담 및 운동 및 식단 추천 제공
