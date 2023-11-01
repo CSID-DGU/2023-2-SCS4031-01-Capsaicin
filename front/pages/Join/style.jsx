@@ -356,20 +356,23 @@ export const LeftTitle = styled.div`
     padding-right:170px;
 `;
 
-export const InfoInput = styled.button`
-    font-family: 'Pretendard-SemiBold';
+export const InfoInput = styled.div`
+    display: flex;
+    flex-direction: row;
     width: 350px;
-    height: 150px;
-    border: 0.5px solid black;
-    border-radius: 5px 0px 0px 5px;
-    font-size: 35px;
-    background-color: #FFFFFF;
-    padding-left: 160px;
-    font-weight: bold;
-    
-    :hover {
-        background-color: #aaaaaa; 
-    }
+    height: 85px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-size: 25px;
+    font-family: 'Pretendard-Medium';
+    margin-top: 20px;
+    justify-content: center;
+    align-items: center;
+`;
+export const ImgFood = styled.img`
+    width: 35px;
+    height: 40px;
+    padding-right: 20px;
 `;
 // export const ImageIn = styled.img`
 //     width: 200px;

@@ -4,9 +4,6 @@ import LoginMain from '../pages/Join/LoginMain';
 import Join from '../pages/Join/Join';
 import Main from '../pages/Main/Main';
 import './App.css'
-<<<<<<< HEAD
-import NormalJoin from '../pages/Join/InputInfo'
-=======
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
@@ -57,15 +54,11 @@ const GlobalStyle = createGlobalStyle`
     border-spacing: 0;
   }
 `;
-
 const Basic = styled.div`
   width: 100vw;
   height: 100vh;
 `;
->>>>>>> 63a2df0f524728fe833409fb5ee70f9a26221dd9
-
 function App() {
-
   return (
     <>
       <GlobalStyle />
@@ -81,5 +74,4 @@ function App() {
     </>
   )
 }
-
 export default App

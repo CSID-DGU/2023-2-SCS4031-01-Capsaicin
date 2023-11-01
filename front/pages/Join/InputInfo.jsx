@@ -15,12 +15,15 @@ export default function InputInfo() {
                     <S.Blood>혈당<br></br>입력</S.Blood>
                     <S.Weight>몸무게<br></br>입력</S.Weight>
                 </S.User>
-                <S.User>
-                <S.InfoInput>  식단 정보<br></br>입력</S.InfoInput>
+                {/* <S.User>
+                <S.InfoInput>  
+                    <S.ImgFood src="../../assets/images/food.png" />
+                    식단 정보<br></br>입력</S.InfoInput>
                 </S.User>
                 <S.User>
-                <S.InfoInput>  운동 정보<br></br>입력</S.InfoInput>
-                </S.User>
+                <S.InfoInput>
+                      운동 정보<br></br>입력</S.InfoInput>
+                </S.User> */}
             </S.Container>
         </>
     );
