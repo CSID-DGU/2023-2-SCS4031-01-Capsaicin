@@ -9,14 +9,22 @@ from rest_framework.response import Response
 class BloodPressureAV(APIView):
 
     def get(self, request):
-        bloodpressure = BloodPressure.objects.all()
+        find_user = request.user
+        bloodpressure = BloodPressure.objects.filter(user=find_user)
         serializer = BloodPressureSerializer(bloodpressure, many = True, context={'request':request})
         return Response(serializer.data)
     
     def post(self, request):
+        find_user = request.user
         serializer = BloodPressureSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            systolic = serializer.validated_data['systolic']
+            diastolic = serializer.validated_data['diastolic']
+            bloodpressure = BloodPressure()
+            bloodpressure.systolic = systolic
+            bloodpressure.diastolic = diastolic
+            bloodpressure.user = find_user
+            bloodpressure.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
