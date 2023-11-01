@@ -1,7 +1,12 @@
 import React from 'react';
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 export default function NormalJoin() {
+
+    const [contract, setContract] = React.useState(false);
+    const navigate = useNavigate();
+
     return (
         <>
             <S.Container>
@@ -13,13 +18,13 @@ export default function NormalJoin() {
                     <S.JoinInput type="text" placeholder='이름'></S.JoinInput>
                 </S.JoinBox>
 
-                <S.JoinBox>
+                <S.JoinBoxSex>
                     <S.JoinContent>성별</S.JoinContent>
                     <S.JoinChooseBox>
                         <S.JoinInputButton>남</S.JoinInputButton>
                         <S.JoinInputButton>여</S.JoinInputButton>
                     </S.JoinChooseBox>
-                </S.JoinBox>
+                </S.JoinBoxSex>
 
                 <S.JoinBox>
                     <S.JoinContent>생년월일</S.JoinContent>
@@ -62,13 +67,13 @@ export default function NormalJoin() {
                 </S.JoinBox>
 
                 <S.Contract>
-                    <S.ContractButton></S.ContractButton>
-                    <S.ContractTitle>이용약관에 동의 (필수)</S.ContractTitle>
+                    <S.ContractButton type="checkbox" checked={contract} onChange={() => setContract(!contract)} />
+                    <S.ContractTitle onClick={() => navigate(`/term`)}>이용약관에 동의 (필수)</S.ContractTitle>
                 </S.Contract>
 
 
 
-                <S.JoinButton>회원가입</S.JoinButton>
+                <S.JoinButton onClick={() => navigate(`/main`)}>회원가입</S.JoinButton>
             </S.Container>
         </>
     );
