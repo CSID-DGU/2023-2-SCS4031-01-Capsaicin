@@ -12,6 +12,12 @@ class WeightSerializer(serializers.ModelSerializer):
         model = Weight
         fields = "__all__"
 
+
+class WeightPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Weight
+        fields = ["weight_figure"]
+
 class FoodCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = FoodCategory

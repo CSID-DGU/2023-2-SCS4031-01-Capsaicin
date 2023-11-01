@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from main.models import BloodPressure, Weight, FoodCategory
-from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer
+from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer
 from rest_framework.response import Response
 
 # Create your views here.
@@ -23,14 +23,20 @@ class BloodPressureAV(APIView):
         
 class WeightAV(APIView):
     def get(self, request):
-        weights = Weight.objects.all()
+        find_user = request.user
+        weights = Weight.objects.filter(user=find_user)
         serializer = WeightSerializer(weights, many = True, context={'request':request})
         return Response(serializer.data)
     
     def post(self, request):
-        serializer = WeightSerializer(data=request.data)
+        find_user = request.user
+        serializer = WeightPostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            weight_figure = serializer.validated_data['weight_figure']
+            weight = Weight()
+            weight.weight_figure = weight_figure
+            weight.user = find_user
+            weight.save()
             return Response(serializer.data)
         else:
             return Response(serializer.errors)

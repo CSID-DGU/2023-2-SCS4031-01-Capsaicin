@@ -9,15 +9,15 @@ class BloodPressure(models.Model):
     measurement_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.systolic
+        return f"{self.systolic} 정민경 정사사 바부"
     
 class Weight(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="weights")
     weight_figure = models.FloatField()
     measurement_date = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.weight_figure
+    # def __str__(self):
+    #     return self.weight_figure
     
 class FoodCategory(models.Model):
     name = models.CharField(max_length=20)
