@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from main.models import BloodPressure, Weight, FoodCategory
-from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer
+from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer, BloodPressurePostSerializer
 from rest_framework.response import Response
 
 # Create your views here.
@@ -16,7 +16,7 @@ class BloodPressureAV(APIView):
     
     def post(self, request):
         find_user = request.user
-        serializer = BloodPressureSerializer(data=request.data)
+        serializer = BloodPressurePostSerializer(data=request.data)
         if serializer.is_valid():
             systolic = serializer.validated_data['systolic']
             diastolic = serializer.validated_data['diastolic']

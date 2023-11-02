@@ -7,6 +7,11 @@ class BloodPressureSerializer(serializers.ModelSerializer):
         model = BloodPressure
         fields = "__all__"
 
+class BloodPressurePostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BloodPressure
+        fields = ["systolic", "diastolic"]
+
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight

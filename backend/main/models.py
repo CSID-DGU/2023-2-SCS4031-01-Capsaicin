@@ -9,7 +9,7 @@ class BloodPressure(models.Model):
     measurement_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.systolic} 정민경 정사사 바부"
+        return f"{self.systolic}"
     
 class Weight(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="weights")
