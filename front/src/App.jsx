@@ -8,6 +8,8 @@ import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
 import Term from '../pages/Join/Term';
+import InputInfo from '../pages/Join/InputInfo';
+import InputInfo_cate from '../pages/Join/InputInfo_cate';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -69,6 +71,8 @@ function App() {
           <Route path="/normaljoin" element={<NormalJoin />} />
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
+          <Route path="/inputinfo" element={<InputInfo />} />
+          <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
         </Routes>
       </BrowserRouter>
     </>

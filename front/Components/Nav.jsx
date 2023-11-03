@@ -1,13 +1,17 @@
 import React from 'react';
 import * as S from "./style";
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+
+    const navigate = useNavigate();
+
     return (
         <>
             <S.Nav>
-                <S.NavButton>
+                <S.NavButton onClick={() => navigate(`/inputinfo`)}>
                     <S.NavInput src="../../assets/images/navInput.png" />
-                    <S.NavText>건강입력</S.NavText>
+                    <S.NavText >건강입력</S.NavText>
                 </S.NavButton>
                 <S.NavButton>
                     <S.NavReport src="../../assets/images/navReport.png" />
