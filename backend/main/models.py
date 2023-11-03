@@ -26,3 +26,14 @@ class FoodCategory(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Food(models.Model):
+    foodName = models.CharField(max_length=30)
+    foodImgUrl = models.CharField(max_length=200)
+    calorie = models.FloatField()
+    natrium = models.FloatField()
+    category = models.ForeignKey(FoodCategory, on_delete=models.CASCADE, related_name="food")
+    #test = models.IntegerField()
+
+    def __str__(self):
+        return self.foodName
