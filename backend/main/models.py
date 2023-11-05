@@ -6,7 +6,8 @@ class BloodPressure(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="bloodpressure")
     systolic = models.IntegerField()
     diastolic = models.IntegerField()
-    measurement_date = models.DateTimeField(auto_now_add=True)
+    measurement_date = models.DateField()
+    measurement_time = models.TimeField()
 
     def __str__(self):
         return f"{self.systolic}"
@@ -14,7 +15,7 @@ class BloodPressure(models.Model):
 class Weight(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="weights")
     weight_figure = models.FloatField()
-    measurement_date = models.DateTimeField(auto_now_add=True)
+    measurement_date = models.DateField()
 
     # def __str__(self):
     #     return self.weight_figure

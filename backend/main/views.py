@@ -20,9 +20,13 @@ class BloodPressureAV(APIView):
         if serializer.is_valid():
             systolic = serializer.validated_data['systolic']
             diastolic = serializer.validated_data['diastolic']
+            measurement_date = serializer.validated_data['measurement_date']
+            measurement_time = serializer.validated_data['measurement_time']
             bloodpressure = BloodPressure()
             bloodpressure.systolic = systolic
             bloodpressure.diastolic = diastolic
+            bloodpressure.measurement_date = measurement_date
+            bloodpressure.measurement_time = measurement_time
             bloodpressure.user = find_user
             bloodpressure.save()
             return Response(serializer.data)
@@ -41,9 +45,11 @@ class WeightAV(APIView):
         serializer = WeightPostSerializer(data=request.data)
         if serializer.is_valid():
             weight_figure = serializer.validated_data['weight_figure']
+            measurement_date = serializer.validated_data['measurement_date']
             weight = Weight()
             weight.weight_figure = weight_figure
             weight.user = find_user
+            weight.measurement_date = measurement_date
             weight.save()
             return Response(serializer.data)
         else:

@@ -10,7 +10,7 @@ class BloodPressureSerializer(serializers.ModelSerializer):
 class BloodPressurePostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BloodPressure
-        fields = ["systolic", "diastolic"]
+        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
 
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,7 +21,7 @@ class WeightSerializer(serializers.ModelSerializer):
 class WeightPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight
-        fields = ["weight_figure"]
+        fields = ["weight_figure", "measurement_date"]
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:

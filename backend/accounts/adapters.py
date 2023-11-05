@@ -41,12 +41,15 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         weightvalue = Weight()
         weightvalue.weight_figure = weight
         weightvalue.user = newUser
+        weightvalue.measurement_date = "2023-11-05"
         weightvalue.save()
 
 
         bloodPressure = BloodPressure()
         bloodPressure.systolic = systolic
         bloodPressure.diastolic = 0
+        bloodPressure.measurement_date = "2023-11-05"
+        bloodPressure.measurement_time = "12:12"
         bloodPressure.user = newUser
         bloodPressure.save()
 
