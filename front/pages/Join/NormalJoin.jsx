@@ -47,7 +47,7 @@ export default function NormalJoin() {
                 </S.JoinBox>
 
                 <S.JoinBox>
-                    <S.JoinContent>혈압</S.JoinContent>
+                    <S.JoinContent>수축혈압</S.JoinContent>
                     <S.JoinInput type="text" placeholder='혈압(mmHg 생략, 숫자만 작성)'></S.JoinInput>
                 </S.JoinBox>
 
