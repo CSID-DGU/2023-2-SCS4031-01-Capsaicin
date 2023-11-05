@@ -1,6 +1,8 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from accounts.views import BloodPressureSerializer
-
+#from accounts.views import BloodPressureSerializer
+# from main.serializers import BloodPressureSerializer
+# from rest_framework.response import Response
+from main.models import Weight, BloodPressure
 
 class CustomAccountAdapter(DefaultAccountAdapter):
 
@@ -30,23 +32,43 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.weight = weight
         user.systolic = systolic
 
-        user.save()
-        return user
-    
-    def save_bloodpressure(self, request, form, bloodpressure):
-        data = form.cleaned_data
-        bloodpressure = super().save_bloodpressure(request, bloodpressure)
-        
-        systolic = data.get("systolic")
-        bloodpressure.systolic = systolic
-
-        serializer = BloodPressureSerializer(data=request.data)
+        # serializer = BloodPressureSerializer(data=systolic)
         # if serializer.is_valid():
         #     serializer.save()
-        #     return Response(serializer.data)
-        # else:
-        #     return Response(serializer.errors)
+        user.save()
+        newUser = user
 
-        bloodpressure.save()
-        serializer.save()
-        return bloodpressure
+        weightvalue = Weight()
+        weightvalue.weight_figure = weight
+        weightvalue.user = newUser
+        weightvalue.measurement_date = "2023-11-05"
+        weightvalue.save()
+
+
+        bloodPressure = BloodPressure()
+        bloodPressure.systolic = systolic
+        bloodPressure.diastolic = 0
+        bloodPressure.measurement_date = "2023-11-05"
+        bloodPressure.measurement_time = "12:12"
+        bloodPressure.user = newUser
+        bloodPressure.save()
+
+        return user
+    
+    # def save_bloodpressure(self, request, form, bloodpressure):
+    #     data = form.cleaned_data
+    #     bloodpressure = super().save_bloodpressure(request, bloodpressure)
+        
+    #     systolic = data.get("systolic")
+    #     bloodpressure.systolic = systolic
+
+    #     serializer = BloodPressureSerializer(data=request.data)
+    #     # if serializer.is_valid():
+    #     #     serializer.save()
+    #     #     return Response(serializer.data)
+    #     # else:
+    #     #     return Response(serializer.errors)
+
+    #     bloodpressure.save()
+    #     serializer.save()
+    #     return bloodpressure
