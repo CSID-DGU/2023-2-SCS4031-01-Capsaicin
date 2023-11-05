@@ -9,7 +9,7 @@ export const Container = styled.div`
 export const Title = styled.img`
     width: 390px;
     height: 50px;
-    top: 0px;
+    top: -25px;
     position: absolute;
     z-index: 1;
 `;

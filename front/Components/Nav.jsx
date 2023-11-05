@@ -3,6 +3,11 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
+    const navigate = useNavigate();
+    return (
+        <>
+            <S.Nav>
+                <S.NavButton onClick={() => navigate(`/inputmain`)}>
 
     const navigate = useNavigate();
 

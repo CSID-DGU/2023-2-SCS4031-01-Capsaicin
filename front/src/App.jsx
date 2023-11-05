@@ -8,6 +8,9 @@ import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
 import Term from '../pages/Join/Term';
+import InputMain from '../pages/Input/Main/InputMain';
+import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
+import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
 import InputInfo_cate from '../pages/Join/InputInfo_cate';
 
@@ -71,6 +74,9 @@ function App() {
           <Route path="/normaljoin" element={<NormalJoin />} />
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
+          <Route path="/inputmain" element={<InputMain />}></Route>
+          <Route path="/bloodpressureinput" element={<BloodPressureInput />}></Route>
+          <Route path="/weightinput" element={<WeightInput />}></Route>
           <Route path="/inputinfo" element={<InputInfo />} />
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
         </Routes>
