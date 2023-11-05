@@ -71,7 +71,8 @@ class FoodCategoryAV(APIView):
         
 class FoodAV(APIView):
     def get(self, request):
-        food = Food.objects.all()
+        find_category = request.category
+        food = Food.objects.filter(category=find_category)
         serializer = FoodSerializer(food, many = True, context={'request':request})
         return Response(serializer.data)
     
