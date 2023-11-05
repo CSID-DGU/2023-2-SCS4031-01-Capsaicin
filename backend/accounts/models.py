@@ -54,6 +54,8 @@ class User(AbstractUser):
     guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True)
     height = models.FloatField()
     weight = models.FloatField()
+    # signupDate = models.DateField(auto_now_add=True)
+    # signupTime = models.TimeField(auto_now_add=True)
     
     systolic = models.IntegerField()
 
