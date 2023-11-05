@@ -9,6 +9,8 @@ import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
 import Term from '../pages/Join/Term';
 import InputMain from '../pages/Input/Main/InputMain';
+import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
+import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -71,6 +73,8 @@ function App() {
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
           <Route path="/inputmain" element={<InputMain />}></Route>
+          <Route path="/bloodpressureinput" element={<BloodPressureInput />}></Route>
+          <Route path="/weightinput" element={<WeightInput />}></Route>
         </Routes>
       </BrowserRouter>
     </>

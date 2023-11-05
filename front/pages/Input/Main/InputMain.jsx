@@ -13,11 +13,11 @@ export default function InputMain() {
             <S.Container>
                 <Title />
                 <S.GotoCareInputs>
-                    <S.GotoBloodPressureInput>
+                    <S.GotoBloodPressureInput onClick={() => navigate(`/bloodpressureinput`)}>
                         혈압<br></br>
                         입력
                     </S.GotoBloodPressureInput>
-                    <S.GotoWeightInput>
+                    <S.GotoWeightInput onClick={() => navigate(`/weightinput`)}>
                         몸무게<br></br>
                         입력
                     </S.GotoWeightInput>
