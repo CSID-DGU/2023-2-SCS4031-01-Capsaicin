@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from "./style";
+import Nav from '../../Components/Nav';
 
 export default function Term() {
     return (
@@ -13,7 +14,7 @@ export default function Term() {
                     src="../../assets/images/login_box.png" />
                 <S.TitleSubText>내 손 안의 작은 스마트 경로당</S.TitleSubText>
                 <S.TitleSubTitle>고혈압, 스톱!</S.TitleSubTitle>
-                <S.TitleContent><a href="#">&lt;</a>   이용약관</S.TitleContent>
+                <S.TitleContent>&lt;  이용약관</S.TitleContent>
                 <S.TermBody>1. 수집 및 이용목적
                     <br></br>1.1. [고,스톱] 애플리케이션(이하 "앱")은 사용자의 혈압, 키, 몸무게, 나이 및 기타 건강 정보를 수집합니다. 이 정보는 다음과 같은 목적으로 수집 및 이용됩니다:
                     <br></br>개인화된 건강 상담 및 운동 및 식단 추천 제공
@@ -38,7 +39,7 @@ export default function Term() {
                     <br></br>9.1. 본 약관은 [법률 및 규정의 준거법]에 따라 해석되며, 모든 분쟁은 [관할법원]에서 해결됩니다.
                 </S.TermBody>
                    
-
+                <Nav />
             </S.Container>
         </>
     );

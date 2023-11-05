@@ -4,14 +4,14 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
+    // position: relative;
 `;
 
 
 export const Title = styled.img`
     width: 390px;
     height: 120px;
-    top: -40px;
+    top: -30px;
     left: 50%;
     transform: translateX(-50%); /* 이미지를 수평으로 가운데 정렬 */
     position: absolute;
@@ -331,6 +331,25 @@ export const Blood = styled.button`
         background-color: #aaaaaa; 
     }
 `;
+export const UserBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+    // flex-direction: row;
+    padding-top: 50px;
+`;
+export const Box = styled.button`
+    font-family: 'Pretendard-SemiBold';
+    width: 130px;
+    height: 130px;
+    border: 0.5px solid black;
+    border-radius: 5px 0px 0px 5px;
+    font-size: 40px;
+    background-color: #FFFFFF;
+    padding-left: 0px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
 
 export const Weight = styled.button`
     font-family: 'Pretendard-SemiBold';
@@ -355,12 +374,21 @@ export const LeftTitle = styled.div`
     font-weight: bold;
     padding-right:170px;
 `;
+export const CenterTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 40px;
+    padding-top: 30px;
+    align-items: center;
+    margin: 0 auto 5px;
+    font-weight: bold;
+    padding-right:0px;
+`;
 
-export const InfoInput = styled.div`
+export const InfoInput = styled.button`
     display: flex;
     flex-direction: row;
     width: 350px;
-    height: 85px;
+    height: 120px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 25px;
