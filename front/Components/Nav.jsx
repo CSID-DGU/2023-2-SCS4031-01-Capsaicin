@@ -8,13 +8,6 @@ export default function Nav() {
         <>
             <S.Nav>
                 <S.NavButton onClick={() => navigate(`/inputmain`)}>
-
-    const navigate = useNavigate();
-
-    return (
-        <>
-            <S.Nav>
-                <S.NavButton onClick={() => navigate(`/inputinfo`)}>
                     <S.NavInput src="../../assets/images/navInput.png" />
                     <S.NavText >건강입력</S.NavText>
                 </S.NavButton>
