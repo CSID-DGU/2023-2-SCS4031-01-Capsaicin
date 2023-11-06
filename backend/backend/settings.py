@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'main',
+    'import_export',
+    'corsheaders',
 
 ]
 
@@ -66,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -169,3 +172,8 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 }
 
 ACCOUNT_ADAPTER = "accounts.adapters.CustomAccountAdapter"
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',  # 허용하고자 하는 프론트엔드 주소
+    # 다른 도메인도 필요하다면 추가
+]
