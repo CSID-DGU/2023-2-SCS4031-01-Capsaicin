@@ -38,4 +38,4 @@ class Food(models.Model):
     #test = models.IntegerField()
 
     def __str__(self):
-        return self.pk
+        return self.name

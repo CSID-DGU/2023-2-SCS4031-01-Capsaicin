@@ -70,9 +70,10 @@ class FoodCategoryAV(APIView):
             return Response(serializer.errors)
         
 class FoodAV(APIView):
-    def get(self, request):
-        find_category = request.category
-        food = Food.objects.filter(category=find_category)
+    def get(self, request,category):
+        # find_category = request.category
+        food = Food.objects.filter(category=category)
+        # food = Food.objects.all()
         serializer = FoodSerializer(food, many = True, context={'request':request})
         return Response(serializer.data)
     
