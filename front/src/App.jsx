@@ -12,7 +12,8 @@ import InputMain from '../pages/Input/Main/InputMain';
 import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
 import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
-import InputInfo_cate from '../pages/Join/InputInfo_cate';
+import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
+import Side from '../pages/Input/FoodInput/FoodPage/Side';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -79,6 +80,7 @@ function App() {
           <Route path="/weightinput" element={<WeightInput />}></Route>
           <Route path="/inputinfo" element={<InputInfo />} />
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
+          <Route path="/Side" element={<Side />} />
         </Routes>
       </BrowserRouter>
     </>

@@ -23,7 +23,7 @@ export default function InputMain() {
                     </S.GotoWeightInput>
                 </S.GotoCareInputs>
 
-                <S.GotoFoodInput>
+                <S.GotoFoodInput onClick={() => navigate(`/inputinfo_cate`)}>
                     <S.FoodIcon src="../../../assets/images/food.png" />
                     식단 정보
                     입력
