@@ -12,7 +12,7 @@ import InputMain from '../pages/Input/Main/InputMain';
 import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
 import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
-import InputInfo_cate from '../pages/Join/InputInfo_cate';
+import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
