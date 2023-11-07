@@ -4,7 +4,7 @@ import Nav from '../../../../Components/Nav';
 import * as S from "../style";
 import { useNavigate } from "react-router-dom";
 
-export default function Side() {
+export default function Soup() {
     const navigate = useNavigate();
     const YourComponent = () => {
         const [isModalOpen, setIsModalOpen] = useState(false);
@@ -24,7 +24,7 @@ export default function Side() {
                 <Title />
                 <S.Info>
                     <S.Backward src="../../../assets/images/backward.png" onClick={() => navigate(`/inputinfo_cate`)} />
-                    <S.InputTitle>반찬류</S.InputTitle>
+                    <S.InputTitle>국류</S.InputTitle>
                 </S.Info>
                 <S.SearchContainer>
                         <S.SearchInput type="text" placeholder="검색" />
@@ -32,40 +32,40 @@ export default function Side() {
                 </S.SearchContainer>
                 <S.UserBox>
                     <S.Box2>
-                        배추김치
+                        된장찌개
                         <S.FoodIcon src="../../../assets/images/side1.png" />
                         <S.Select>
-                            <option>1숟가락</option>
-                            <option>2숟가락</option>
-                            <option>3숟가락</option>
+                            <option>0.5인분</option>
+                            <option>0.75인분</option>
+                            <option>1인분</option>
                         </S.Select>
                     </S.Box2>
 
-                    <S.Box2>콩자반
+                    <S.Box2>김치찌개
                     <S.FoodIcon src="../../../assets/images/side2.png" />
-                    <S.Select>
-                            <option>1숟가락</option>
-                            <option>2숟가락</option>
-                            <option>3숟가락</option>
+                        <S.Select>
+                            <option>0.5인분</option>
+                            <option>0.75인분</option>
+                            <option>1인분</option>
                         </S.Select>
                     </S.Box2>
                 </S.UserBox>
                 <S.UserBox>
-                    <S.Box2>어묵볶음
+                    <S.Box2>콩나물국
                     <S.FoodIcon src="../../../assets/images/side3.png" />
-                    <S.Select>
-                            <option>1숟가락</option>
-                            <option>2숟가락</option>
-                            <option>3숟가락</option>
+                        <S.Select>
+                            <option>0.5인분</option>
+                            <option>0.75인분</option>
+                            <option>1인분</option>
                         </S.Select>
                     </S.Box2>
 
-                    <S.Box2>진미채볶음
+                    <S.Box2>미역국
                     <S.FoodIcon src="../../../assets/images/side4.png" />
-                    <S.Select>
-                            <option>1숟가락</option>
-                            <option>2숟가락</option>
-                            <option>3숟가락</option>
+                        <S.Select>
+                            <option>0.5인분</option>
+                            <option>0.75인분</option>
+                            <option>1인분</option>
                         </S.Select>
                     </S.Box2>
                 </S.UserBox>

@@ -14,6 +14,7 @@ import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
 import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
 import Side from '../pages/Input/FoodInput/FoodPage/Side';
+import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -81,6 +82,7 @@ function App() {
           <Route path="/inputinfo" element={<InputInfo />} />
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
           <Route path="/Side" element={<Side />} />
+          <Route path="/Soup" element={<Soup />} />
         </Routes>
       </BrowserRouter>
     </>
