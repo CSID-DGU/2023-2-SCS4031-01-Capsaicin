@@ -53,8 +53,8 @@ export default function LoginPage() {
                     <S.InputPW type="password" placeholder='비밀번호' name="password" onChange={handleInputChange}></S.InputPW>
                 </S.Input>
 
-                <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
-
+                <S.LoginButton onClick={() => navigate(`/main`)}>로그인</S.LoginButton>
+                {/* onClick={handleLogin} */}
                 <S.Join onClick={() => navigate(`/join`)}>
                     계정이 없으신가요? 회원가입
                 </S.Join>
