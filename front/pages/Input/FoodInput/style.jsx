@@ -18,13 +18,15 @@ export const Info = styled.div`
 export const Backward = styled.img`
     width: 18px;
     height: 26px;
+    margin-left: 30px;
 `;
 
 export const InputTitle = styled.div`
     font-family: 'NotoSansKR-Bold';
-    font-size: 35px;
+    font-size: 29px;
     text-align: center;
-    padding-left: 80px;
+    padding-left: 40px;
+    // margin-left: 20px;
 `;
 
 
