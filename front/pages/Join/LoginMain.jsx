@@ -1,10 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
 
     const navigate = useNavigate();
+
+    const [loginData, setLoginData] = useState({
+        username: '',
+        password: '',
+    });
+
+    const handleLogin = async () => {
+        const response = await fetch('http://127.0.0.1:8000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: loginData.username,
+                password: loginData.password
+            })
+        });
+
+        if (response.ok) {
+            navigate('/main');
+        } else {
+            console.error('로그인 실패');
+        }
+    };
+
+    const handleInputChange = (e) => {
+        setLoginData({
+            ...loginData,
+            [e.target.name]: e.target.value
+        });
+    };
 
     return (
         <>
@@ -18,11 +49,11 @@ export default function LoginPage() {
                     src="../../assets/images/logo_black.png" />
 
                 <S.Input>
-                    <S.InputID type="text" placeholder='전화번호'></S.InputID>
-                    <S.InputPW type="password" placeholder='비밀번호'></S.InputPW>
+                    <S.InputID type="text" placeholder='전화번호' name="username" onChange={handleInputChange}></S.InputID>
+                    <S.InputPW type="password" placeholder='비밀번호' name="password" onChange={handleInputChange}></S.InputPW>
                 </S.Input>
 
-                <S.LoginButton onClick={() => navigate(`/main`)}>로그인</S.LoginButton>
+                <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
 
                 <S.Join onClick={() => navigate(`/join`)}>
                     계정이 없으신가요? 회원가입
