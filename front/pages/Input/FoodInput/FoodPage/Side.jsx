@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import Title from '../../../../Components/Title';
 import Nav from '../../../../Components/Nav';
 import * as S from "../style";
@@ -6,17 +6,14 @@ import { useNavigate } from "react-router-dom";
 
 export default function Side() {
     const navigate = useNavigate();
-    const YourComponent = () => {
-        const [isModalOpen, setIsModalOpen] = useState(false);
-      
-        const openModal = () => {
-          setIsModalOpen(true);
-        };
-      
-        const closeModal = () => {
-          setIsModalOpen(false);
-        };
-    }
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const openModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const closeModal = () => {
+        setIsModalOpen(false);
+      };
 
     return (
         <>
@@ -71,19 +68,23 @@ export default function Side() {
                 </S.UserBox>
                 <S.UserBox>
                     <S.NextButton>다음 음식</S.NextButton>
-                    <S.ChoiceButton onClick={YourComponent}>선택 완료</S.ChoiceButton>
-                    
+                    <div>
+                    <S.ChoiceButton onClick={openModal} >선택 완료</S.ChoiceButton>
+                    {isModalOpen && (
+                        <S.Modal>
+                          <S.ModalContent>
+                            {/* {isModalOpen && (
+                              <S.ModalImage src="../../../assets/images/choicedone.png" alt="선택 완료" />
+                            )} */}
+                            <p>선택이 완료되었습니다!</p>
+                            <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>확인</S.ModalButton>
+                          </S.ModalContent>
+                        </S.Modal>
+                    )}
+                    </div>
                 </S.UserBox>
                 <Nav />
             </S.Container>
-            {/* {isModalOpen && (
-                <Modal>
-                <ModalContent>
-                    <p>선택이 완료되었습니다!</p>
-                    <ModalButton onClick={closeModal}>확인</ModalButton>
-                </ModalContent>
-                </Modal>
-            )} */}
         </>
     );
 }
