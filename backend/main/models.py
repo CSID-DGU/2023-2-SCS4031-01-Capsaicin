@@ -39,3 +39,7 @@ class Food(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Center(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="center")
+    name = models.CharField(max_length=30)

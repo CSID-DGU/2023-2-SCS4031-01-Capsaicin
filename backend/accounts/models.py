@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         if not fullname:
             raise ValueError(_('The fullname must be set'))
         user = self.model(phone_number=phone_number, fullname=fullname, birth=birth, gender=gender, userType=userType, 
-                          guardPhoneNumber=guardPhoneNumber, systolic=systolic, height=height, weight=weight, **extra_fields)
+                          guardPhoneNumber=guardPhoneNumber, systolic=systolic, height=height, weight=weight,**extra_fields)
         user.set_password(password)
         user.save()
         return user
