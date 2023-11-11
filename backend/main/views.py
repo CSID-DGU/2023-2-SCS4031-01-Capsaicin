@@ -4,9 +4,15 @@ from main.models import BloodPressure, Weight, FoodCategory, Food
 from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer, BloodPressurePostSerializer, FoodSerializer
 from rest_framework.response import Response
 
+from rest_framework import permissions, status
+
+import logging
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 
 class BloodPressureAV(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
         find_user = request.user
@@ -15,6 +21,9 @@ class BloodPressureAV(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        # if not request.user.has_perm('auth.can_add_bloodpressure'):
+        #     logger.error("Permission denied for user: %s" % request.user)
+        #     return Response("Permission denied", status=status.HTTP_403_FORBIDDEN)
         find_user = request.user
         serializer = BloodPressurePostSerializer(data=request.data)
         if serializer.is_valid():
@@ -34,6 +43,7 @@ class BloodPressureAV(APIView):
             return Response(serializer.errors)
         
 class WeightAV(APIView):
+    permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         find_user = request.user
         weights = Weight.objects.filter(user=find_user)
