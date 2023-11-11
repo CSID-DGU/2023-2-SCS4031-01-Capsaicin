@@ -18,13 +18,14 @@ export const Info = styled.div`
 export const Backward = styled.img`
     width: 18px;
     height: 26px;
+    margin-left: 20px;
 `;
 
 export const InputTitle = styled.div`
     font-family: 'NotoSansKR-Bold';
-    font-size: 35px;
+    font-size: 29px;
     text-align: center;
-    padding-left: 80px;
+    margin-left: 30px;
 `;
 
 
@@ -202,6 +203,16 @@ export const Select = styled.select`
   margin: 5px;
   cursor: pointer;
 `;
+
+export const ModalButton = styled.button`
+  background: #48268F;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  cursor: pointer;
+`;
+
 export const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -216,18 +227,14 @@ export const Modal = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background: #ffffff;
+  background: white;
   border: 1px solid #48268F;
   border-radius: 5px;
-  padding: 20px;
   text-align: center;
+  padding: 20px;
 `;
 
-export const ModalButton = styled.button`
-  background: #48268F;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  cursor: pointer;
+export const ModalImage = styled.img`
+  width: 100px; /* 이미지의 너비와 높이를 조절해주세요 */
+  height: 100px;
 `;

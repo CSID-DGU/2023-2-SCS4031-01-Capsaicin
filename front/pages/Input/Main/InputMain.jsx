@@ -12,6 +12,12 @@ export default function InputMain() {
         <>
             <S.Container>
                 <Title />
+
+                <S.Info>
+                    <S.Backward src="../../../assets/images/backward.png" onClick={() => navigate(`/main`)} />
+                    <S.InputTitle>건강 입력</S.InputTitle>
+                </S.Info>
+
                 <S.GotoCareInputs>
                     <S.GotoBloodPressureInput onClick={() => navigate(`/bloodpressureinput`)}>
                         혈압<br></br>

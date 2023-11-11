@@ -12,6 +12,26 @@ export const GotoCareInputs = styled.div`
     flex-direction: row;
 `;
 
+export const Info = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 50px;
+    padding-right: 80px;
+`;
+
+export const Backward = styled.img`
+    width: 18px;
+    height: 26px;
+`;
+
+export const InputTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 35px;
+    text-align: center;
+    padding-left: 80px;
+`;
+
 
 export const GotoBloodPressureInput = styled.div`
     display: flex;
