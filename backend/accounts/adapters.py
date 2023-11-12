@@ -21,7 +21,6 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         
         systolic = data.get("systolic")
 
-
         user.phone_number = phone_number
         user.fullname = fullname
         user.birth = birth
