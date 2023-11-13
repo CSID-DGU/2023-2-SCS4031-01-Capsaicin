@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main.models import BloodPressure, Weight, FoodCategory, Food
+from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
@@ -8,6 +8,8 @@ from import_export.admin import ImportExportModelAdmin
 admin.site.register(BloodPressure)
 admin.site.register(Weight)
 admin.site.register(FoodCategory)
+admin.site.register(Center)
+admin.site.register(Notice)
 #admin.site.register(Food)
 
 class FoodResource(resources.ModelResource):

@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import serializers
 from accounts.models import User
-from main.serializers import BloodPressureSerializer, WeightSerializer, CenterSeializer
+from main.serializers import BloodPressureSerializer, WeightSerializer
 
 
 #추가
@@ -12,7 +12,6 @@ from rest_framework.decorators import api_view
 class UserSerializer(serializers.ModelSerializer):
     bloodpressure = BloodPressureSerializer()
     weights = WeightSerializer()
-    center = CenterSeializer()
 
     class Meta:
         model = User

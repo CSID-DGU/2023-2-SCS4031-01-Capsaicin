@@ -41,5 +41,8 @@ class Food(models.Model):
         return self.name
     
 class Center(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="center")
     name = models.CharField(max_length=30)
+
+class Notice(models.Model):
+    description = models.CharField(max_length=500)
+    center = models.ForeignKey(Center, on_delete=models.CASCADE)

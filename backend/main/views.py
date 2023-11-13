@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from main.models import BloodPressure, Weight, FoodCategory, Food, Center
-from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer, BloodPressurePostSerializer, FoodSerializer, CenterSeializer
+from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice
+from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer, BloodPressurePostSerializer, FoodSerializer, CenterSerializer, NoticeSerializer
 from rest_framework.response import Response
 
 from rest_framework import permissions, status
@@ -42,6 +42,15 @@ class BloodPressureAV(APIView):
         else:
             return Response(serializer.errors)
         
+class LastBloodPressureAV(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+        bloodpressure = BloodPressure.objects.filter(user=find_user).order_by('measurement_date', 'measurement_time').last()
+        serializer = BloodPressureSerializer(bloodpressure, context={'request':request})
+        return Response(serializer.data)
+        
 class WeightAV(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
@@ -65,6 +74,15 @@ class WeightAV(APIView):
         else:
             return Response(serializer.errors)
         
+class LastWeightAV(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+        weights = Weight.objects.filter(user=find_user).order_by('measurement_date').last()
+        serializer = WeightSerializer(weights, context={'request':request})
+        return Response(serializer.data)
+
 class FoodCategoryAV(APIView):
     def get(self, request):
         foodcategory = FoodCategory.objects.all()
@@ -94,24 +112,12 @@ class FoodAV(APIView):
             return Response(serializer.data)
         else:
             return Response(serializer.errors)
-        
-class CenterAV(APIView):
+
+class NoticeAV(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get(self, request):
         find_user = request.user
-        center = Center.objects.filter(user=find_user)
-        serializer = WeightSerializer(center, many = True, context={'request':request})
+        center = Center.objects.get(id=find_user.center_id)
+        notice = Notice.objects.filter(center=center).last()
+        serializer = NoticeSerializer(notice, context={'request':request})
         return Response(serializer.data)
-    
-    def post(self, request):
-        find_user = request.user
-        serializer = CenterSeializer(data=request.data)
-        if serializer.is_valid():
-            name = serializer.validated_data['name']
-            center = Center()
-            center.name = name
-            center.user = find_user
-            center.save()
-            return Response(serializer.data)
-        else:
-            return Response(serializer.errors)
