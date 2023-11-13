@@ -15,6 +15,7 @@ import InputInfo from '../pages/Join/InputInfo';
 import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
 import Side from '../pages/Input/FoodInput/FoodPage/Side';
 import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
+import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -83,6 +84,9 @@ function App() {
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
           <Route path="/Side" element={<Side />} />
           <Route path="/Soup" element={<Soup />} />
+          {/* 맞춤케어 */}
+          <Route path="/CustomizedCare" element={<CustomizedCare />} />
+
         </Routes>
       </BrowserRouter>
     </>

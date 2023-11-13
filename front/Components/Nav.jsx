@@ -15,7 +15,7 @@ export default function Nav() {
                     <S.NavReport src="../../assets/images/navReport.png" />
                     <S.NavText>건강기록</S.NavText>
                 </S.NavButton>
-                <S.NavButton>
+                <S.NavButton onClick={() => navigate(`/CustomizedCare`)}>
                     <S.NavCare src="../../assets/images/navCare.png" />
                     <S.NavText>맞춤케어</S.NavText>
                 </S.NavButton>
