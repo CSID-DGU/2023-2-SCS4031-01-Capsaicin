@@ -18,10 +18,18 @@ export default function CustomizedCare() {
                 <S.RecommendFood>
                     <S.RecommendFoodTitle>김건강님은 단백질이 부족해요.</S.RecommendFoodTitle>
                     <S.RecommendFoodContent>한식을 좋아하시니 한식을 추천해 드릴게요.</S.RecommendFoodContent>
-
-                    <S.RecommendFoodName>1. 고등어구이</S.RecommendFoodName>
-                    <S.RecommendFoodName>2. 콩자반</S.RecommendFoodName>
-                    <S.RecommendFoodName>3. 두부조림</S.RecommendFoodName>
+                    <S.Food>
+                        <S.RecommendFoodNames>
+                            <S.RecommendFoodName>1. 고등어구이</S.RecommendFoodName>
+                            <S.RecommendFoodName>2. 콩자반</S.RecommendFoodName>
+                            <S.RecommendFoodName>3. 두부조림</S.RecommendFoodName>
+                        </S.RecommendFoodNames>
+                        <S.RecommendFoodKcals>
+                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
+                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
+                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
+                        </S.RecommendFoodKcals>
+                    </S.Food>
                 </S.RecommendFood>
 
                 <S.Recommend>

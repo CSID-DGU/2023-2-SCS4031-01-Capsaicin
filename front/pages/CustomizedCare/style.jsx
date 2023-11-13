@@ -32,6 +32,12 @@ export const RecommendTitle = styled.div`
     padding: 40px 0px 20px 0px;
 `;
 
+export const Food = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+
 export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
@@ -46,6 +52,22 @@ export const RecommendFood = styled.div`
     align-items: flex-start;
 `;
 
+export const RecommendFoodNames = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const RecommendFoodKcals = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+`;
+
+export const RecommendFoodKcal = styled.div`
+    font-family: 'NanumSquareRound';
+    font-size: 15px;
+    padding-bottom: 17px;
+`;
 
 
 export const RecommendFoodTitle = styled.div`
