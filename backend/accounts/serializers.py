@@ -12,6 +12,7 @@ class CustomRegisterSerializer(RegisterSerializer):
     height = serializers.FloatField()
     weight = serializers.FloatField()
     systolic = serializers.IntegerField()
+    center = serializers.CharField()
     #diastolic = serializers.IntegerField()
 
     def get_cleaned_data(self):
@@ -25,6 +26,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         data['height'] = self.validated_data.get("height", "")
         data['weight'] = self.validated_data.get("weight", "")
         data['systolic'] = self.validated_data.get("systolic", "")
+        data['center'] = self.validated_data.get("center", "")
         #data['diastolic'] = self.validated_data.get("diastolic", "")
 
         return data

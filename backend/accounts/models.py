@@ -12,7 +12,7 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """        
     def create_user(self, phone_number, fullname, password, birth, gender, userType, guardPhoneNumber, 
-                    systolic, height, weight, **extra_fields):
+                    systolic, height, weight, center, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         if not fullname:
             raise ValueError(_('The fullname must be set'))
         user = self.model(phone_number=phone_number, fullname=fullname, birth=birth, gender=gender, userType=userType, 
-                          guardPhoneNumber=guardPhoneNumber, systolic=systolic, height=height, weight=weight,**extra_fields)
+                          guardPhoneNumber=guardPhoneNumber, systolic=systolic, height=height, weight=weight, center=center, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -37,7 +37,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('height', 0)
         extra_fields.setdefault('weight', 0)
         extra_fields.setdefault('guardPhoneNumber', 0)
-
+        extra_fields.setdefault('center', None)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True.'))
@@ -63,6 +63,7 @@ class User(AbstractUser):
     # signupTime = models.TimeField(auto_now_add=True)
     
     systolic = models.IntegerField()
+    center = models.ForeignKey("main.Center", on_delete=models.SET_NULL, related_name="center", null=True)
 
     
 

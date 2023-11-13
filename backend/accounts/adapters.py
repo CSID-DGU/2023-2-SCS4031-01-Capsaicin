@@ -2,7 +2,7 @@ from allauth.account.adapter import DefaultAccountAdapter
 #from accounts.views import BloodPressureSerializer
 # from main.serializers import BloodPressureSerializer
 # from rest_framework.response import Response
-from main.models import Weight, BloodPressure
+from main.models import Weight, BloodPressure, Center
 
 class CustomAccountAdapter(DefaultAccountAdapter):
 
@@ -20,6 +20,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         weight = data.get("weight")
         
         systolic = data.get("systolic")
+        center_name = data.get("center")
 
         user.phone_number = phone_number
         user.fullname = fullname
@@ -30,6 +31,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.height = height
         user.weight = weight
         user.systolic = systolic
+        #user.center = center_name
 
         # serializer = BloodPressureSerializer(data=systolic)
         # if serializer.is_valid():
@@ -51,6 +53,10 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         bloodPressure.measurement_time = "12:12"
         bloodPressure.user = newUser
         bloodPressure.save()
+        if center_name:
+            center_obj, created = Center.objects.get_or_create(name=center_name)
+            newUser.center = center_obj
+            newUser.save()
 
         return user
     
