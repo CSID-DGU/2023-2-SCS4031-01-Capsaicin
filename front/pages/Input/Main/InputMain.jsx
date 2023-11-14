@@ -34,7 +34,7 @@ export default function InputMain() {
                     식단 정보
                     입력
                 </S.GotoFoodInput>
-                <S.GotoHealthInput>
+                <S.GotoHealthInput onClick={() => navigate(`/sportsinput`)}>
                     <S.HealthIcon src="../../../assets/images/health.png" />
                     운동 정보
                     입력
