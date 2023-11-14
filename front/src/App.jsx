@@ -13,6 +13,8 @@ import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/Bl
 import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
 import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
+import SportsInput from '../pages/Input/SportsInput/SportsInput';
+import Strength from '../pages/Input/SportsInput/SportsPage/Strength';
 import Side from '../pages/Input/FoodInput/FoodPage/Side';
 import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
@@ -82,6 +84,8 @@ function App() {
           <Route path="/weightinput" element={<WeightInput />}></Route>
           <Route path="/inputinfo" element={<InputInfo />} />
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
+          <Route path="/sportsinput" element={<SportsInput />} />
+          <Route path="/strength" element={<Strength />} />
           <Route path="/Side" element={<Side />} />
           <Route path="/Soup" element={<Soup />} />
           {/* 맞춤케어 */}
