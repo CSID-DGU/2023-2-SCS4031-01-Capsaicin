@@ -1,71 +1,69 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 `;
 
 export const Info = styled.div`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-top: 50px;
-    padding-right: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-top: 50px;
+  padding-right: 80px;
 `;
 
 export const Backward = styled.img`
-    width: 18px;
-    height: 26px;
-    margin-left: 20px;
+  width: 18px;
+  height: 26px;
+  margin-left: 20px;
 `;
 
 export const InputTitle = styled.div`
-    font-family: 'NotoSansKR-Bold';
-    font-size: 29px;
-    text-align: center;
-    margin-left: 30px;
+  font-family: "NotoSansKR-Bold";
+  font-size: 29px;
+  text-align: center;
+  margin-left: 30px;
 `;
 
-
 export const JoinBox = styled.div`
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const JoinContent = styled.div`
-    font-family: 'NotoSansKR-Bold';
-    font-size: 30px;
-    padding-top: 50px;
-    text-align: left;
+  font-family: "NotoSansKR-Bold";
+  font-size: 30px;
+  padding-top: 50px;
+  text-align: left;
 `;
 
-
 export const JoinInput = styled.input`
-    font-family: 'Pretendard';
-    width: 340px;
-    height: 85px;
-    border: 0.5px solid black;
-    border-radius: 5px;
+  font-family: "Pretendard";
+  width: 340px;
+  height: 85px;
+  border: 0.5px solid black;
+  border-radius: 5px;
+  font-size: 25px;
+  ::placeholder {
+    font-family: "Pretendard";
     font-size: 25px;
-    ::placeholder {
-        font-family: 'Pretendard';
-        font-size: 25px; 
-        color: #aaaaaa; 
-    }
-    padding-left: 10px;
-    margin-top: 20px;
+    color: #aaaaaa;
+  }
+  padding-left: 10px;
+  margin-top: 20px;
 `;
 
 export const CompleteButton = styled.button`
-    width: 143px;
-    height: 65px;
-    font-size: 20px;
-    color: white;
-    background-color: #48268F;
-    border-radius: 5px;
-    margin-top: 50px;
+  width: 143px;
+  height: 65px;
+  font-size: 20px;
+  color: white;
+  background-color: #48268f;
+  border-radius: 5px;
+  margin-top: 50px;
 `;
 // export const UserBox = styled.div`
 //     display: flex;
@@ -83,42 +81,40 @@ export const CompleteButton = styled.button`
 //     background-color: #FFFFFF;
 //     padding-left: 0px;
 //     :hover {
-//         background-color: #aaaaaa; 
+//         background-color: #aaaaaa;
 //     }
 // `;
 
-
 export const UserBox = styled.div`
   display: flex;
-  justify-content: space-between;
+  width: 390px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
   padding-top: 50px;
 `;
 
 export const Box = styled.button`
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   width: 130px;
   height: 130px;
   border: 0.5px solid black;
   border-radius: 5px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 0;
   margin-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   font-size: 20px;
   position: relative; /* 상대 위치 지정 */
-
-  
 `;
 
 export const FoodIcon = styled.img`
   width: 90px;
   height: 90px;
-  padding-left: 20px;
 `;
-
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -131,7 +127,7 @@ export const SearchInput = styled.input`
   /* 검색 바 스타일링 */
   margin-top: 40px;
   padding-right: 30px; /* 오른쪽 여백을 이미지 크기만큼 확보 */
-  background-image: url('../../../assets/images/Search.png'); /* 이미지 경로 설정 */
+  background-image: url("../../../assets/images/Search.png"); /* 이미지 경로 설정 */
   background-repeat: no-repeat;
   background-position: right center; /* 이미지 위치 설정 */
   background-size: 20px; /* 이미지 크기 설정 */
@@ -156,28 +152,26 @@ export const SpoonText = styled.span`
   margin-left: 20px; /* 오른쪽으로 이동 */
 `;
 export const Box2 = styled.button`
-  font-family: 'Pretendard-SemiBold';
+  font-family: "Pretendard-SemiBold";
   width: 130px;
   height: 170px;
   border: 0.5px solid black;
   border-radius: 5px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 0;
   margin-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   font-size: 20px;
   position: relative; /* 상대 위치 지정 */
-
-  
 `;
 
 export const NextButton = styled.button`
   background-color: white;
-  border: 2px solid #48268F;
-  color: #48268F;
+  border: 2px solid #48268f;
+  color: #48268f;
   border-radius: 5px;
   padding: 10px 20px;
   margin: 10px;
@@ -185,7 +179,7 @@ export const NextButton = styled.button`
 `;
 
 export const ChoiceButton = styled.button`
-  background-color: #48268F;
+  background-color: #48268f;
   border: 2px solid white;
   color: white;
   border-radius: 5px;
@@ -195,7 +189,7 @@ export const ChoiceButton = styled.button`
 `;
 
 export const Select = styled.select`
-  background-color: #48268F;
+  background-color: #48268f;
   border: 2px solid white;
   color: white;
   border-radius: 5px;
@@ -205,7 +199,7 @@ export const Select = styled.select`
 `;
 
 export const ModalButton = styled.button`
-  background: #48268F;
+  background: #48268f;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -228,7 +222,7 @@ export const Modal = styled.div`
 
 export const ModalContent = styled.div`
   background: white;
-  border: 1px solid #48268F;
+  border: 1px solid #48268f;
   border-radius: 5px;
   text-align: center;
   padding: 20px;
