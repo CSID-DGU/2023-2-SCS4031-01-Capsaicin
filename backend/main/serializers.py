@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from accounts.models import User
-from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice
+from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice, Meal, MealAmount, ExerciseCategory
 
 class BloodPressureSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,3 +44,32 @@ class NoticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notice
         fields = "__all__"
+
+class MealSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Meal
+        fields = "__all__"
+
+class MealAmountSerializer(serializers.ModelSerializer):
+    food_name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = MealAmount
+        fields = ["food_name", "count"]
+    
+    def get_food_name(self, obj):
+        return obj.food.foodName
+
+class ExerciseCategorySerializer(serializers.ModelSerializer):
+    #food = FoodSerializer()
+
+    class Meta:
+        model = ExerciseCategory
+        fields = "__all__"
+
+class MealAmountPostSerializer(serializers.Serializer):
+    food_id = serializers.IntegerField(required=True)
+    count = serializers.IntegerField(required=True)
+
+class MealPostSerializer(serializers.Serializer):
+    meal_list = MealAmountPostSerializer(many=True)

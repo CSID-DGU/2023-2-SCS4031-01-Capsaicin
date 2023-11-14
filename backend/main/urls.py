@@ -1,6 +1,6 @@
 from django.urls import path, include
 #from rest_framework.routers import DefaultRouter
-from main.views import BloodPressureAV, WeightAV, FoodCategoryAV, FoodAV, NoticeAV, LastBloodPressureAV, LastWeightAV
+from main.views import *
 
 # router = DefaultRouter()
 # router.register('bloodpressure', BloodPressureAV)
@@ -12,4 +12,6 @@ urlpatterns = [
     path('notice',NoticeAV.as_view(), name='notice'),
     path('bloodpressure/last', LastBloodPressureAV.as_view(), name='lastbloodpressure'),
     path('weights/last', LastWeightAV.as_view(), name='lastweights'),
+    path('exercisecategory',ExerciseCategoryAV.as_view(), name='exercisecategory'),
+    path('meal', MealAV.as_view(), name='meal')
 ]

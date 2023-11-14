@@ -9,7 +9,11 @@ export default function Main() {
     const [userData, setUserData] = useState({});
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000')
+        fetch('http://127.0.0.1:8000/main/weights', {
+            headers: {
+                'Authorization': `Bearer ${localStorage.accessToken}`
+            }
+        })
             .then((response) => response.json())
             .then((data) => setUserData(data))
             .catch((error) => console.error('Error:', error));
