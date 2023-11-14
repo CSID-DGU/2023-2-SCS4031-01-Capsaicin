@@ -12,10 +12,10 @@ export default function LoginPage() {
     });
 
     const handleLogin = async () => {
-        const response = await fetch('http://127.0.0.1:8000/login', {
+        const response = await fetch('http://127.0.0.1:8000/accounts/login/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 username: loginData.username,
@@ -25,6 +25,8 @@ export default function LoginPage() {
 
         if (response.ok) {
             navigate('/main');
+            console.error('로그인 성공');
+
         } else {
             console.error('로그인 실패');
         }
@@ -53,8 +55,7 @@ export default function LoginPage() {
                     <S.InputPW type="password" placeholder='비밀번호' name="password" onChange={handleInputChange}></S.InputPW>
                 </S.Input>
 
-                <S.LoginButton onClick={() => navigate(`/main`)}>로그인</S.LoginButton>
-                {/* onClick={handleLogin} */}
+                <S.LoginButton onClick={handleLogin}>로그인</S.LoginButton>
                 <S.Join onClick={() => navigate(`/join`)}>
                     계정이 없으신가요? 회원가입
                 </S.Join>

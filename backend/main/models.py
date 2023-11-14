@@ -38,7 +38,7 @@ class Food(models.Model):
     #test = models.IntegerField()
 
     def __str__(self):
-        return self.name
+        return self.foodName
     
 class Center(models.Model):
     name = models.CharField(max_length=30)
@@ -46,3 +46,18 @@ class Center(models.Model):
 class Notice(models.Model):
     description = models.CharField(max_length=500)
     center = models.ForeignKey(Center, on_delete=models.CASCADE)
+
+class Meal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="meal")
+
+class MealAmount(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.CASCADE, related_name='mealamount')
+    food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='mealamount')
+    count = models.IntegerField()
+
+class ExerciseCategory(models.Model):
+    name = models.CharField(max_length=20)
+    imgUrl = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name

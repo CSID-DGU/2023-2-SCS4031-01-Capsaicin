@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice
-from main.serializers import BloodPressureSerializer, WeightSerializer, FoodCategorySerializer, WeightPostSerializer, BloodPressurePostSerializer, FoodSerializer, CenterSerializer, NoticeSerializer
+from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice, ExerciseCategory, Meal, MealAmount
+from main.serializers import *
 from rest_framework.response import Response
 
 from rest_framework import permissions, status
@@ -121,3 +121,48 @@ class NoticeAV(APIView):
         notice = Notice.objects.filter(center=center).last()
         serializer = NoticeSerializer(notice, context={'request':request})
         return Response(serializer.data)
+
+class ExerciseCategoryAV(APIView):
+    def get(self, request):
+        exercisecategory = ExerciseCategory.objects.all()
+        serializer = ExerciseCategorySerializer(exercisecategory, many = True, context={'request':request})
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = ExerciseCategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors)
+        
+
+class MealAV(APIView):    
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+
+        last_meal = Meal.objects.filter(user=find_user).last()
+        food_list = MealAmount.objects.filter(meal=last_meal)
+        serializer = MealAmountSerializer(food_list, many=True, context={'request':request})
+        return Response(serializer.data)
+    
+    def post(self, request):
+        find_user = request.user
+
+        serializer = MealPostSerializer(data=request.data)
+
+        if serializer.is_valid():
+            new_meal = Meal()
+            new_meal.user = find_user
+            new_meal.save()
+
+            meal_list_data = serializer.validated_data['meal_list']
+            for m in meal_list_data:
+                find_food = Food.objects.get(id=m['food_id'])
+                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'])
+
+            return Response(meal_list_data)
+        else:
+            print(serializer.errors)
