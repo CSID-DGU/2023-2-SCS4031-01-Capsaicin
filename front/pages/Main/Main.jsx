@@ -7,15 +7,35 @@ import { useNavigate } from "react-router-dom";
 export default function Main() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
+    const [userBPData, setUserBPData] = useState({});
+    const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
         fetch('http://127.0.0.1:8000/main/weights', {
             headers: {
-                'Authorization': `Bearer ${localStorage.accessToken}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
             }
         })
             .then((response) => response.json())
-            .then((data) => setUserData(data))
+            .then((data) => {
+                console.log('Response Data:', data[0]);
+                setUserData(data[0]);
+            })
+            .catch((error) => console.error('Error:', error));
+    }, []);
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/main/bloodpressure', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Response Data:', data[0]);
+                setUserBPData(data[0]);
+            })
             .catch((error) => console.error('Error:', error));
     }, []);
     return (
@@ -24,24 +44,24 @@ export default function Main() {
                 <Title />
 
                 <S.UserName>
-                    <S.Name>김건강</S.Name>
-                    {/* <S.Name>{userData.username}</S.Name> */}
+                    {/* <S.Name>김건강</S.Name> */}
+                    <S.Name>{userData.username}</S.Name>
                     <S.User>님</S.User>
                 </S.UserName>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle>
-                    {/* <S.InfoTitle>{userData.username}님의 최근 수치</S.InfoTitle> */}
+                    {/* <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle> */}
+                    <S.InfoTitle>{userData.username}님의 최근 수치</S.InfoTitle>
                     <S.InfoHealth>
                         <S.InfoBoxes>
                             <S.InfoBox>몸무게</S.InfoBox>
-                            <S.InfoNum>80kg</S.InfoNum>
-                            {/* <S.InfoNum>{userData.weight}kg</S.InfoNum> */}
+                            {/* <S.InfoNum>80kg</S.InfoNum> */}
+                            <S.InfoNum>{userData.weight_figure}kg</S.InfoNum>
                         </S.InfoBoxes>
                         <S.InfoBoxes>
                             <S.InfoBox>혈압</S.InfoBox>
-                            <S.InfoNum>120mmHg</S.InfoNum>
-                            {/* <S.InfoNum>{userData.diastolic}mmHg</S.InfoNum> */}
+                            {/* <S.InfoNum>120mmHg</S.InfoNum> */}
+                            <S.InfoNum>{userBPData.systolic}mmHg</S.InfoNum>
                         </S.InfoBoxes>
                     </S.InfoHealth>
                 </S.Info>

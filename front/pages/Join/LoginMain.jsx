@@ -17,15 +17,23 @@ export default function LoginPage() {
             headers: {
                 'Content-Type': 'application/json',
             },
+
             body: JSON.stringify({
                 username: loginData.username,
                 password: loginData.password
             })
         });
+        const responseData = await response.json();
+
+        const aceessToken = responseData.access_token;
+        localStorage.setItem("accessToken", aceessToken);
+
+        console.log(aceessToken);
 
         if (response.ok) {
+
             navigate('/main');
-            console.error('로그인 성공');
+            console.log('로그인 성공');
 
         } else {
             console.error('로그인 실패');
