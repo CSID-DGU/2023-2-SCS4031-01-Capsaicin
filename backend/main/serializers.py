@@ -35,10 +35,27 @@ class FoodCategorySerializer(serializers.ModelSerializer):
         model = FoodCategory
         fields = "__all__"
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["fullname"]
+
 class CenterSerializer(serializers.ModelSerializer):
+    fullname = serializers.SerializerMethodField()
+
     class Meta:
         model = Center
-        fields = "__all__"
+        fields = ["name", "fullname"]
+
+    def get_fullname(self, obj):
+       if obj.center is not None:
+            users_data = UserSerializer(obj.center.all(), many=True).data
+            return users_data[0]["fullname"]
+       else:
+            return None
+    
+
 
 class NoticeSerializer(serializers.ModelSerializer):
     class Meta:

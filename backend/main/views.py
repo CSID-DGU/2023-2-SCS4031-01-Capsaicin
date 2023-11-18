@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notice, ExerciseCategory, Meal, MealAmount
 from main.serializers import *
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 from rest_framework import permissions, status
 
@@ -120,6 +121,15 @@ class NoticeAV(APIView):
         center = Center.objects.get(id=find_user.center_id)
         notice = Notice.objects.filter(center=center).last()
         serializer = NoticeSerializer(notice, context={'request':request})
+        return Response(serializer.data)
+
+class CenterAV(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    def get(self, request):
+        find_user = request.user
+        center = get_object_or_404(Center, id=find_user.center_id)
+        # center = Center.objects.prefetch_related('center').get(id=find_user.center_id)
+        serializer = CenterSerializer(center, context={'request':request})
         return Response(serializer.data)
 
 class ExerciseCategoryAV(APIView):
