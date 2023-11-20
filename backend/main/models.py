@@ -58,6 +58,17 @@ class MealAmount(models.Model):
 class ExerciseCategory(models.Model):
     name = models.CharField(max_length=20)
     imgUrl = models.CharField(max_length=200)
+    calorie = models.FloatField()
+    time = models.IntegerField()
 
     def __str__(self):
         return self.name
+
+class UserExercise(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="userexercise")
+    date = models.DateField(auto_now=True)
+
+class ExerciseAmount(models.Model):
+    userexercise = models.ForeignKey(UserExercise, on_delete=models.CASCADE, related_name='exerciseamount')
+    exercise = models.ForeignKey(ExerciseCategory, on_delete=models.CASCADE, related_name='exerciseamount')
+    count = models.IntegerField()

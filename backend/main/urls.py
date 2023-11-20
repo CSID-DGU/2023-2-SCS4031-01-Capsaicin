@@ -15,4 +15,5 @@ urlpatterns = [
     path('exercisecategory',ExerciseCategoryAV.as_view(), name='exercisecategory'),
     path('meal', MealAV.as_view(), name='meal'),
     path('center', CenterAV.as_view(), name='center'),
+    path('exercise', ExerciseAV.as_view(), name='exercise'),
 ]

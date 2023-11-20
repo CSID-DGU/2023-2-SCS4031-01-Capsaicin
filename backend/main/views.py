@@ -4,6 +4,8 @@ from main.models import BloodPressure, Weight, FoodCategory, Food, Center, Notic
 from main.serializers import *
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from django.db import transaction
+from collections import defaultdict
 
 from rest_framework import permissions, status
 
@@ -164,15 +166,84 @@ class MealAV(APIView):
         serializer = MealPostSerializer(data=request.data)
 
         if serializer.is_valid():
-            new_meal = Meal()
-            new_meal.user = find_user
-            new_meal.save()
+            with transaction.atomic():
+                new_meal = Meal()
+                new_meal.user = find_user
+                new_meal.save()
 
             meal_list_data = serializer.validated_data['meal_list']
             for m in meal_list_data:
                 find_food = Food.objects.get(id=m['food_id'])
                 MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'])
 
-            return Response(meal_list_data)
+            return Response(meal_list_data)  # 혹은 다른 적절한 응답을 반환
         else:
-            print(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        #     return Response(meal_list_data)
+        # else:
+        #     print(serializer.errors)
+
+class ExerciseAV(APIView):    
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+
+        last_exercise = UserExercise.objects.filter(user=find_user).last()
+        last_exercise_list = ExerciseAmount.objects.filter(userexercise=last_exercise)
+        exercise_list = ExerciseAmount.objects.filter(userexercise__user=find_user)
+        serializer_name = ExerciseAmountSerializer(last_exercise_list, context={'request': request}, many=True).data
+        # 모든 운동 데이터 직렬화
+        serializer_data = ExerciseAmountSerializer(exercise_list, many=True, context={'request': request}).data
+        for entry in serializer_name:
+                del entry['calorie']
+                del entry['date']
+
+        calorie_by_date = defaultdict(float)
+        for entry in serializer_data:
+            date = entry['date']
+            calorie_by_date[date] += entry['calorie']
+
+        return Response({'last_exercise_name': serializer_name, 'calorie_by_date': dict(calorie_by_date)})
+        # serializer_name = ExerciseAmountSerializer(last_exercise_list, context={'request':request})
+        # serializer = ExerciseAmountSerializer(exercise_list, many=True, context={'request':request})
+        # return Response({'last_exercise_name': serializer_name, 'exercise_list': serializer.data})
+    
+    def post(self, request):
+        find_user = request.user
+
+        serializer = UserExercisePostSerializer(data=request.data)
+
+        if serializer.is_valid():
+            with transaction.atomic():
+                new_exercise = UserExercise()
+                new_exercise.user = find_user
+                new_exercise.save()
+
+            exercise_info_data = serializer.validated_data.get('exercise_list', {})
+            exercise_id = exercise_info_data.get('exercise_id')
+            count = exercise_info_data.get('count')
+            
+            try:
+                find_exercise = ExerciseCategory.objects.get(id=exercise_id)
+                ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count)
+            except ExerciseCategory.DoesNotExist:
+                return Response({"detail": f"Exercise with ID {exercise_id} does not exist."}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            # exercise_data = serializer.validated_data['exercise_info']
+            # find_exercise = ExerciseCategory.objects.get(id=['exercise_id'])
+            # ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count='count')
+
+        #     exercise_list_data = serializer.validated_data['exercise_list']
+        #     for m in exercise_list_data:
+        #         find_exercise = ExerciseCategory.objects.get(id=m['exercise_id'])
+        #         ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=m['count'])
+
+        #     return Response(exercise_list_data)  # 혹은 다른 적절한 응답을 반환
+        # else:
+        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
