@@ -17,26 +17,37 @@ export default function WeightInput() {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:8000/main/weights', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+            // 토큰값 가져오기
+            const accessToken = localStorage.getItem('accessToken');
 
-            if (response.ok) {
-                // 성공적으로 작성되었을 때의 로직
-                console.log('몸무게 데이터가 성공적으로 제출되었습니다.');
-                navigate(`/inputmain`);
+            // 토큰이 있는 경우에만 요청을 보냄
+            if (accessToken) {
+                const response = await fetch('http://127.0.0.1:8000/main/weights', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`  // 토큰을 Authorization 헤더에 추가
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    // 성공적으로 작성되었을 때의 로직
+                    console.log('몸무게 데이터가 성공적으로 제출되었습니다.');
+                    navigate(`/inputmain`);
+                } else {
+                    // 실패했을 때의 로직
+                    console.error('몸무게 데이터 제출에 실패했습니다.');
+                }
             } else {
-                // 실패했을 때의 로직
-                console.error('몸무게 데이터 제출에 실패했습니다.');
+                console.error('토큰이 없습니다. 로그인이 필요합니다.');
+                // 토큰이 없는 경우에 대한 로직을 추가할 수 있습니다.
             }
         } catch (error) {
             console.error('Error:', error);
         }
     };
+
 
 
     return (
