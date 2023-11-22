@@ -20,7 +20,7 @@ export default function LoginPage() {
 
             body: JSON.stringify({
                 username: loginData.username,
-                password: loginData.password
+                password: loginData.password,
             })
         });
         const responseData = await response.json();

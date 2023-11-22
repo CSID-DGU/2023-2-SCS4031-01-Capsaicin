@@ -3,7 +3,10 @@ import Title from "../../../../Components/Title";
 import Nav from "../../../../Components/Nav";
 import * as S from "../style";
 import { useNavigate } from "react-router-dom";
-
+// import {Swiper, SwiperSlide} from "swiper/react";
+// import "swiper/swiper.min.css";
+// import "swiper/components/navigation/navigation.min.css";
+// import SwiperCore, {Navigation} from "swiper";
 
 export default function Side() {
   const navigate = useNavigate();
@@ -19,11 +22,27 @@ export default function Side() {
   const [foods, setFoods] = useState([]);
 
   const searched = foods.filter((food) => food.foodName.includes(userInput));
-
+  
   const getValue = (e) => {
     setUserInput(e.target.value);
   };
-
+  const YourComponent = () => {
+    const [data, setData] = useState([]);
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('http://127.0.0.1:8000//main/food/');
+          const jsonData = await response.json();
+          setData(jsonData);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []); // 빈 배열을 전달하면 컴포넌트가 마운트될 때 한 번만 실행됩니다.
+  }
   useEffect(() => {
     setFoods([
       {
