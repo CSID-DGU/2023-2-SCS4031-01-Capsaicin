@@ -19,6 +19,7 @@ from django.urls import path
 from django.urls import include
 from main import urls
 
+
 from rest_framework import routers
 from accounts.views import UserViewSet
 router = routers.DefaultRouter()
