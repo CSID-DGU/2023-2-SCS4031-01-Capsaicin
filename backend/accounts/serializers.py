@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from django.db import IntegrityError
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -8,12 +9,21 @@ class CustomRegisterSerializer(RegisterSerializer):
     birth = serializers.IntegerField()
     gender = serializers.CharField()
     userType = serializers.CharField()
-    guardPhoneNumber = serializers.CharField(required=False)
+    guardPhoneNumber = serializers.CharField(required=False, allow_blank=True)
     height = serializers.FloatField()
     weight = serializers.FloatField()
     systolic = serializers.IntegerField()
-    center = serializers.CharField()
+    center = serializers.CharField(required=False, allow_blank=True)
     #diastolic = serializers.IntegerField()
+
+    def create(self, validated_data):
+        try:
+            return super().create(validated_data)
+        except IntegrityError as e:
+            print("IntegrityError:", e)
+            if 'unique constraint' in str(e).lower() and 'phone_number' in str(e).lower():
+                raise serializers.ValidationError({'phone_number': '이미 가입된 번호입니다.'})
+            raise
 
     def get_cleaned_data(self):
         data = super().get_cleaned_data()

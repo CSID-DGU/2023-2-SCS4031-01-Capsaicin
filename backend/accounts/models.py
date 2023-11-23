@@ -56,14 +56,14 @@ class User(AbstractUser):
     birth = models.IntegerField('birth')
     gender = models.CharField('gender', max_length=1)
     userType = models.CharField('userType', max_length=10)
-    guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True)
+    guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True, blank=True)
     height = models.FloatField()
     weight = models.FloatField()
     # signupDate = models.DateField(auto_now_add=True)
     # signupTime = models.TimeField(auto_now_add=True)
     
     systolic = models.IntegerField()
-    center = models.ForeignKey("main.Center", on_delete=models.SET_NULL, related_name="center", null=True)
+    center = models.ForeignKey("main.Center", on_delete=models.SET_NULL, related_name="center", null=True, blank=True)
 
     
 
