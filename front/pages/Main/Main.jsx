@@ -8,10 +8,11 @@ export default function Main() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     const [userBPData, setUserBPData] = useState({});
+    const [centerData, setCenterData] = useState({});
     const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/weights', {
+        fetch('http://127.0.0.1:8000/main/weights/last', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -19,13 +20,13 @@ export default function Main() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Response Data:', data[1]);
-                setUserData(data[1]);
+                console.log('Response Data:', data);
+                setUserData(data);
             })
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/bloodpressure', {
+        fetch('http://127.0.0.1:8000/main/bloodpressure/last', {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -33,11 +34,26 @@ export default function Main() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Response Data:', data[1]);
-                setUserBPData(data[1]);
+                console.log('Response Data:', data);
+                setUserBPData(data);
             })
             .catch((error) => console.error('Error:', error));
     }, []);
+    useEffect(() => {
+        fetch('http://127.0.0.1:8000/main/center', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Center Data:', data);
+                setCenterData(data);
+            })
+            .catch((error) => console.error('Error:', error));
+    }, []);
+
     return (
         <>
             <S.Container>
@@ -45,13 +61,13 @@ export default function Main() {
 
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
-                    <S.Name>{userData.username}</S.Name>
+                    <S.Name>{centerData.fullname}</S.Name>
                     <S.User>님</S.User>
                 </S.UserName>
 
                 <S.Info>
                     {/* <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle> */}
-                    <S.InfoTitle>{userData.username}님의 최근 수치</S.InfoTitle>
+                    <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>
                     <S.InfoHealth>
                         <S.InfoBoxes>
                             <S.InfoBox>몸무게</S.InfoBox>
@@ -82,7 +98,7 @@ export default function Main() {
                 <S.Walking>
                     <S.WalkingTitle>내가 소속된 경로당</S.WalkingTitle>
                     <S.WalkingNum>
-                        <S.TodayWalkingNum>장충경로당</S.TodayWalkingNum>
+                        <S.TodayWalkingNum>{centerData.name}경로당</S.TodayWalkingNum>
                     </S.WalkingNum>
                 </S.Walking>
 
