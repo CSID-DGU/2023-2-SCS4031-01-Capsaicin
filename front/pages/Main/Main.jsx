@@ -19,8 +19,8 @@ export default function Main() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Response Data:', data[0]);
-                setUserData(data[0]);
+                console.log('Response Data:', data[1]);
+                setUserData(data[1]);
             })
             .catch((error) => console.error('Error:', error));
     }, []);
@@ -33,8 +33,8 @@ export default function Main() {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log('Response Data:', data[0]);
-                setUserBPData(data[0]);
+                console.log('Response Data:', data[1]);
+                setUserBPData(data[1]);
             })
             .catch((error) => console.error('Error:', error));
     }, []);

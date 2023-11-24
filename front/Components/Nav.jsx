@@ -11,7 +11,7 @@ export default function Nav() {
                     <S.NavInput src="../../assets/images/navInput.png" />
                     <S.NavText >건강입력</S.NavText>
                 </S.NavButton>
-                <S.NavButton>
+                <S.NavButton onClick={() => navigate(`/HealthRecord`)}>
                     <S.NavReport src="../../assets/images/navReport.png" />
                     <S.NavText>건강기록</S.NavText>
                 </S.NavButton>
