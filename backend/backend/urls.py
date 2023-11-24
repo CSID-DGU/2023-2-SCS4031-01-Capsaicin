@@ -21,6 +21,7 @@ from main import urls
 
 from rest_framework import routers
 from accounts.views import UserViewSet
+# from accounts.views import GuardianUserCreateView
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 
@@ -32,5 +33,6 @@ urlpatterns = [
     #path('accounts/registration', UserAV.as_view(), name='user'),
     path('accounts/', include('allauth.urls')),
     path('accounts/', include('accounts.urls')),
+    # path('accounts/registration/guard/', GuardianUserCreateView.as_view(), name='guardian-user-create'),
     path('main/', include('main.urls')),
 ]

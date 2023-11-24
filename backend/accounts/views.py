@@ -1,7 +1,8 @@
 from rest_framework import viewsets
 from rest_framework import serializers
-from accounts.models import User
+from accounts.models import *
 from main.serializers import BloodPressureSerializer, WeightSerializer
+from rest_framework import generics
 
 
 #추가
@@ -21,6 +22,15 @@ class UserSerializer(serializers.ModelSerializer):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+# class GuardianUserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = GuardianUser
+#         fields = ['phone_number', 'password', 'user_phone_number']
+
+# class GuardianUserCreateView(generics.CreateAPIView):
+#     queryset = GuardianUser.objects.all()
+#     serializer_class = GuardianUserSerializer
 
 # class UserAV(APIView):
 #     def post(self, request, format='json'):

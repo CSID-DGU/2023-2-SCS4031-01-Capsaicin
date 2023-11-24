@@ -5,7 +5,7 @@ from main.models import *
 class BloodPressureSerializer(serializers.ModelSerializer):
     class Meta:
         model = BloodPressure
-        fields = "__all__"
+        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
 
 class BloodPressurePostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,7 +15,7 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight
-        fields = "__all__"
+        fields = ["weight_figure", "measurement_date"]
 
 
 class WeightPostSerializer(serializers.ModelSerializer):
