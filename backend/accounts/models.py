@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, AbstractBaseUser
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.base_user import BaseUserManager
@@ -68,7 +68,7 @@ class User(AbstractUser):
     
 
     USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['password', 'fullname', 'birth', 'gender', 'userType']
+    REQUIRED_FIELDS = ['password']
 
     objects = CustomUserManager()
 
@@ -76,5 +76,16 @@ class User(AbstractUser):
     def __str__(self):
         return self.phone_number
 
+# class GuardianUser(AbstractBaseUser):
+#     phone_number = models.CharField(unique=True, max_length=11)
+#     user_phone_number = models.CharField(max_length=11)
+#     password = models.CharField('password', max_length=4)
+#     # Add other fields as needed
 
+#     objects = CustomUserManager()
 
+#     USERNAME_FIELD = 'phone_number'
+#     REQUIRED_FIELDS = ['user_phone_number', 'password']
+
+#     def __str__(self):
+#         return self.phone_number
