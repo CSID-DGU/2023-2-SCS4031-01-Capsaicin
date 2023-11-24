@@ -118,7 +118,15 @@ export const LoginTitle = styled.div`
     color: #FFFFFF;
     margin-bottom: 30px;
 `;
-
+export const LoginTitle2 = styled.div`
+    font-family: 'NanumSquareRoundEB';
+    font-size: 36px;
+    position: relative;
+    padding-right: 120px;
+    z-index: 2;
+    color: #FFFFFF;
+    margin-bottom: 30px;
+`;
 export const ChooseUser = styled.div`
     font-family: 'NotoSansKR-Bold';
     width: 100%;
@@ -187,12 +195,17 @@ export const JoinBox = styled.div`
     display: flex;
     flex-direction: column;
 `;
+export const JoinBox2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-right: 80px;
+`;
 
 export const JoinBoxSex = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding-right: 20px;
+    // width: 100%;
+    padding-right: 80px;
 `;
 
 export const JoinContent = styled.div`
@@ -218,6 +231,22 @@ export const JoinInput = styled.input`
     padding-left: 10px;
     margin-top: 20px;
 `;
+export const JoinInput2 = styled.input`
+    font-family: 'Pretendard';
+    width: 260px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 25px;
+    ::placeholder {
+        font-family: 'Pretendard';
+        font-size: 25px; 
+        color: #aaaaaa; 
+    }
+    padding-left: 10px;
+    margin-top: 20px;
+`;
+
 
 export const JoinChooseBox = styled.div`
     display: flex;
@@ -225,7 +254,23 @@ export const JoinChooseBox = styled.div`
     margin-top: 20px;
 `;
 
+
+
 export const JoinInputButton = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 115px;
+    height: 85px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 30px;
+    background-color: #FFFFFF;
+    margin-right: 20px;
+    :hover {
+        background-color: #aaaaaa; 
+    }
+`;
+
+export const JoinInputButton2 = styled.button`
     font-family: 'Pretendard-Medium';
     width: 115px;
     height: 85px;
@@ -275,6 +320,17 @@ export const ContractButton = styled.button`
 `;
 
 export const JoinButton = styled.button`
+    font-family: 'Pretendard-Bold';
+    width: 150px;
+    height: 65px;
+    border-radius: 5px;
+    border-style: none;
+    font-size: 25px;
+    color: white;
+    background-color: #712EFF;
+    margin-top: 30px;
+`;
+export const JoinButton2 = styled.button`
     font-family: 'Pretendard-Bold';
     width: 150px;
     height: 65px;

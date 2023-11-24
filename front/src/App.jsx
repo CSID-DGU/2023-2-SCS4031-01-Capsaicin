@@ -7,6 +7,7 @@ import './App.css'
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
+import GuardJoin from '../pages/Join/GuardJoin';
 import Term from '../pages/Join/Term';
 import InputMain from '../pages/Input/Main/InputMain';
 import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
@@ -78,6 +79,7 @@ function App() {
           <Route path="/" element={<LoginMain />} />
           <Route path="/join" element={<Join />} />
           <Route path="/normaljoin" element={<NormalJoin />} />
+          <Route path="/guardjoin" element={<GuardJoin />} />
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
           <Route path="/inputmain" element={<InputMain />}></Route>
