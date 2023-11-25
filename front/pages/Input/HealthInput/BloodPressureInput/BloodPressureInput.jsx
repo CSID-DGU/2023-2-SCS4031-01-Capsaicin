@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Title from '../../../../Components/Title';
 import Nav from '../../../../Components/Nav';
 import * as S from "./style";
@@ -13,6 +13,25 @@ export default function BloodPressureInput() {
         systolic: '',
         diastolic: '',
     });
+    const [todayDate, setTodayDate] = useState('');
+    const [currentTime, setCurrentTime] = useState('');
+
+    useEffect(() => {
+        // 오늘 날짜를 'YYYY-MM-DD' 형식으로 가져오기
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+        const day = currentDate.getDate().toString().padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // 현재 시간을 'HH:mm' 형식으로 가져오기
+        const hours = currentDate.getHours().toString().padStart(2, '0');
+        const minutes = currentDate.getMinutes().toString().padStart(2, '0');
+        const formattedTime = `${hours}:${minutes}`;
+
+        setTodayDate(formattedDate);
+        setCurrentTime(formattedTime);
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -58,12 +77,12 @@ export default function BloodPressureInput() {
 
                 <S.JoinBox>
                     <S.JoinContent>측정일자</S.JoinContent>
-                    <S.JoinInput type="date" name="measurement_date" onChange={handleInputChange} />
+                    <S.JoinInput type="date" name="measurement_date" defaultValue={todayDate}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
                     <S.JoinContent>측정시간</S.JoinContent>
-                    <S.JoinInput type="time" name="measurement_time" onChange={handleInputChange} />
+                    <S.JoinInput type="time" name="measurement_time" defaultValue={currentTime} onChange={handleInputChange} />
                 </S.JoinBox>
 
                 <S.JoinBox>
