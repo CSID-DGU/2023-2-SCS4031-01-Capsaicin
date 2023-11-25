@@ -24,7 +24,7 @@ export default function WeightInput() {
         const measurementDate = document.querySelector('input[name="measurement_date"]').value;
 
         const data = {
-            weight: weight_figure,
+            weight_figure,
             measurement_date: measurementDate
         };
 
