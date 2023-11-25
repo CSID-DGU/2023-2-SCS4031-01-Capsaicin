@@ -11,7 +11,7 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """        
-    def create_user(self, phone_number, fullname, password, birth, gender, userType, guardPhoneNumber, 
+    def create_user(self, phone_number, fullname, password, birth, gender, userType, userPhoneNumber, 
                     systolic, height, weight, center, **extra_fields):
         """
         Create and save a User with the given email and password.
@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         if not fullname:
             raise ValueError(_('The fullname must be set'))
         user = self.model(phone_number=phone_number, fullname=fullname, birth=birth, gender=gender, userType=userType, 
-                          guardPhoneNumber=guardPhoneNumber, systolic=systolic, height=height, weight=weight, center=center, **extra_fields)
+                          userPhoneNumber=userPhoneNumber, systolic=systolic, height=height, weight=weight, center=center, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -36,7 +36,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('systolic', 0)
         extra_fields.setdefault('height', 0)
         extra_fields.setdefault('weight', 0)
-        extra_fields.setdefault('guardPhoneNumber', 0)
+        extra_fields.setdefault('userPhoneNumber', 0)
         extra_fields.setdefault('center', None)
 
         if extra_fields.get('is_staff') is not True:
@@ -53,10 +53,9 @@ class User(AbstractUser):
     password = models.CharField('password', max_length=4)
     username = models.CharField(max_length=1, null=True)
     
-    birth = models.IntegerField('birth')
-    gender = models.CharField('gender', max_length=1)
+    birth = models.IntegerField('birth', null=True, blank=True)
+    gender = models.CharField('gender', max_length=1, null=True, blank=True)
     userType = models.CharField('userType', max_length=10)
-    guardPhoneNumber = models.CharField(_('guardPhoneNumber'), max_length=11, null=True, blank=True)
     height = models.FloatField()
     weight = models.FloatField()
     # signupDate = models.DateField(auto_now_add=True)
@@ -64,8 +63,7 @@ class User(AbstractUser):
     
     systolic = models.IntegerField()
     center = models.ForeignKey("main.Center", on_delete=models.SET_NULL, related_name="center", null=True, blank=True)
-
-    
+    user_id = models.IntegerField()
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['password']
@@ -75,17 +73,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.phone_number
-
-# class GuardianUser(AbstractBaseUser):
-#     phone_number = models.CharField(unique=True, max_length=11)
-#     user_phone_number = models.CharField(max_length=11)
-#     password = models.CharField('password', max_length=4)
-#     # Add other fields as needed
-
-#     objects = CustomUserManager()
-
-#     USERNAME_FIELD = 'phone_number'
-#     REQUIRED_FIELDS = ['user_phone_number', 'password']
-
-#     def __str__(self):
-#         return self.phone_number

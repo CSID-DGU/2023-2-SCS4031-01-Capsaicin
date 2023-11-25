@@ -1,10 +1,7 @@
 from allauth.account.adapter import DefaultAccountAdapter
-#from accounts.views import BloodPressureSerializer
-# from main.serializers import BloodPressureSerializer
-# from rest_framework.response import Response
 from main.models import Weight, BloodPressure, Center
 from django.utils import timezone
-# from .models import GuardianUser
+from .models import User
 
 class CustomAccountAdapter(DefaultAccountAdapter):
 
@@ -17,7 +14,7 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         birth = data.get("birth")
         gender = data.get("gender")
         userType = data.get("userType")
-        guardPhoneNumber = data.get("guardPhoneNumber")
+        userPhoneNumber = data.get("userPhoneNumber")
         height = data.get("height")
         weight = data.get("weight")
         
@@ -29,15 +26,14 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user.birth = birth
         user.gender = gender
         user.userType = userType
-        user.guardPhoneNumber = guardPhoneNumber
         user.height = height
         user.weight = weight
         user.systolic = systolic
-        #user.center = center_name
+        
+        if (userType == "보호자" and userPhoneNumber != ""):
+            find_user = User.objects.get(phone_number = userPhoneNumber)
+            user.user_id = find_user.id
 
-        # serializer = BloodPressureSerializer(data=systolic)
-        # if serializer.is_valid():
-        #     serializer.save()
         user.save()
         newUser = user
 
@@ -61,16 +57,3 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             newUser.save()
 
         return user
-    
-# class GuardianAccountAdapter(DefaultAccountAdapter):
-#     def save_user(self, request, user, form, commit=True):
-#         data = form.cleaned_data
-#         user_phone_number = data.get("user_phone_number")
-        
-#         guardian_user = GuardianUser.objects.create(
-#             phone_number=user.phone_number,
-#             password = user.password,
-#             user_phone_number=user_phone_number
-#         )
-
-#         return guardian_user
