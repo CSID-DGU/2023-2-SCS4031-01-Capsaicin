@@ -35,16 +35,16 @@ export default function BloodPressureInput() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setBloodPressureData({
-            ...bloodPressureData,
+        setBloodPressureData((prevData) => ({
+            ...prevData,
             [name]: value,
-        });
+        }));
     };
 
     const handleBloodPressureSubmit = async () => {
         try {
 
-            const response = await fetch("/main/bloodpressure", {
+            const response = await fetch('http://127.0.0.1:8000/main/bloodpressure', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,8 +54,6 @@ export default function BloodPressureInput() {
             });
 
             if (response.ok) {
-                const result = await response.json();
-                console.log(result.message); // 성공 시의 메시지
                 navigate(`/inputmain`);
             } else {
                 console.error("혈압 입력 실패");
@@ -77,7 +75,7 @@ export default function BloodPressureInput() {
 
                 <S.JoinBox>
                     <S.JoinContent>측정일자</S.JoinContent>
-                    <S.JoinInput type="date" name="measurement_date" defaultValue={todayDate}></S.JoinInput>
+                    <S.JoinInput type="date" name="measurement_date" defaultValue={todayDate} onChange={handleInputChange}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
