@@ -1,18 +1,20 @@
 import pandas as pd
 import tabulate
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-df = pd.read_csv('C:\\Users\\Shin\\Downloads\\음식분류.csv',encoding='UTF-8') # csv 파일 읽어오기
+file_path = input("Enter the path to the CSV file: ")
+
+df = pd.read_csv(file_path, encoding='UTF-8')
 
 data = df[['분류', '음 식 명', '나트륨(mg)']] # 필요한 데이터만 가져오기
 
-from sklearn.feature_extraction.text import CountVectorizer
 
 data['분류'].fillna('', inplace=True)
 cv = CountVectorizer(ngram_range=(1,1))
 cv_category = cv.fit_transform(data['분류'])
 cv.vocabulary_ # 카테고리별 인덱스 번호
 
-from sklearn.metrics.pairwise import cosine_similarity
 similarity_category = cosine_similarity(cv_category, cv_category).argsort()[:,::-1]
 print(similarity_category)
 similarity_category.shape
