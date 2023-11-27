@@ -21,7 +21,7 @@ from main import urls
 
 
 from rest_framework import routers
-from accounts.views import UserViewSet
+from accounts.views import *
 router = routers.DefaultRouter()
 router.register('user', UserViewSet)
 
@@ -32,6 +32,8 @@ urlpatterns = [
     path('accounts/registration', include('dj_rest_auth.registration.urls')),
     #path('accounts/registration', UserAV.as_view(), name='user'),
     path('accounts/', include('allauth.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('accounts/registration/guard/', include('dj_rest_auth.registration.urls')),
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
 ]

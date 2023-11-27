@@ -19,6 +19,7 @@ import Strength from '../pages/Input/SportsInput/SportsPage/Strength';
 import Side from '../pages/Input/FoodInput/FoodPage/Side';
 import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
+import HealthRecord from '../pages/HealthRecord/HealthRecord';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -92,7 +93,8 @@ function App() {
           <Route path="/Soup" element={<Soup />} />
           {/* 맞춤케어 */}
           <Route path="/CustomizedCare" element={<CustomizedCare />} />
-
+          {/* 건강기록 */}
+          <Route path="/HealthRecord" element={<HealthRecord />} />
         </Routes>
       </BrowserRouter>
     </>

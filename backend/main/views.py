@@ -24,9 +24,7 @@ class BloodPressureAV(APIView):
         return Response(serializer.data)
     
     def post(self, request):
-        # if not request.user.has_perm('auth.can_add_bloodpressure'):
-        #     logger.error("Permission denied for user: %s" % request.user)
-        #     return Response("Permission denied", status=status.HTTP_403_FORBIDDEN)
+
         find_user = request.user
         serializer = BloodPressurePostSerializer(data=request.data)
         if serializer.is_valid():
@@ -43,7 +41,7 @@ class BloodPressureAV(APIView):
             bloodpressure.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=400)
         
 class LastBloodPressureAV(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -180,9 +178,6 @@ class MealAV(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        #     return Response(meal_list_data)
-        # else:
-        #     print(serializer.errors)
 
 class ExerciseAV(APIView):    
     permission_classes = [permissions.IsAuthenticated]
@@ -206,10 +201,7 @@ class ExerciseAV(APIView):
             calorie_by_date[date] += entry['calorie']
 
         return Response({'last_exercise_name': serializer_name, 'calorie_by_date': dict(calorie_by_date)})
-        # serializer_name = ExerciseAmountSerializer(last_exercise_list, context={'request':request})
-        # serializer = ExerciseAmountSerializer(exercise_list, many=True, context={'request':request})
-        # return Response({'last_exercise_name': serializer_name, 'exercise_list': serializer.data})
-    
+
     def post(self, request):
         find_user = request.user
 
@@ -234,16 +226,3 @@ class ExerciseAV(APIView):
             return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-            # exercise_data = serializer.validated_data['exercise_info']
-            # find_exercise = ExerciseCategory.objects.get(id=['exercise_id'])
-            # ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count='count')
-
-        #     exercise_list_data = serializer.validated_data['exercise_list']
-        #     for m in exercise_list_data:
-        #         find_exercise = ExerciseCategory.objects.get(id=m['exercise_id'])
-        #         ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=m['count'])
-
-        #     return Response(exercise_list_data)  # 혹은 다른 적절한 응답을 반환
-        # else:
-        #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
