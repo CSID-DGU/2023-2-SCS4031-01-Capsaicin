@@ -33,12 +33,41 @@ export default function BloodPressureInput() {
         setCurrentTime(formattedTime);
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
+    useEffect(() => {
         setBloodPressureData((prevData) => ({
             ...prevData,
-            [name]: value,
+            measurement_date: todayDate,
+            measurement_time: currentTime,
         }));
+    }, [todayDate, currentTime]);
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        // measurement_time 필드에 대해서만 00초로 수정
+        const modifiedValue = name === 'measurement_time' ? `${value}:00` : value;
+
+        setBloodPressureData((prevData) => ({
+            ...prevData,
+            [name]: modifiedValue,
+        }));
+
+        // value가 비어 있으면 현재 날짜 및 시간 설정
+        if (!value) {
+            if (name === 'measurement_date') {
+                setBloodPressureData((prevData) => ({
+                    ...prevData,
+                    [name]: todayDate,
+                    measurement_time: `${currentTime}:00`,
+                }));
+            } else if (name === 'measurement_time') {
+                setBloodPressureData((prevData) => ({
+                    ...prevData,
+                    [name]: `${currentTime}:00`,
+                    measurement_date: todayDate,
+                }));
+            }
+        }
     };
 
     const handleBloodPressureSubmit = async () => {
@@ -75,12 +104,12 @@ export default function BloodPressureInput() {
 
                 <S.JoinBox>
                     <S.JoinContent>측정일자</S.JoinContent>
-                    <S.JoinInput type="date" name="measurement_date" defaultValue={todayDate} onChange={handleInputChange}></S.JoinInput>
+                    <S.JoinInput type="date" name="measurement_date" defaultValue={bloodPressureData.measurement_date} onChange={handleInputChange}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
                     <S.JoinContent>측정시간</S.JoinContent>
-                    <S.JoinInput type="time" name="measurement_time" defaultValue={currentTime} onChange={handleInputChange} />
+                    <S.JoinInput type="time" name="measurement_time" defaultValue={bloodPressureData.measurement_time} onChange={handleInputChange} />
                 </S.JoinBox>
 
                 <S.JoinBox>
