@@ -31,7 +31,7 @@ export const Info = styled.div`
 export const InfoTitle = styled.div`
     font-size: 20px;
     font-family: 'NotoSansKR-Regular';
-    margin: 20px 130px 0px 0px;
+    margin: 20px 130px 20px 0px;
 `;
 
 export const InfoImage = styled.img`
