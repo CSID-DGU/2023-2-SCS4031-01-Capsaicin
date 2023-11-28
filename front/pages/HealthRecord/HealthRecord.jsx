@@ -100,10 +100,9 @@ export default function HealthRecord() {
     const [weights, setWeights] = useState([]);
     const [bloodPressure, setBloodPressure] = useState([]);
     const [exerciseData, setExerciseData] = useState({});
-    const accessToken = localStorage.getItem("accessToken");
     const [recentFoods, setRecentFoods] = useState([]);
     const accessToken = localStorage.getItem("accessToken");
-    
+
     useEffect(() => {
         const fetchRecentFoods = async () => {
             try {
@@ -128,7 +127,7 @@ export default function HealthRecord() {
         fetchRecentFoods();
     }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
 
-   
+
 
     useEffect(() => {
         const fetchBloodPressure = async () => {
@@ -231,7 +230,7 @@ export default function HealthRecord() {
                     <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
                     <S.InfoFoodImage src="../../assets/images/foodgroup.png" />
                     <S.InfoFoodName>
-                    {recentFoods.map((food) => (
+                        {recentFoods.map((food) => (
                             <div key={food.food_name}>{`${food.food_name} ${food.count}인분`}</div>
                         ))}
                     </S.InfoFoodName>
