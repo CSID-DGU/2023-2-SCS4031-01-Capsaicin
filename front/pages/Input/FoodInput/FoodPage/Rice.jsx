@@ -10,7 +10,7 @@ import { MealListState } from "../../../../store/mealList_store";
 // import "swiper/components/navigation/navigation.min.css";
 // import SwiperCore, {Navigation} from "swiper";
 
-export default function Side() {
+export default function Rice() {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +33,6 @@ export default function Side() {
     setUserInput(e.target.value);
   };
   useEffect(() => {
-    console.log(meal)
     const fetchFoods = async () => {
       try {
         const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
@@ -74,38 +73,12 @@ export default function Side() {
     }
   };
 
-  const handleNextFood = () => {
-    // 선택된 음식들을 meallist에 추가
-    const mealList = Object.keys(foodCounts).map((foodId) => ({
-      food_id: parseInt(foodId, 10),
-      count: foodCounts[foodId],
-      unit:"숟가락"
-    }));
-    setMeal(mealList)
-
-  
-    // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
-    // 예를 들어, 전역 상태나 다른 상태 관리 라이브러리를 사용하여 mealList를 저장할 수 있습니다.
-  
-    // 다음 페이지로 이동
-    navigate(`/inputinfo_cate`);
-  };
-
   const handleSelectionComplete = async () => {
     try {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
         count: foodCounts[foodId],
-        unit: "숟가락",
-      }));
-
-      for (const mealItem of meal) {
-        mealList.push(mealItem);
-      }
-
-
-      console.log('전송 데이터:', JSON.stringify({
-        meal_list: mealList,
+        unit:'인분'
       }));
 
       const response = await fetch('http://127.0.0.1:8000/main/meal', {
@@ -147,6 +120,23 @@ export default function Side() {
       [foodId]: selectedCount,
     }));
   };
+
+  const handleNextFood = () => {
+    // 선택된 음식들을 meallist에 추가
+    const mealList = Object.keys(foodCounts).map((foodId) => ({
+      food_id: parseInt(foodId, 10),
+      count: foodCounts[foodId],
+      unit: "인분"
+    }));
+
+    setMeal(mealList);
+  
+    // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
+    // 예를 들어, 전역 상태나 다른 상태 관리 라이브러리를 사용하여 mealList를 저장할 수 있습니다.
+    
+    // 다음 페이지로 이동
+    navigate(`/inputinfo_cate`);
+  };
   
 
   return (
@@ -158,7 +148,7 @@ export default function Side() {
             src="../../../assets/images/backward.png"
             onClick={() => navigate(`/inputinfo_cate`)}
           />
-          <S.InputTitle>반찬류</S.InputTitle>
+          <S.InputTitle>밥류</S.InputTitle>
         </S.Info>
           <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
@@ -173,11 +163,11 @@ export default function Side() {
               >
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
-                <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
+                <S.CustomSelect_Rice onChange={(e) => handleSelectChange(e, food.id)}>
                   <option value={1}>1인분</option>
                   <option value={2}>2인분</option>
                   <option value={3}>3인분</option>
-                </S.CustomSelect>
+                </S.CustomSelect_Rice>
               </S.Box2>
             ))
           ) : (
@@ -187,14 +177,15 @@ export default function Side() {
           )}
         </S.UserBox>
         <S.ButtonContainer>
-          <S.NextButton onClick={handleNextFood} >다음 음식</S.NextButton>
-          
+          <S.NextButton onClick={handleNextFood}>다음 음식</S.NextButton>
           <div>
             <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
-            
             {isModalOpen && (
               <S.Modal>
                 <S.ModalContent>
+{/* {isModalOpen && (
+                              <S.ModalImage src="../../../assets/images/choicedone.png" alt="선택 완료" />
+                            )} */}
                   <p>선택이 완료되었습니다!</p>
                   <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>
                     확인

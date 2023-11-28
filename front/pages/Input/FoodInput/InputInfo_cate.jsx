@@ -17,7 +17,7 @@ export default function InputInfo() {
                     <S.InputTitle>음식 정보 입력</S.InputTitle>
                 </S.Info>
                 <S.UserBox>
-                    <S.Box>밥류
+                    <S.Box onClick={() => navigate(`/rice`)}>밥류
                     <S.FoodIcon src="../../../assets/images/rice.png" />
                     </S.Box>
 
