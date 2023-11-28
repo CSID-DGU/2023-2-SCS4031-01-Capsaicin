@@ -7,6 +7,9 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 from collections import defaultdict
 
+from .recommend import recommend_menu
+from django.http import JsonResponse
+
 from rest_framework import permissions, status
 
 import logging
@@ -172,7 +175,7 @@ class MealAV(APIView):
             meal_list_data = serializer.validated_data['meal_list']
             for m in meal_list_data:
                 find_food = Food.objects.get(id=m['food_id'])
-                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'])
+                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'], unit=m['unit'])
 
             return Response(meal_list_data)  # 혹은 다른 적절한 응답을 반환
         else:
@@ -226,3 +229,53 @@ class ExerciseAV(APIView):
             return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MealRecommendationView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+
+        last_meal = Meal.objects.filter(user=find_user).last()
+        food_list = MealAmount.objects.filter(meal=last_meal)
+        def meal_amount_to_dict(meal_amount):
+            return {
+                'food_name': meal_amount.food.foodName,
+                # 다른 필요한 필드들도 추가할 수 있음
+            }
+
+        # food_list에 있는 MealAmount 인스턴스들을 딕셔너리로 변환
+        data_to_serialize = [meal_amount_to_dict(meal_amount) for meal_amount in food_list]
+
+        # Serializer에 전달
+        # serializer = MealRecommendSerializer(data=data_to_serialize, many=True, context={'request': request})
+
+
+        # # serializer = MealRecommendSerializer(data=list(food_list), many=True, context={'request':request})
+        # if serializer.is_valid():
+        #     # Serializer에서 'food_name'을 추출하여 리스트로 만듦
+        #     print(serializer.data)
+        #     menu_name_list = [item['food_name'] for item in serializer.data]
+        #     # 이제 menu_name_list를 사용하면 됨
+        #     data = serializer.data
+        #     menu_name = menu_name_list
+        # else:
+        #     data = {'error': serializer.errors}
+        menu_name = [item['food_name'] for item in data_to_serialize]
+
+  
+        try:
+            # 추천 로직 호출
+            recommended = recommend_menu(menu_name, top=10)
+            
+            # 나트륨을 기준으로 정렬
+            sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
+
+            # JSON 응답 생성
+            result = {
+                'recommended_menu': sorted_recommended.to_dict(orient='records')
+            }
+
+            return JsonResponse(result)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
