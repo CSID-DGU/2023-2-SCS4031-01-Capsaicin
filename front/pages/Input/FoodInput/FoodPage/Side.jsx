@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Side() {
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => {
     setIsModalOpen(true);
@@ -20,87 +21,98 @@ export default function Side() {
   };
   const [userInput, setUserInput] = useState("");
   const [foods, setFoods] = useState([]);
-
-  const searched = foods.filter((food) => food.foodName.includes(userInput));
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [foodCounts, setFoodCounts] = useState({});
   
+  const searched = foods.filter((food) => food.foodName.includes(userInput));
+
   const getValue = (e) => {
     setUserInput(e.target.value);
   };
-  const YourComponent = () => {
-    const [data, setData] = useState([]);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await fetch('http://127.0.0.1:8000//main/food/');
-          const jsonData = await response.json();
-          setData(jsonData);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      };
-  
-      fetchData();
-    }, []); // 빈 배열을 전달하면 컴포넌트가 마운트될 때 한 번만 실행됩니다.
-  }
   useEffect(() => {
-    setFoods([
-      {
-        id: 1,
-        foodName: "배추김치",
-        category: 1,
-        amount: 210.0,
-        calorie: 334.8,
-        natrium: 59.4,
-        url:"../../../assets/images/side1.png",
-      },
-      {
-        id: 2,
-        foodName: "콩자반",
-        category: 1,
-        amount: 200.0,
-        calorie: 302.36,
-        natrium: 3.39,
-        url:"../../../assets/images/side2.png",
-      },
-      {
-        id: 3,
-        foodName: "어묵볶음",
-        category: 1,
-        amount: 210.0,
-        calorie: 334.8,
-        natrium: 59.4,
-        url:"../../../assets/images/side3.png",
-      },
-      {
-        id: 4,
-        foodName: "진미채볶음",
-        category: 1,
-        amount: 200.0,
-        calorie: 302.36,
-        natrium: 3.39,
-        url:"../../../assets/images/side4.png",
-      },
-      {
-        id: 5,
-        foodName: "파김치",
-        category: 1,
-        amount: 200.0,
-        calorie: 302.36,
-        natrium: 3.39,
-        url:"../../../assets/images/side5.png",
-      },
-      {
-        id: 6,
-        foodName: "열무김치",
-        category: 1,
-        amount: 200.0,
-        calorie: 302.36,
-        natrium: 3.39,
-        url:"../../../assets/images/side6.png",
-      },
-    ]);
+    const fetchFoods = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
+          },
+        }); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        setFoods(data);
+      } catch (error) {
+        console.error('Error fetching foods:', error);
+      }
+    };
+  
+    fetchFoods();
   }, []);
+
+  const toggleSelection = (food) => {
+    const isSelected = selectedItems.some((item) => item.id === food.id);
+    if (isSelected) {
+      // 이미 선택된 경우, 선택된 항목에서 제거
+      setSelectedItems((prevItems) =>
+        prevItems.filter((item) => item.id !== food.id)
+      );
+    } else {
+      // 선택되지 않은 경우, 선택된 항목에 추가
+      setSelectedItems((prevItems) => [...prevItems, food]);
+    }
+  };
+
+  const handleSelectionComplete = async () => {
+    try {
+      const mealList = Object.keys(foodCounts).map((foodId) => ({
+        food_id: parseInt(foodId, 10),
+        count: foodCounts[foodId],
+      }));
+
+      const response = await fetch('http://127.0.0.1:8000/main/meal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          meal_list: mealList, // 수정된 부분
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('식사 선택 성공:', data);
+
+      // 선택이 성공적으로 제출된 후 선택된 항목 상태를 재설정하는 것이 선택 사항입니다.
+      setSelectedItems([]);
+
+      // openModal 함수를 여기에서 호출하지 않음
+    } catch (error) {
+      console.error('식사 선택 제출 오류:', error);
+    }
+
+    // 선택이 성공적으로 제출된 후에 openModal 함수 호출
+    openModal();
+  };
+
+
+  const handleSelectChange = (e, foodId) => {
+    const selectedCount = parseInt(e.target.value, 10);
+    // 선택된 숟가락의 값을 해당 음식 항목의 count로 설정
+    setFoodCounts((prevCounts) => ({
+      ...prevCounts,
+      [foodId]: selectedCount,
+    }));
+  };
+  
+
   return (
     <>
       <S.Container>
@@ -112,21 +124,25 @@ export default function Side() {
           />
           <S.InputTitle>반찬류</S.InputTitle>
         </S.Info>
-        <S.SearchContainer>
+          <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
           <S.SearchImage />
         </S.SearchContainer>
         <S.UserBox>
-        {searched.length ? (
+          {searched.length ? (
             searched.map((food) => (
-              <S.Box2>
+              <S.Box2
+                key={food.id}
+                style={selectedItems.some((item) => item.id === food.id) ? S.selectedStyle : {}}
+                onClick={() => toggleSelection(food)}
+              >
                 {food.foodName}
-                <S.FoodIcon src={food.url} />
-                <S.Select>
-                  <option>1숟가락</option>
-                  <option>2숟가락</option>
-                  <option>3숟가락</option>
-                </S.Select>
+                <S.FoodIcon src={food.foodImgUrl} />
+                <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
+                  <option value={1}>1숟가락</option>
+                  <option value={2}>2숟가락</option>
+                  <option value={3}>3숟가락</option>
+                </S.CustomSelect>
               </S.Box2>
             ))
           ) : (
@@ -138,11 +154,11 @@ export default function Side() {
         <S.UserBox>
           <S.NextButton>다음 음식</S.NextButton>
           <div>
-            <S.ChoiceButton onClick={openModal}>선택 완료</S.ChoiceButton>
+            <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
             {isModalOpen && (
               <S.Modal>
                 <S.ModalContent>
-                  {/* {isModalOpen && (
+{/* {isModalOpen && (
                               <S.ModalImage src="../../../assets/images/choicedone.png" alt="선택 완료" />
                             )} */}
                   <p>선택이 완료되었습니다!</p>
