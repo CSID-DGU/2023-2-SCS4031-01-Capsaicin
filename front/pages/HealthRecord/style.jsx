@@ -7,12 +7,24 @@ export const Container = styled.div`
     position: relative;
 `;
 
+export const Backward = styled.img`
+    width: 18px;
+    height: 26px;
+    padding-right: 90px;
+`;
+
 export const InputTitle = styled.div`
     font-family: 'NotoSansKR-Bold';
     font-size: 30px;
     padding-left: 30px;
     justify-content: flex-start;
-    padding: 20px 0px 20px 0px;
+    padding: 20px 90px 20px 0px;
+`;
+
+export const Infos = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 `;
 
 export const Info = styled.div`
@@ -29,9 +41,10 @@ export const Info = styled.div`
 `;
 
 export const InfoTitle = styled.div`
-    font-size: 20px;
-    font-family: 'NotoSansKR-Regular';
-    margin: 20px 130px 0px 0px;
+    font-size: 23px;
+    font-family: 'NotoSansKR-SemiBold';
+    font-weight: bold;
+    margin: 20px 0px 20px 0px;
 `;
 
 export const InfoImage = styled.img`
@@ -40,6 +53,7 @@ export const InfoImage = styled.img`
     padding-right: 20px;
     margin: 10px 0px 0px 10px;
 `;
+
 
 export const InfoFood = styled.div`
     display: flex;

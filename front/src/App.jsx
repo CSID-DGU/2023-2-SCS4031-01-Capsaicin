@@ -20,6 +20,7 @@ import Side from '../pages/Input/FoodInput/FoodPage/Side';
 import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
 import HealthRecord from '../pages/HealthRecord/HealthRecord';
+import Community from '../pages/Community/Community';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -95,6 +96,8 @@ function App() {
           <Route path="/CustomizedCare" element={<CustomizedCare />} />
           {/* 건강기록 */}
           <Route path="/HealthRecord" element={<HealthRecord />} />
+          {/* 커뮤니티 */}
+          <Route path="/Community" element={<Community />} />
         </Routes>
       </BrowserRouter>
     </>

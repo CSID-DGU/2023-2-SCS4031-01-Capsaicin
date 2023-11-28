@@ -82,7 +82,11 @@ export default function Main() {
                     </S.InfoHealth>
                 </S.Info>
 
-                <S.GotoHealthInput>
+                <S.GotoCareInput onClick={() => navigate(`/inputmain`)}>
+                    <S.CareIcon src="../../assets/images/heart.png" />
+                    건강 정보 입력 바로가기
+                </S.GotoCareInput>
+                <S.GotoHealthInput onClick={() => navigate(`/SportsInput`)}>
                     <S.HealthIcon src="../../assets/images/health.png" />
                     운동 정보 입력 바로가기
                 </S.GotoHealthInput>
@@ -90,10 +94,6 @@ export default function Main() {
                     <S.FoodIcon src="../../assets/images/food.png" />
                     음식 정보 입력 바로가기
                 </S.GotoFoodInput>
-                <S.GotoCareInput onClick={() => navigate(`/inputmain`)}>
-                    <S.CareIcon src="../../assets/images/heart.png" />
-                    건강 정보 입력 바로가기
-                </S.GotoCareInput>
 
                 <S.Walking>
                     <S.WalkingTitle>내가 소속된 경로당</S.WalkingTitle>
