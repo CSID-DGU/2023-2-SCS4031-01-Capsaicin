@@ -33,6 +33,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         if (userType == "보호자" and userPhoneNumber != ""):
             find_user = User.objects.get(phone_number = userPhoneNumber)
             user.user_id = find_user.id
+        if (userPhoneNumber == ""):
+            user.user_id = 0
 
         user.save()
         newUser = user

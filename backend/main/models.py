@@ -53,7 +53,8 @@ class Meal(models.Model):
 class MealAmount(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.CASCADE, related_name='mealamount')
     food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='mealamount')
-    count = models.IntegerField()
+    count = models.FloatField()
+    unit = models.CharField(max_length=10)
 
 class ExerciseCategory(models.Model):
     name = models.CharField(max_length=20)
