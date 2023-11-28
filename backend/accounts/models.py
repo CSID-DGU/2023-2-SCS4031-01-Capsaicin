@@ -11,8 +11,8 @@ class CustomUserManager(BaseUserManager):
     Custom user model manager where email is the unique identifiers
     for authentication instead of usernames.
     """        
-    def create_user(self, phone_number, fullname, password, birth, gender, userType, userPhoneNumber, 
-                    systolic, height, weight, center, **extra_fields):
+    def create_user(self, phone_number, fullname, password, birth, gender, userType, 
+                    systolic, height, weight, center, user_id, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
@@ -21,7 +21,7 @@ class CustomUserManager(BaseUserManager):
         if not fullname:
             raise ValueError(_('The fullname must be set'))
         user = self.model(phone_number=phone_number, fullname=fullname, birth=birth, gender=gender, userType=userType, 
-                          userPhoneNumber=userPhoneNumber, systolic=systolic, height=height, weight=weight, center=center, **extra_fields)
+                        systolic=systolic, height=height, weight=weight, center=center, **extra_fields)
         user.set_password(password)
         user.save()
         return user
@@ -36,8 +36,14 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('systolic', 0)
         extra_fields.setdefault('height', 0)
         extra_fields.setdefault('weight', 0)
-        extra_fields.setdefault('userPhoneNumber', 0)
+        # extra_fields.setdefault('userPhoneNumber', 0)
         extra_fields.setdefault('center', None)
+        extra_fields.setdefault('fullname', '관리자')
+        extra_fields.setdefault('birth', 0)
+        extra_fields.setdefault('gender', 'F')
+        extra_fields.setdefault('userType', 'admin')
+        extra_fields.setdefault('user_id', 0)
+
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True.'))

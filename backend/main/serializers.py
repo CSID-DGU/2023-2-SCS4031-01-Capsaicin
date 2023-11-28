@@ -69,17 +69,22 @@ class MealSerializer(serializers.ModelSerializer):
 
 class MealAmountSerializer(serializers.ModelSerializer):
     food_name = serializers.SerializerMethodField()
+    food_img = serializers.SerializerMethodField()
 
     class Meta:
         model = MealAmount
-        fields = ["food_name", "count"]
+        fields = ["food_name", "count", "unit", "food_img"]
     
     def get_food_name(self, obj):
         return obj.food.foodName
+    
+    def get_food_img(self, obj):
+        return obj.food.foodImgUrl
 
 class MealAmountPostSerializer(serializers.Serializer):
     food_id = serializers.IntegerField(required=True)
-    count = serializers.IntegerField(required=True)
+    count = serializers.FloatField(required=True)
+    unit = serializers.CharField(required = True)
 
 class MealPostSerializer(serializers.Serializer):
     meal_list = MealAmountPostSerializer(many=True)
@@ -113,3 +118,20 @@ class ExerciseAmountPostSerializer(serializers.Serializer):
 
 class UserExercisePostSerializer(serializers.Serializer):
     exercise_list = ExerciseAmountPostSerializer()
+
+# class MealRecommendSerializer(serializers.ModelSerializer):
+#     food_name = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = MealAmount
+#         fields = ["food_name"]
+    
+#     def get_food_name(self, obj):
+#         return obj.food.foodName
+
+class MealRecommendSerializer(serializers.ModelSerializer):
+    food_name = serializers.CharField(source='food.foodName', read_only=True)
+
+    class Meta:
+        model = MealAmount
+        fields = ["food_name"]
