@@ -55,11 +55,33 @@ const BloodPressureTable = ({ data }) => {
     );
 };
 
+const ExerciseTable = ({ exerciseData }) => {
+    return (
+        <table>
+            <thead>
+                <tr style={{ width: '250px' }}>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>운동일자</th>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>칼로리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(exerciseData.calorie_by_date).map(([date, calorie], index) => (
+                    <tr key={index}>
+                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{date}</td>
+                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{calorie}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+};
+
 
 export default function HealthRecord() {
     const [weights, setWeights] = useState([]);
-    const accessToken = localStorage.getItem("accessToken");
     const [bloodPressure, setBloodPressure] = useState([]);
+    const [exerciseData, setExerciseData] = useState({});
+    const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
         const fetchBloodPressure = async () => {
@@ -83,61 +105,52 @@ export default function HealthRecord() {
             }
         };
 
+        const fetchWeights = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/main/weights', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch weights data');
+                }
+
+                const data = await response.json();
+                setWeights(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        const fetchExerciseData = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/main/exercise', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch exercise data');
+                }
+
+                const data = await response.json();
+                setExerciseData(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
         fetchBloodPressure();
+        fetchWeights();
+        fetchExerciseData();
     }, [accessToken]);
-
-
-    useEffect(() => {
-        // API 호출하여 데이터 가져오는 부분
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/main/weights', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch weights data');
-                }
-
-                const data = await response.json();
-                setWeights(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [accessToken]); // accessToken을 의존성 배열에 추가
-
-    useEffect(() => {
-        // API 호출하여 데이터 가져오는 부분
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://127.0.0.1:8000/main/weights', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to fetch weights data');
-                }
-
-                const data = await response.json();
-                setWeights(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [accessToken]); // accessToken을 의존성 배열에 추가
 
 
     return (
@@ -148,17 +161,18 @@ export default function HealthRecord() {
                 <S.InputTitle>김건강님의 건강기록</S.InputTitle>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 최근 몸무게</S.InfoTitle>
+                    <S.InfoTitle>김건강님의 몸무게 기록</S.InfoTitle>
                     <Table data={weights} /> {/* weights로 변경 */}
-                    {/* <S.InfoImage src="../../assets/images/graph.png" /> */}
-                    {/* <MyResponsiveLine data={data} /> */}
                 </S.Info>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 최근 혈압</S.InfoTitle>
+                    <S.InfoTitle>김건강님의 혈압 기록</S.InfoTitle>
                     <BloodPressureTable data={bloodPressure} />
-                    {/* <S.InfoImage src="../../assets/images/graph.png" /> */}
-                    {/* <MyResponsiveLine data={data} /> */}
+                </S.Info>
+
+                <S.Info>
+                    <S.InfoTitle>김건강님의 운동 기록</S.InfoTitle>
+                    <ExerciseTable exerciseData={exerciseData} />
                 </S.Info>
 
                 <S.InfoFood>
