@@ -32,7 +32,7 @@ export default function Side() {
   useEffect(() => {
     const fetchFoods = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch('http://127.0.0.1:8000/main/food/4', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
@@ -62,6 +62,11 @@ export default function Side() {
     } else {
       // 선택되지 않은 경우, 선택된 항목에 추가
       setSelectedItems((prevItems) => [...prevItems, food]);
+      if (!foodCounts[food.id]) {
+        setFoodCounts((prevCounts) => ({
+          ...prevCounts,
+          [food.id]: 1,
+        }));}
     }
   };
 
