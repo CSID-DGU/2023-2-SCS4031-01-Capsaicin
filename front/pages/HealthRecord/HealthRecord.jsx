@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
-import * as V from './styles';
 import { useNavigate } from "react-router-dom";
 
 const Table = ({ data }) => {
@@ -55,29 +54,9 @@ const BloodPressureTable = ({ data }) => {
     );
 };
 
-const ExerciseTable = ({ exerciseData }) => {
-    return (
-        <table>
-            <thead>
-                <tr style={{ width: '250px' }}>
-                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>운동일자</th>
-                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>칼로리</th>
-                </tr>
-            </thead>
-            <tbody>
-                {Object.entries(exerciseData.calorie_by_date).map(([date, calorie], index) => (
-                    <tr key={index}>
-                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{date}</td>
-                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{calorie}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
-};
-
 
 export default function HealthRecord() {
+    const navigate = useNavigate();
     const [weights, setWeights] = useState([]);
     const [bloodPressure, setBloodPressure] = useState([]);
     const [exerciseData, setExerciseData] = useState({});
@@ -157,26 +136,28 @@ export default function HealthRecord() {
         <>
             <S.Container>
                 <Title />
-
-                <S.InputTitle>김건강님의 건강기록</S.InputTitle>
+                <S.Infos>
+                    <S.Backward src="../assets/images/backward.png" onClick={() => navigate(`/main`)} />
+                    <S.InputTitle>건강기록</S.InputTitle>
+                </S.Infos>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 몸무게 기록</S.InfoTitle>
-                    <Table data={weights} /> {/* weights로 변경 */}
+                    <S.InfoTitle>몸무게 기록</S.InfoTitle>
+                    <Table data={weights} />
                 </S.Info>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 혈압 기록</S.InfoTitle>
+                    <S.InfoTitle>혈압 기록</S.InfoTitle>
                     <BloodPressureTable data={bloodPressure} />
                 </S.Info>
 
                 <S.Info>
-                    <S.InfoTitle>김건강님의 운동 기록</S.InfoTitle>
-                    <ExerciseTable exerciseData={exerciseData} />
+                    <S.InfoTitle>운동 기록</S.InfoTitle>
+                    {/* <ExerciseTable exerciseData={exerciseData} /> */}
                 </S.Info>
 
                 <S.InfoFood>
-                    <S.InfoFoodTitle>김건강님의 최근 먹은 음식</S.InfoFoodTitle>
+                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
                     <S.InfoFoodImage src="../../assets/images/foodgroup.png" />
                     <S.InfoFoodName>밥 1인분, 국 1인분, 고등어구이 1마리</S.InfoFoodName>
                 </S.InfoFood>

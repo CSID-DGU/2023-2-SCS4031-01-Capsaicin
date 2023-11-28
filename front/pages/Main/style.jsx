@@ -86,7 +86,7 @@ export const GotoHealthInput = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 25px;
     font-family: 'Pretendard-Medium';
-    margin-top: 60px;
+    margin-top: 20px;
     justify-content: center;
     align-items: center;
 `;
@@ -126,7 +126,7 @@ export const GotoCareInput = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 25px;
     font-family: 'Pretendard-Medium';
-    margin-top: 20px;
+    margin-top: 60px;
     justify-content: center;
     align-items: center;
 `;
