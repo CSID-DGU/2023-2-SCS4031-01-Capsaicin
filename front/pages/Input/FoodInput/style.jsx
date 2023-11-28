@@ -1,31 +1,35 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  width:390px;
+  height:100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+  justify-contents: center;
+  position:relative;
+  gap:30px;
 `;
 
 export const Info = styled.div`
+  flex:1;
+  width:100%;
   display: flex;
   flex-direction: row;
+  justify-content:center;
   align-items: center;
-  padding-top: 50px;
-  padding-right: 80px;
 `;
 
 export const Backward = styled.img`
   width: 18px;
   height: 26px;
-  margin-left: 20px;
+  // margin-right:calc(100% / 2 - 54px)
 `;
 
 export const InputTitle = styled.div`
   font-family: "NotoSansKR-Bold";
   font-size: 29px;
   text-align: center;
-  margin-left: 30px;
 `;
 
 export const JoinBox = styled.div`
@@ -86,23 +90,34 @@ export const CompleteButton = styled.button`
 // `;
 
 export const UserBox = styled.div`
+  flex:auto;
   display: flex;
   width: 390px;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
-  padding-top: 50px;
+  overflow-y:scroll;
+  &::-webkit-scrollbar{
+    display:none;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  flex:1;
+  display: flex;
+  width: 390px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
 `;
 
 export const Box = styled.button`
   font-family: "Pretendard-SemiBold";
   width: 130px;
-  height: 130px;
   border: 0.5px solid black;
   border-radius: 5px;
   background-color: #ffffff;
   padding: 0;
-  margin-right: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -117,15 +132,16 @@ export const FoodIcon = styled.img`
 `;
 
 export const SearchContainer = styled.div`
+  flex:1;
+  width:100%;
   display: flex;
+  justify-content:center;
   align-items: center;
-  margin-bottom: 0px;
 `;
 
 export const SearchInput = styled.input`
   position: relative;
   /* 검색 바 스타일링 */
-  margin-top: 40px;
   padding-right: 30px; /* 오른쪽 여백을 이미지 크기만큼 확보 */
   background-image: url("../../../assets/images/Search.png"); /* 이미지 경로 설정 */
   background-repeat: no-repeat;
@@ -206,6 +222,21 @@ export const CustomSelect = ({ onChange }) => {
       {spoonOptions.map((spoonCount) => (
         <option key={spoonCount} value={spoonCount}>
           {spoonCount}숟가락
+        </option>
+      ))}
+    </Select>
+  );
+};
+
+export const CustomSelect_Rice = ({ onChange }) => {
+  // 숟가락 선택 옵션 배열
+  const spoonOptions = [1, 2, 3];
+
+  return (
+    <Select onChange={onChange}>
+      {spoonOptions.map((spoonCount) => (
+        <option key={spoonCount} value={spoonCount}>
+          {spoonCount}인분
         </option>
       ))}
     </Select>

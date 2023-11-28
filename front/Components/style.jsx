@@ -9,7 +9,6 @@ export const Container = styled.div`
 export const Title = styled.img`
     width: 390px;
     height: 50px;
-    top: -25px;
     position: absolute;
     z-index: 1;
 `;
@@ -18,7 +17,6 @@ export const TitleLogo = styled.img`
     position: relative;
     width: 140px;
     height: 40px;
-    top: -25px;
     z-index: 2;
 `;
 
@@ -31,7 +29,6 @@ export const Nav = styled.div`
     justify-content: space-around;
     background-color: #712EFF;
     color: white;
-    margin-top: 60px;
 `;
 
 export const NavButton = styled.div`

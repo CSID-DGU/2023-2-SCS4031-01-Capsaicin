@@ -21,6 +21,7 @@ import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
 import HealthRecord from '../pages/HealthRecord/HealthRecord';
 import Community from '../pages/Community/Community';
+import Rice from '../pages/Input/FoodInput/FoodPage/Rice';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -90,6 +91,7 @@ function App() {
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
           <Route path="/sportsinput" element={<SportsInput />} />
           <Route path="/strength" element={<Strength />} />
+          <Route path="/Rice" element={<Rice/>} />
           <Route path="/Side" element={<Side />} />
           <Route path="/Soup" element={<Soup />} />
           {/* 맞춤케어 */}

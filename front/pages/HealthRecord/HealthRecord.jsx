@@ -227,13 +227,15 @@ export default function HealthRecord() {
                 </S.Info>
 
                 <S.InfoFood>
-                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
-                    <S.InfoFoodImage src="../../assets/images/foodgroup.png" />
-                    <S.InfoFoodName>
+                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>                    
                         {recentFoods.map((food) => (
-                            <div key={food.food_name}>{`${food.food_name} ${food.count}인분`}</div>
+                            <div>
+                            {/* <S.InfoFoodImage src={food.food_img} /> */}
+                            <S.InfoFoodName>
+                            <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
+                            </S.InfoFoodName>
+                            </div>
                         ))}
-                    </S.InfoFoodName>
                 </S.InfoFood>
 
 

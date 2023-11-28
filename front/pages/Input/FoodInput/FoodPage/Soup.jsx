@@ -1,91 +1,183 @@
-import React, { useState } from 'react';
-import Title from '../../../../Components/Title';
-import Nav from '../../../../Components/Nav';
+import React, { useEffect, useState } from "react";
+import Title from "../../../../Components/Title";
+import Nav from "../../../../Components/Nav";
 import * as S from "../style";
 import { useNavigate } from "react-router-dom";
+// import {Swiper, SwiperSlide} from "swiper/react";
+// import "swiper/swiper.min.css";
+// import "swiper/components/navigation/navigation.min.css";
+// import SwiperCore, {Navigation} from "swiper";
 
-export default function Soup() {
-    const navigate = useNavigate();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const openModal = () => {
-        setIsModalOpen(true);
-      };
-    
-      const closeModal = () => {
-        setIsModalOpen(false);
-      };
+export default function Rice() {
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem("accessToken");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  const [userInput, setUserInput] = useState("");
+  const [foods, setFoods] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [foodCounts, setFoodCounts] = useState({});
+  
+  const searched = foods.filter((food) => food.foodName.includes(userInput));
+
+  const getValue = (e) => {
+    setUserInput(e.target.value);
+  };
+  useEffect(() => {
+    const fetchFoods = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
+          },
+        }); 
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        const data = await response.json();
+        setFoods(data);
+      } catch (error) {
+        console.error('Error fetching foods:', error);
+      }
+    };
+  
+    fetchFoods();
+  }, []);
+
+  const toggleSelection = (food) => {
+    const isSelected = selectedItems.some((item) => item.id === food.id);
+
+    if (isSelected) {
+      // 이미 선택된 경우, 선택된 항목에서 제거
+      setSelectedItems((prevItems) =>
+        prevItems.filter((item) => item.id !== food.id)
+      );
+    } else {
+      // 선택되지 않은 경우, 선택된 항목에 추가
+      setSelectedItems((prevItems) => [...prevItems, food]);
+      if (!foodCounts[food.id]) {
+        setFoodCounts((prevCounts) => ({
+          ...prevCounts,
+          [food.id]: 1,
+        }));}
+    }
+  };
+
+  const handleSelectionComplete = async () => {
+    try {
+      const mealList = Object.keys(foodCounts).map((foodId) => ({
+        food_id: parseInt(foodId, 10),
+        count: foodCounts[foodId],
+      }));
+
+      const response = await fetch('http://127.0.0.1:8000/main/meal', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          meal_list: mealList, // 수정된 부분
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('식사 선택 성공:', data);
+
+      // 선택이 성공적으로 제출된 후 선택된 항목 상태를 재설정하는 것이 선택 사항입니다.
+      setSelectedItems([]);
+
+      // openModal 함수를 여기에서 호출하지 않음
+    } catch (error) {
+      console.error('식사 선택 제출 오류:', error);
+    }
+
+    // 선택이 성공적으로 제출된 후에 openModal 함수 호출
+    openModal();
+  };
 
 
-    return (
-        <>
-            <S.Container>
-                <Title />
-                <S.Info>
-                    <S.Backward src="../../../assets/images/backward.png" onClick={() => navigate(`/inputinfo_cate`)} />
-                    <S.InputTitle>국류</S.InputTitle>
-                </S.Info>
-                <S.SearchContainer>
-                        <S.SearchInput type="text" placeholder="검색" />
-                        <S.SearchImage/>
-                </S.SearchContainer>
-                <S.UserBox>
-                    <S.Box2>
-                        된장찌개
-                        <S.FoodIcon src="../../../assets/images/side1.png" />
-                        <S.Select>
-                            <option>0.5인분</option>
-                            <option>0.75인분</option>
-                            <option>1인분</option>
-                        </S.Select>
-                    </S.Box2>
+  const handleSelectChange = (e, foodId) => {
+    const selectedCount = parseInt(e.target.value, 10);
+    // 선택된 숟가락의 값을 해당 음식 항목의 count로 설정
+    setFoodCounts((prevCounts) => ({
+      ...prevCounts,
+      [foodId]: selectedCount,
+    }));
+  };
+  
 
-                    <S.Box2>김치찌개
-                    <S.FoodIcon src="../../../assets/images/side2.png" />
-                        <S.Select>
-                            <option>0.5인분</option>
-                            <option>0.75인분</option>
-                            <option>1인분</option>
-                        </S.Select>
-                    </S.Box2>
-                </S.UserBox>
-                <S.UserBox>
-                    <S.Box2>콩나물국
-                    <S.FoodIcon src="../../../assets/images/side3.png" />
-                        <S.Select>
-                            <option>0.5인분</option>
-                            <option>0.75인분</option>
-                            <option>1인분</option>
-                        </S.Select>
-                    </S.Box2>
-
-                    <S.Box2>미역국
-                    <S.FoodIcon src="../../../assets/images/side4.png" />
-                        <S.Select>
-                            <option>0.5인분</option>
-                            <option>0.75인분</option>
-                            <option>1인분</option>
-                        </S.Select>
-                    </S.Box2>
-                </S.UserBox>
-                <S.UserBox>
-                    <S.NextButton>다음 음식</S.NextButton>
-                    <div>
-                    <S.ChoiceButton onClick={openModal} >선택 완료</S.ChoiceButton>
-                    {isModalOpen && (
-                        <S.Modal>
-                          <S.ModalContent>
-                            {/* {isModalOpen && (
+  return (
+    <>
+      <S.Container>
+        <Title />
+        <S.Info>
+          <S.Backward
+            src="../../../assets/images/backward.png"
+            onClick={() => navigate(`/inputinfo_cate`)}
+          />
+          <S.InputTitle>반찬류</S.InputTitle>
+        </S.Info>
+          <S.SearchContainer>
+          <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
+          <S.SearchImage />
+        </S.SearchContainer>
+        <S.UserBox>
+          {searched.length ? (
+            searched.map((food) => (
+              <S.Box2
+                key={food.id}
+                style={selectedItems.some((item) => item.id === food.id) ? S.selectedStyle : {}}
+                onClick={() => toggleSelection(food)}
+              >
+                {food.foodName}
+                <S.FoodIcon src={food.foodImgUrl} />
+                <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
+                  <option value={1}>1숟가락</option>
+                  <option value={2}>2숟가락</option>
+                  <option value={3}>3숟가락</option>
+                </S.CustomSelect>
+              </S.Box2>
+            ))
+          ) : (
+            <div style={{ color: "black", padding: "100px" }}>
+              검색된 음식이 없습니다!
+            </div>
+          )}
+        </S.UserBox>
+        <S.UserBox>
+          <S.NextButton>다음 음식</S.NextButton>
+          <div>
+            <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
+            {isModalOpen && (
+              <S.Modal>
+                <S.ModalContent>
+{/* {isModalOpen && (
                               <S.ModalImage src="../../../assets/images/choicedone.png" alt="선택 완료" />
                             )} */}
-                            <p>선택이 완료되었습니다!</p>
-                            <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>확인</S.ModalButton>
-                          </S.ModalContent>
-                        </S.Modal>
-                    )}
-                    </div>
-                </S.UserBox>
-                <Nav />
-            </S.Container>
-        </>
-    );
+                  <p>선택이 완료되었습니다!</p>
+                  <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>
+                    확인
+                  </S.ModalButton>
+                </S.ModalContent>
+              </S.Modal>
+            )}
+          </div>
+        </S.UserBox>
+        <Nav />
+      </S.Container>
+    </>
+  );
 }
