@@ -5,6 +5,11 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 
 const Table = ({ data }) => {
+    // Render nothing if data is empty
+    if (!data || data.length === 0) {
+        return null;
+    }
+
     return (
         <table>
             <thead>
@@ -28,6 +33,11 @@ const Table = ({ data }) => {
 };
 
 const BloodPressureTable = ({ data }) => {
+    // Render nothing if data is empty
+    if (!data || data.length === 0) {
+        return null;
+    }
+
     return (
         <table>
             <thead>
@@ -53,6 +63,36 @@ const BloodPressureTable = ({ data }) => {
         </table>
     );
 };
+
+
+const ExerciseTable = ({ exerciseData }) => {
+    console.log('Exercise Data:', exerciseData);
+
+    // 운동 데이터가 비어있는 경우 표를 렌더링하지 않음
+    if (!exerciseData || (Object.keys(exerciseData).length === 0 && exerciseData.constructor === Object)) {
+        return null;
+    }
+
+    return (
+        <table>
+            <thead>
+                <tr style={{ width: '250px' }}>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>날짜</th>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '125px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>칼로리</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(exerciseData.calorie_by_date).map(([date, calorie], index) => (
+                    <tr key={index}>
+                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{date}</td>
+                        <td style={{ fontWeight: 'Light', width: '125px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{calorie}</td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+};
+
 
 
 export default function HealthRecord() {
@@ -132,7 +172,10 @@ export default function HealthRecord() {
     }, [accessToken]);
 
 
+
+
     return (
+
         <>
             <S.Container>
                 <Title />
@@ -153,7 +196,7 @@ export default function HealthRecord() {
 
                 <S.Info>
                     <S.InfoTitle>운동 기록</S.InfoTitle>
-                    {/* <ExerciseTable exerciseData={exerciseData} /> */}
+                    <ExerciseTable exerciseData={exerciseData} />
                 </S.Info>
 
                 <S.InfoFood>
