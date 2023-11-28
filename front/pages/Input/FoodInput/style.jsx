@@ -197,6 +197,20 @@ export const Select = styled.select`
   margin: 5px;
   cursor: pointer;
 `;
+export const CustomSelect = ({ onChange }) => {
+  // 숟가락 선택 옵션 배열
+  const spoonOptions = [1, 2, 3];
+
+  return (
+    <Select onChange={onChange}>
+      {spoonOptions.map((spoonCount) => (
+        <option key={spoonCount} value={spoonCount}>
+          {spoonCount}숟가락
+        </option>
+      ))}
+    </Select>
+  );
+};
 
 export const ModalButton = styled.button`
   background: #48268f;
@@ -232,3 +246,15 @@ export const ModalImage = styled.img`
   width: 100px; /* 이미지의 너비와 높이를 조절해주세요 */
   height: 100px;
 `;
+
+export const selectedStyle = {
+  backgroundColor: 'lightblue',
+  border: '2px solid blue',
+  color: 'white',
+};
+
+export const setFoodCounts = (prevCounts, foodId, selectedCount) => ({
+  ...prevCounts,
+  [foodId]: selectedCount,
+});
+
