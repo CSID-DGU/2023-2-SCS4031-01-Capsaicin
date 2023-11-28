@@ -19,7 +19,7 @@ export default function Nav() {
                     <S.NavCare src="../../assets/images/navCare.png" />
                     <S.NavText>맞춤케어</S.NavText>
                 </S.NavButton>
-                <S.NavButton>
+                <S.NavButton onClick={() => navigate(`/Community`)}>
                     <S.NavCommunity src="../../assets/images/navCommunity.png" />
                     <S.NavText>커뮤니티</S.NavText>
                 </S.NavButton>
