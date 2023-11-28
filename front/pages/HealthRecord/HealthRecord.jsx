@@ -4,9 +4,40 @@ import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { ResponsiveLine } from '@nivo/line';
+import { useEffect, useState } from 'react';
+
 
 export default function HealthRecord() {
     const navigate = useNavigate();
+    const [recentFoods, setRecentFoods] = useState([]);
+    const accessToken = localStorage.getItem("accessToken");
+    
+    useEffect(() => {
+        const fetchRecentFoods = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/main/meal', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setRecentFoods(data);
+            } catch (error) {
+                console.error('최근 음식을 가져오는 중 오류 발생:', error);
+            }
+        };
+
+        fetchRecentFoods();
+    }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
+
+    
+
 
 
     const MyResponsiveLine = ({ data }) => (
@@ -374,7 +405,11 @@ export default function HealthRecord() {
                 <S.InfoFood>
                     <S.InfoFoodTitle>김건강님의 최근 먹은 음식</S.InfoFoodTitle>
                     <S.InfoFoodImage src="../../assets/images/foodgroup.png" />
-                    <S.InfoFoodName>밥 1인분, 국 1인분, 고등어구이 1마리</S.InfoFoodName>
+                    <S.InfoFoodName>
+                    {recentFoods.map((food) => (
+                            <div key={food.food_name}>{`${food.food_name} ${food.count}인분`}</div>
+                        ))}
+                    </S.InfoFoodName>
                 </S.InfoFood>
 
 
