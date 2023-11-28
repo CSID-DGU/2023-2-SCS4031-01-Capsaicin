@@ -28,9 +28,64 @@ const Table = ({ data }) => {
     );
 };
 
+const BloodPressureTable = ({ data }) => {
+    return (
+        <table>
+            <thead>
+                <tr style={{ width: '300px' }}>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '100px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>측정일자</th>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '80px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>측정시간</th>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '70px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>수축혈압</th>
+                    <th style={{ backgroundColor: '#d1d1d1', fontWeight: 'bold', width: '70px', height: '25px', fontSize: '16px', paddingTop: '10px', border: '0.5px solid black' }}>이완혈압</th>
+                    {/* 추가적인 열들 */}
+                </tr>
+            </thead>
+            <tbody>
+                {data.map((row, index) => (
+                    <tr key={index}>
+                        <td style={{ fontWeight: 'Light', width: '100px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{row.measurement_date}</td>
+                        <td style={{ fontWeight: 'Light', width: '80px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{row.measurement_time.slice(0, -3)}</td>
+                        <td style={{ fontWeight: 'Light', width: '70px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{row.systolic}</td>
+                        <td style={{ fontWeight: 'Light', width: '70px', height: '25px', paddingTop: '10px', border: '0.5px solid black' }}>{row.diastolic}</td>
+                        {/* 추가적인 셀들 */}
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+};
+
+
 export default function HealthRecord() {
     const [weights, setWeights] = useState([]);
     const accessToken = localStorage.getItem("accessToken");
+    const [bloodPressure, setBloodPressure] = useState([]);
+
+    useEffect(() => {
+        const fetchBloodPressure = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:8000/main/bloodpressure', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch blood pressure data');
+                }
+
+                const data = await response.json();
+                setBloodPressure(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchBloodPressure();
+    }, [accessToken]);
+
 
     useEffect(() => {
         // API 호출하여 데이터 가져오는 부분
@@ -101,6 +156,7 @@ export default function HealthRecord() {
 
                 <S.Info>
                     <S.InfoTitle>김건강님의 최근 혈압</S.InfoTitle>
+                    <BloodPressureTable data={bloodPressure} />
                     {/* <S.InfoImage src="../../assets/images/graph.png" /> */}
                     {/* <MyResponsiveLine data={data} /> */}
                 </S.Info>
