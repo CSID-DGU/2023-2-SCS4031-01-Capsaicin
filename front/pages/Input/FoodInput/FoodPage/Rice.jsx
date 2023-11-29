@@ -79,7 +79,7 @@ export default function Rice() {
     const mealList = Object.keys(foodCounts).map((foodId) => ({
       food_id: parseInt(foodId, 10),
       count: foodCounts[foodId],
-      unit:"숟가락"
+      unit:"인분"
     }));
     setMeal(mealList)
 
