@@ -16,5 +16,5 @@ urlpatterns = [
     path('meal', MealAV.as_view(), name='meal'),
     path('center', CenterAV.as_view(), name='center'),
     path('exercise', ExerciseAV.as_view(), name='exercise'),
-    # path('recommend',MealRecommendationView.as_view(), name='recommend'),
+    path('recommend',MealRecommendationView.as_view(), name='recommend'),
 ]
