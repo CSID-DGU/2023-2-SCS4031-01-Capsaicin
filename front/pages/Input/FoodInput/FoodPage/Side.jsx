@@ -174,9 +174,9 @@ export default function Side() {
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
                 <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
-                  <option value={1}>1인분</option>
-                  <option value={2}>2인분</option>
-                  <option value={3}>3인분</option>
+                  <option value={1}>1숟가락</option>
+                  <option value={2}>2숟가락</option>
+                  <option value={3}>3숟가락</option>
                 </S.CustomSelect>
               </S.Box2>
             ))

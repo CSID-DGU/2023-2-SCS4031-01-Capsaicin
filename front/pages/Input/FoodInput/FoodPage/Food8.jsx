@@ -158,7 +158,7 @@ export default function Food8() {
             src="../../../assets/images/backward.png"
             onClick={() => navigate(`/inputinfo_cate`)}
           />
-          <S.InputTitle>과일/야채류</S.InputTitle>
+          <S.InputTitle>과일/채소류</S.InputTitle>
         </S.Info>
           <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />

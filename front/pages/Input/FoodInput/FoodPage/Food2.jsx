@@ -96,7 +96,7 @@ export default function Food2() {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
         count: foodCounts[foodId],
-        unit: "숟가락",
+        unit: "인분",
       }));
 
       for (const mealItem of meal) {
@@ -173,11 +173,11 @@ export default function Food2() {
               >
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
-                <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
+                <S.CustomSelect_Rice onChange={(e) => handleSelectChange(e, food.id)}>
                   <option value={1}>1인분</option>
                   <option value={2}>2인분</option>
                   <option value={3}>3인분</option>
-                </S.CustomSelect>
+                </S.CustomSelect_Rice>
               </S.Box2>
             ))
           ) : (

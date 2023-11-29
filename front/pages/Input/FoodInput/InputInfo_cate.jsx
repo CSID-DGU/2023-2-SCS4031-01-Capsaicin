@@ -22,7 +22,7 @@ export default function InputInfo() {
                     </S.Box>
 
                     <S.Box onClick={() => navigate(`/food2`)}>면류
-                    <S.FoodIcon src="../../../assets/images/soup.png" />
+                    <S.FoodIcon src="../../../assets/images/noodle.png" />
                     </S.Box>
                 </S.UserBox>
                 <S.UserBox>
@@ -44,11 +44,11 @@ export default function InputInfo() {
                     </S.Box>
                 </S.UserBox>
                 <S.UserBox>
-                    <S.Box onClick={() => navigate(`/food7`)}>떡
-                    <S.FoodIcon src="../../../assets/images/milk.png" />
+                    <S.Box onClick={() => navigate(`/food7`)}>디저트/떡류
+                    <S.FoodIcon src="../../../assets/images/food7.png" />
                     </S.Box>
 
-                    <S.Box onClick={() => navigate(`/food8`)}>과일/야채류
+                    <S.Box onClick={() => navigate(`/food8`)}>과일/채소류
                     <S.FoodIcon src="../../../assets/images/fruit.png" />
                     </S.Box>
                 </S.UserBox>
