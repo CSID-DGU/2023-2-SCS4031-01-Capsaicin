@@ -10,7 +10,7 @@ import { MealListState } from "../../../../store/mealList_store";
 // import "swiper/components/navigation/navigation.min.css";
 // import SwiperCore, {Navigation} from "swiper";
 
-export default function Side() {
+export default function Food5() {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -36,7 +36,7 @@ export default function Side() {
     console.log(meal)
     const fetchFoods = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/food/4', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch('http://127.0.0.1:8000/main/food/5', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
@@ -158,7 +158,7 @@ export default function Side() {
             src="../../../assets/images/backward.png"
             onClick={() => navigate(`/inputinfo_cate`)}
           />
-          <S.InputTitle>반찬류</S.InputTitle>
+          <S.InputTitle>생선류</S.InputTitle>
         </S.Info>
           <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
