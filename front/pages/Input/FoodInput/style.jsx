@@ -243,6 +243,21 @@ export const CustomSelect_Rice = ({ onChange }) => {
   );
 };
 
+export const CustomSelect_3 = ({ onChange }) => {
+  // 숟가락 선택 옵션 배열
+  const spoonOptions = [1, 2, 3];
+
+  return (
+    <Select onChange={onChange}>
+      {spoonOptions.map((spoonCount) => (
+        <option key={spoonCount} value={spoonCount}>
+          {spoonCount}개
+        </option>
+      ))}
+    </Select>
+  );
+};
+
 export const ModalButton = styled.button`
   background: #48268f;
   color: white;
