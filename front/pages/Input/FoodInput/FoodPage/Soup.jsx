@@ -3,12 +3,14 @@ import Title from "../../../../Components/Title";
 import Nav from "../../../../Components/Nav";
 import * as S from "../style";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { MealListState } from "../../../../store/mealList_store";
 // import {Swiper, SwiperSlide} from "swiper/react";
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
 // import SwiperCore, {Navigation} from "swiper";
 
-export default function Rice() {
+export default function Soup() {
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -23,6 +25,7 @@ export default function Rice() {
   const [foods, setFoods] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [foodCounts, setFoodCounts] = useState({});
+  const [meal, setMeal] = useRecoilState(MealListState);
   
   const searched = foods.filter((food) => food.foodName.includes(userInput));
 
@@ -30,9 +33,10 @@ export default function Rice() {
     setUserInput(e.target.value);
   };
   useEffect(() => {
+    console.log(meal)
     const fetchFoods = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch('http://127.0.0.1:8000/main/food/3', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
@@ -54,7 +58,6 @@ export default function Rice() {
 
   const toggleSelection = (food) => {
     const isSelected = selectedItems.some((item) => item.id === food.id);
-
     if (isSelected) {
       // 이미 선택된 경우, 선택된 항목에서 제거
       setSelectedItems((prevItems) =>
@@ -71,11 +74,38 @@ export default function Rice() {
     }
   };
 
+  const handleNextFood = () => {
+    // 선택된 음식들을 meallist에 추가
+    const mealList = Object.keys(foodCounts).map((foodId) => ({
+      food_id: parseInt(foodId, 10),
+      count: foodCounts[foodId],
+      unit:"숟가락"
+    }));
+    setMeal(mealList)
+
+  
+    // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
+    // 예를 들어, 전역 상태나 다른 상태 관리 라이브러리를 사용하여 mealList를 저장할 수 있습니다.
+  
+    // 다음 페이지로 이동
+    navigate(`/inputinfo_cate`);
+  };
+
   const handleSelectionComplete = async () => {
     try {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
         count: foodCounts[foodId],
+        unit: "숟가락",
+      }));
+
+      for (const mealItem of meal) {
+        mealList.push(mealItem);
+      }
+
+
+      console.log('전송 데이터:', JSON.stringify({
+        meal_list: mealList,
       }));
 
       const response = await fetch('http://127.0.0.1:8000/main/meal', {
@@ -128,11 +158,10 @@ export default function Rice() {
             src="../../../assets/images/backward.png"
             onClick={() => navigate(`/inputinfo_cate`)}
           />
-          <S.InputTitle>반찬류</S.InputTitle>
+          <S.InputTitle>국류</S.InputTitle>
         </S.Info>
           <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
-          <S.SearchImage />
         </S.SearchContainer>
         <S.UserBox>
           {searched.length ? (
@@ -145,9 +174,9 @@ export default function Rice() {
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
                 <S.CustomSelect onChange={(e) => handleSelectChange(e, food.id)}>
-                  <option value={1}>1숟가락</option>
-                  <option value={2}>2숟가락</option>
-                  <option value={3}>3숟가락</option>
+                  <option value={1}>1인분</option>
+                  <option value={2}>2인분</option>
+                  <option value={3}>3인분</option>
                 </S.CustomSelect>
               </S.Box2>
             ))
@@ -157,16 +186,15 @@ export default function Rice() {
             </div>
           )}
         </S.UserBox>
-        <S.UserBox>
-          <S.NextButton>다음 음식</S.NextButton>
+        <S.ButtonContainer>
+          <S.NextButton onClick={handleNextFood} >다음 음식</S.NextButton>
+          
           <div>
             <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
+            
             {isModalOpen && (
               <S.Modal>
                 <S.ModalContent>
-{/* {isModalOpen && (
-                              <S.ModalImage src="../../../assets/images/choicedone.png" alt="선택 완료" />
-                            )} */}
                   <p>선택이 완료되었습니다!</p>
                   <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>
                     확인
@@ -175,7 +203,7 @@ export default function Rice() {
               </S.Modal>
             )}
           </div>
-        </S.UserBox>
+        </S.ButtonContainer>
         <Nav />
       </S.Container>
     </>

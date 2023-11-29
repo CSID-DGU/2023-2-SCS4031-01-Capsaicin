@@ -22,6 +22,11 @@ import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
 import HealthRecord from '../pages/HealthRecord/HealthRecord';
 import Community from '../pages/Community/Community';
 import Rice from '../pages/Input/FoodInput/FoodPage/Rice';
+import Food2 from '../pages/Input/FoodInput/FoodPage/Food2';
+import Food5 from '../pages/Input/FoodInput/FoodPage/Food5';
+import Food6 from '../pages/Input/FoodInput/FoodPage/Food6';
+import Food7 from '../pages/Input/FoodInput/FoodPage/Food7';
+import Food8 from '../pages/Input/FoodInput/FoodPage/Food8';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -94,6 +99,11 @@ function App() {
           <Route path="/Rice" element={<Rice/>} />
           <Route path="/Side" element={<Side />} />
           <Route path="/Soup" element={<Soup />} />
+          <Route path="/Food2" element={<Food2 />} />
+          <Route path="/Food5" element={<Food5 />} />
+          <Route path="/Food6" element={<Food6 />} />
+          <Route path="/Food7" element={<Food7 />} />
+          <Route path="/Food8" element={<Food8 />} />
           {/* 맞춤케어 */}
           <Route path="/CustomizedCare" element={<CustomizedCare />} />
           {/* 건강기록 */}
