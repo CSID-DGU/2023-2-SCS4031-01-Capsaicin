@@ -158,7 +158,7 @@ export default function Food7() {
             src="../../../assets/images/backward.png"
             onClick={() => navigate(`/inputinfo_cate`)}
           />
-          <S.InputTitle>떡</S.InputTitle>
+          <S.InputTitle>디저트/떡류</S.InputTitle>
         </S.Info>
           <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
