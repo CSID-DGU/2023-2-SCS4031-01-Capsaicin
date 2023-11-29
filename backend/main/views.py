@@ -261,21 +261,21 @@ class MealRecommendationView(APIView):
         #     menu_name = menu_name_list
         # else:
         #     data = {'error': serializer.errors}
-        menu_name = [item['food_name'] for item in data_to_serialize]
-
+        menu = [item['food_name'] for item in data_to_serialize]
+        menu_name = menu[0]
   
         try:
             # 추천 로직 호출
             recommended = recommend_menu(menu_name, top=10)
             
-            # 나트륨을 기준으로 정렬
-            sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
+            # # 나트륨을 기준으로 정렬
+            # sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
 
-            # JSON 응답 생성
-            result = {
-                'recommended_menu': sorted_recommended.to_dict(orient='records')
-            }
+            # # JSON 응답 생성
+            # result = {
+            #     'recommended_menu': sorted_recommended.to_dict(orient='records')
+            # }
 
-            return JsonResponse(result)
+            return JsonResponse(recommended.to_dict(orient='records'), safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
