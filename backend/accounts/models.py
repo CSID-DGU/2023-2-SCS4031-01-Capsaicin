@@ -12,7 +12,7 @@ class CustomUserManager(BaseUserManager):
     for authentication instead of usernames.
     """        
     def create_user(self, phone_number, fullname, password, birth, gender, userType, 
-                    systolic, height, weight, center, user_id, **extra_fields):
+                    systolic, height, weight, center, **extra_fields):
         """
         Create and save a User with the given email and password.
         """
@@ -69,7 +69,7 @@ class User(AbstractUser):
     
     systolic = models.IntegerField()
     center = models.ForeignKey("main.Center", on_delete=models.SET_NULL, related_name="center", null=True, blank=True)
-    user_id = models.IntegerField()
+    user_id = models.IntegerField(null=True, blank=True)
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['password']
