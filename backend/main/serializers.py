@@ -93,7 +93,7 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseCategory
-        fields = ["name", "imgUrl", "calorie", "time"]
+        fields = ["name", "imgUrl", "calorie"]
 
 class UserExerciseSerializer(serializers.ModelSerializer):
     class Meta:

@@ -60,7 +60,7 @@ class ExerciseCategory(models.Model):
     name = models.CharField(max_length=20)
     imgUrl = models.CharField(max_length=200)
     calorie = models.FloatField()
-    time = models.IntegerField()
+    # time = models.IntegerField()
 
     def __str__(self):
         return self.name
