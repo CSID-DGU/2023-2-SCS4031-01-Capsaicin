@@ -12,6 +12,8 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
         model = BloodPressure
         fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
 
+
+
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight
@@ -135,3 +137,17 @@ class MealRecommendSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealAmount
         fields = ["food_name"]
+
+class BloodPressureRankSerializer(serializers.ModelSerializer):
+    user = UserSerializer(source='user.blood_pressures', read_only=True)
+    
+    class Meta:
+        model = BloodPressure
+        fields = ["user","systolic", "measurement_date"]
+
+class ExerciseRankSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(source='userexercise.user.fullname', read_only=True)
+
+    class Meta:
+        model = UserExercise
+        fields = ['user']

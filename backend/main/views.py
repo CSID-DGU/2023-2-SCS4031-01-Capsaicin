@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from collections import defaultdict
+from django.db.models import Count, Sum
+from django.utils import timezone
 
 from .recommend import recommend_menu
 from django.http import JsonResponse
@@ -279,3 +281,67 @@ class MealRecommendationView(APIView):
             return JsonResponse(recommended.to_dict(orient='records'), safe=False)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
+        
+class TopUsersAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+
+        # 현재 월을 가져옴
+        current_month = timezone.now().month
+
+        # 혈압 랭킹 조회
+        blood_pressure_ranking = (
+            User.objects
+            .filter(bloodpressure__measurement_date__month=current_month)
+            .annotate(num_measurements=Count('bloodpressure'))
+            .order_by('-num_measurements')[:3]
+        )
+
+        serialized_blood_top_users = [
+                {'username': user.fullname, 'num_measurements': user.num_measurements}
+                for user in blood_pressure_ranking
+            ]
+        blood_top_users = [
+                {'username': user.fullname}
+                for user in blood_pressure_ranking
+            ]
+        print(serialized_blood_top_users)
+        
+
+        # 운동 랭킹 조회
+        # start_date = timezone.datetime(timezone.now().year, current_month, 1)
+        # end_date = start_date.replace(month=current_month + 1) if current_month < 12 else start_date.replace(year=start_date.year + 1, month=1)
+
+        # exercise_ranking = (
+        #     UserExercise.objects
+        #     .filter(user=find_user, date__range=[start_date, end_date])
+        #     .annotate(total_calories=Sum('exerciseamount__exercise__calorie'))
+        #     .order_by('-total_calories')[:3]
+        # )
+
+        # serialized_exercise_top_users = [
+        #     {'username' : user.fullname, 'totla_calories' : user.total_calories}
+        #     for user in exercise_ranking
+        # ]
+
+        # print(serialized_exercise_top_users)
+
+        return Response({'blood_top_users': blood_top_users}, status=status.HTTP_200_OK)
+
+
+        # print('Exercise Ranking:', exercise_ranking)  # 디버깅을 위한 출력
+
+        # 직렬화
+        # exercise_serializer = ExerciseRankSerializer(exercise_ranking, context={'request': request}, many=True).data
+
+        # print('Exercise Serializer Data:', exercise_serializer)  # 디버깅을 위한 출력
+
+        # return Response({'exercise_ranking': exercise_serializer})
+        # 직렬화
+        # blood_pressure_serializer = BloodPressureRankSerializer(blood_pressure_ranking, context={'request': request}, many=True).data
+        # exercise_serializer = ExerciseRankSerializer(exercise_ranking, context={'request': request}, many=True).data
+
+        # return Response({'blood_pressure_ranking': blood_pressure_serializer})
+        # return Response({'exercise_ranking': exercise_serializer})
