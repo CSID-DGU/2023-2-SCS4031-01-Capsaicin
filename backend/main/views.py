@@ -9,10 +9,11 @@ from collections import defaultdict
 from django.db.models import Count, Sum
 from django.utils import timezone
 
-from .recommend import recommend_menu
+from .recommend import run
 from django.http import JsonResponse
 
 from rest_framework import permissions, status
+from datetime import datetime, timedelta
 
 import logging
 logger = logging.getLogger(__name__)
@@ -177,7 +178,8 @@ class MealAV(APIView):
             meal_list_data = serializer.validated_data['meal_list']
             for m in meal_list_data:
                 find_food = Food.objects.get(id=m['food_id'])
-                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'], unit=m['unit'])
+                natrium = m['count'] * find_food.natrium
+                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'], unit=m['unit'], natrium=natrium)
 
             return Response(meal_list_data)  # 혹은 다른 적절한 응답을 반환
         else:
@@ -240,49 +242,88 @@ class MealRecommendationView(APIView):
     def get(self, request):
         find_user = request.user
 
-        last_meal = Meal.objects.filter(user=find_user).last()
-        food_list = MealAmount.objects.filter(meal=last_meal)
-        def meal_amount_to_dict(meal_amount):
-            return {
-                'food_name': meal_amount.food.foodName,
-                # 다른 필요한 필드들도 추가할 수 있음
-            }
+        # 현재 날짜
+        today = datetime.now().date()
 
-        # food_list에 있는 MealAmount 인스턴스들을 딕셔너리로 변환
-        data_to_serialize = [meal_amount_to_dict(meal_amount) for meal_amount in food_list]
+        # 어제 날짜 계산
+        yesterday = today - timedelta(days=1)
 
-        # Serializer에 전달
-        # serializer = MealRecommendSerializer(data=data_to_serialize, many=True, context={'request': request})
+        # 어제 날짜의 식사에 대한 총 나트륨 합 계산
+        total_natrium = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).aggregate(Sum('natrium'))['natrium__sum'] or 0.0
+
+        # return Response({"user": find_user.fullname, "yesterday_total_natrium": total_natrium})
+        top_natrium_foods = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).order_by('-natrium')[:3]
+
+        # 결과 반환
+        response_data = {
+            "user": find_user.fullname,
+            "yesterday_total_natrium": total_natrium,
+            "top_natrium_foods": [
+                {"food": item.food.foodName, "natrium": item.natrium} for item in top_natrium_foods
+            ]
+        }
+        print(response_data)
+        menu_names = {
+            "top_natrium_foods": [item.food.foodName for item in top_natrium_foods]
+        }
+        top_natrium_foods = menu_names.get("top_natrium_foods", [])
+        print(top_natrium_foods)
 
 
-        # # serializer = MealRecommendSerializer(data=list(food_list), many=True, context={'request':request})
-        # if serializer.is_valid():
-        #     # Serializer에서 'food_name'을 추출하여 리스트로 만듦
-        #     print(serializer.data)
-        #     menu_name_list = [item['food_name'] for item in serializer.data]
-        #     # 이제 menu_name_list를 사용하면 됨
-        #     data = serializer.data
-        #     menu_name = menu_name_list
-        # else:
-        #     data = {'error': serializer.errors}
-        menu = [item['food_name'] for item in data_to_serialize]
-        menu_name = menu[0]
+        result = run(total_natrium, top_natrium_foods, "음식분류")
+
+        return Response(result)
+
+        # last_meal = Meal.objects.filter(user=find_user).last()
+        # food_list = MealAmount.objects.filter(meal=last_meal)
+        # def meal_amount_to_dict(meal_amount):
+        #     return {
+        #         'food_name': meal_amount.food.foodName,
+        #         # 다른 필요한 필드들도 추가할 수 있음
+        #     }
+
+        # # food_list에 있는 MealAmount 인스턴스들을 딕셔너리로 변환
+        # data_to_serialize = [meal_amount_to_dict(meal_amount) for meal_amount in food_list]
+
+        # # Serializer에 전달
+        # # serializer = MealRecommendSerializer(data=data_to_serialize, many=True, context={'request': request})
+
+
+        # # # serializer = MealRecommendSerializer(data=list(food_list), many=True, context={'request':request})
+        # # if serializer.is_valid():
+        # #     # Serializer에서 'food_name'을 추출하여 리스트로 만듦
+        # #     print(serializer.data)
+        # #     menu_name_list = [item['food_name'] for item in serializer.data]
+        # #     # 이제 menu_name_list를 사용하면 됨
+        # #     data = serializer.data
+        # #     menu_name = menu_name_list
+        # # else:
+        # #     data = {'error': serializer.errors}
+        # menu = [item['food_name'] for item in data_to_serialize]
+        # menu_name = menu[1]
+        # print(menu_name)
   
-        try:
-            # 추천 로직 호출
-            recommended = recommend_menu(menu_name, top=10)
+        # try:
+        #     # 추천 로직 호출
+        #     recommended = recommend_menu(menu_name, name="음식분류", top=1)
             
-            # # 나트륨을 기준으로 정렬
-            # sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
+        #     # # 나트륨을 기준으로 정렬
+        #     # sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
 
-            # # JSON 응답 생성
-            # result = {
-            #     'recommended_menu': sorted_recommended.to_dict(orient='records')
-            # }
+        #     # # JSON 응답 생성
+        #     # result = {
+        #     #     'recommended_menu': sorted_recommended.to_dict(orient='records')
+        #     # }
 
-            return JsonResponse(recommended.to_dict(orient='records'), safe=False)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+        #     return JsonResponse(recommended.to_dict(orient='records'), safe=False)
+        # except Exception as e:
+        #     return JsonResponse({'error': str(e)}, status=500)
         
 class TopUsersAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -312,6 +353,7 @@ class TopUsersAPIView(APIView):
             ]
         print(serialized_blood_top_users)
 
+        #운동 랭킹 조회
         exercise_ranking_by_center = (
             UserExercise.objects
             .filter(date__month=current_month, user__center=find_user.center)
@@ -333,38 +375,3 @@ class TopUsersAPIView(APIView):
         ]
         
         return Response({'blood_top_users': blood_top_users, 'exercise_top_users' : exercise_top_users}, status=status.HTTP_200_OK)
-        # 운동 랭킹 조회
-        # start_date = timezone.datetime(timezone.now().year, current_month, 1)
-        # end_date = start_date.replace(month=current_month + 1) if current_month < 12 else start_date.replace(year=start_date.year + 1, month=1)
-
-        # exercise_ranking = (
-        #     UserExercise.objects
-        #     .filter(user=find_user, date__range=[start_date, end_date])
-        #     .annotate(total_calories=Sum('exerciseamount__exercise__calorie'))
-        #     .order_by('-total_calories')[:3]
-        # )
-
-        # serialized_exercise_top_users = [
-        #     {'username' : user.fullname, 'totla_calories' : user.total_calories}
-        #     for user in exercise_ranking
-        # ]
-
-        # print(serialized_exercise_top_users)
-
-        
-
-
-        # print('Exercise Ranking:', exercise_ranking)  # 디버깅을 위한 출력
-
-        # 직렬화
-        # exercise_serializer = ExerciseRankSerializer(exercise_ranking, context={'request': request}, many=True).data
-
-        # print('Exercise Serializer Data:', exercise_serializer)  # 디버깅을 위한 출력
-
-        # return Response({'exercise_ranking': exercise_serializer})
-        # 직렬화
-        # blood_pressure_serializer = BloodPressureRankSerializer(blood_pressure_ranking, context={'request': request}, many=True).data
-        # exercise_serializer = ExerciseRankSerializer(exercise_ranking, context={'request': request}, many=True).data
-
-        # return Response({'blood_pressure_ranking': blood_pressure_serializer})
-        # return Response({'exercise_ranking': exercise_serializer})

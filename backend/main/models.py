@@ -55,6 +55,8 @@ class MealAmount(models.Model):
     food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name='mealamount')
     count = models.FloatField()
     unit = models.CharField(max_length=10)
+    natrium = models.FloatField()
+    date = models.DateField(auto_now=True)
 
 class ExerciseCategory(models.Model):
     name = models.CharField(max_length=20)
