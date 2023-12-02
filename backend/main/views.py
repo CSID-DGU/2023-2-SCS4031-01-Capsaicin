@@ -294,6 +294,7 @@ class TopUsersAPIView(APIView):
         # 혈압 랭킹 조회
         blood_pressure_ranking = (
             User.objects
+            .filter(center=find_user.center)
             .filter(bloodpressure__measurement_date__month=current_month)
             .annotate(num_measurements=Count('bloodpressure'))
             .order_by('-num_measurements')[:3]
@@ -309,7 +310,7 @@ class TopUsersAPIView(APIView):
             ]
         print(serialized_blood_top_users)
         
-
+        return Response({'blood_top_users': blood_top_users}, status=status.HTTP_200_OK)
         # 운동 랭킹 조회
         # start_date = timezone.datetime(timezone.now().year, current_month, 1)
         # end_date = start_date.replace(month=current_month + 1) if current_month < 12 else start_date.replace(year=start_date.year + 1, month=1)
@@ -328,7 +329,7 @@ class TopUsersAPIView(APIView):
 
         # print(serialized_exercise_top_users)
 
-        return Response({'blood_top_users': blood_top_users}, status=status.HTTP_200_OK)
+        
 
 
         # print('Exercise Ranking:', exercise_ranking)  # 디버깅을 위한 출력
