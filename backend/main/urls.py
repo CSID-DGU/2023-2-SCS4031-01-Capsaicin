@@ -17,4 +17,5 @@ urlpatterns = [
     path('center', CenterAV.as_view(), name='center'),
     path('exercise', ExerciseAV.as_view(), name='exercise'),
     path('recommend',MealRecommendationView.as_view(), name='recommend'),
+    path('rank', TopUsersAPIView.as_view(), name='bloodpressurerank'),
 ]

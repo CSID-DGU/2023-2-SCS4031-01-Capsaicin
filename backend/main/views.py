@@ -6,11 +6,14 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from django.db import transaction
 from collections import defaultdict
+from django.db.models import Count, Sum
+from django.utils import timezone
 
-from .recommend import recommend_menu
+from .recommend import run
 from django.http import JsonResponse
 
 from rest_framework import permissions, status
+from datetime import datetime, timedelta
 
 import logging
 logger = logging.getLogger(__name__)
@@ -175,7 +178,8 @@ class MealAV(APIView):
             meal_list_data = serializer.validated_data['meal_list']
             for m in meal_list_data:
                 find_food = Food.objects.get(id=m['food_id'])
-                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'], unit=m['unit'])
+                natrium = m['count'] * find_food.natrium
+                MealAmount.objects.create(meal=new_meal, food=find_food, count=m['count'], unit=m['unit'], natrium=natrium)
 
             return Response(meal_list_data)  # 혹은 다른 적절한 응답을 반환
         else:
@@ -197,11 +201,12 @@ class ExerciseAV(APIView):
         for entry in serializer_name:
                 del entry['calorie']
                 del entry['date']
+                del entry['total_calorie']
 
         calorie_by_date = defaultdict(float)
         for entry in serializer_data:
             date = entry['date']
-            calorie_by_date[date] += entry['calorie']
+            calorie_by_date[date] += entry['total_calorie']
 
         return Response({'last_exercise_name': serializer_name, 'calorie_by_date': dict(calorie_by_date)})
 
@@ -222,7 +227,8 @@ class ExerciseAV(APIView):
             
             try:
                 find_exercise = ExerciseCategory.objects.get(id=exercise_id)
-                ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count)
+                total_calories = count / 10 * find_exercise.calorie
+                ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count, total_calorie=total_calories)
             except ExerciseCategory.DoesNotExist:
                 return Response({"detail": f"Exercise with ID {exercise_id} does not exist."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -236,46 +242,97 @@ class MealRecommendationView(APIView):
     def get(self, request):
         find_user = request.user
 
-        last_meal = Meal.objects.filter(user=find_user).last()
-        food_list = MealAmount.objects.filter(meal=last_meal)
-        def meal_amount_to_dict(meal_amount):
-            return {
-                'food_name': meal_amount.food.foodName,
-                # 다른 필요한 필드들도 추가할 수 있음
-            }
+        # 현재 날짜
+        today = datetime.now().date()
 
-        # food_list에 있는 MealAmount 인스턴스들을 딕셔너리로 변환
-        data_to_serialize = [meal_amount_to_dict(meal_amount) for meal_amount in food_list]
+        # 어제 날짜 계산
+        yesterday = today - timedelta(days=1)
 
-        # Serializer에 전달
-        # serializer = MealRecommendSerializer(data=data_to_serialize, many=True, context={'request': request})
+        # 어제 날짜의 식사에 대한 총 나트륨 합 계산
+        total_natrium = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).aggregate(Sum('natrium'))['natrium__sum'] or 0.0
 
+        # return Response({"user": find_user.fullname, "yesterday_total_natrium": total_natrium})
+        top_natrium_foods = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).order_by('-natrium')[:3]
 
-        # # serializer = MealRecommendSerializer(data=list(food_list), many=True, context={'request':request})
-        # if serializer.is_valid():
-        #     # Serializer에서 'food_name'을 추출하여 리스트로 만듦
-        #     print(serializer.data)
-        #     menu_name_list = [item['food_name'] for item in serializer.data]
-        #     # 이제 menu_name_list를 사용하면 됨
-        #     data = serializer.data
-        #     menu_name = menu_name_list
-        # else:
-        #     data = {'error': serializer.errors}
-        menu = [item['food_name'] for item in data_to_serialize]
-        menu_name = menu[0]
-  
-        try:
-            # 추천 로직 호출
-            recommended = recommend_menu(menu_name, top=10)
-            
-            # # 나트륨을 기준으로 정렬
-            # sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
+        # 결과 반환
+        response_data = {
+            "user": find_user.fullname,
+            "yesterday_total_natrium": total_natrium,
+            "top_natrium_foods": [
+                {"food": item.food.foodName, "natrium": item.natrium} for item in top_natrium_foods
+            ]
+        }
+        print(response_data)
+        menu_names = {
+            "top_natrium_foods": [item.food.foodName for item in top_natrium_foods]
+        }
+        top_natrium_foods = menu_names.get("top_natrium_foods", [])
+        print(top_natrium_foods)
 
-            # # JSON 응답 생성
-            # result = {
-            #     'recommended_menu': sorted_recommended.to_dict(orient='records')
-            # }
+        if total_natrium < 600:
+            return Response("저나트륨")
+        elif total_natrium >= 600 and total_natrium <2000:
+            return Response("정상")
+        else: 
+            result = run(total_natrium, top_natrium_foods, "음식분류")
 
-            return JsonResponse(recommended.to_dict(orient='records'), safe=False)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
+            return Response(result)
+            # return Response("고나트륨 {}".format(result))
+
+        
+class TopUsersAPIView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        find_user = request.user
+
+        # 현재 월을 가져옴
+        current_month = timezone.now().month
+
+        # 혈압 랭킹 조회
+        blood_pressure_ranking = (
+            User.objects
+            .filter(center=find_user.center)
+            .filter(bloodpressure__measurement_date__month=current_month)
+            .annotate(num_measurements=Count('bloodpressure'))
+            .order_by('-num_measurements')[:3]
+        )
+
+        serialized_blood_top_users = [
+                {'username': user.fullname, 'num_measurements': user.num_measurements}
+                for user in blood_pressure_ranking
+            ]
+        blood_top_users = [
+                {'username': user.fullname}
+                for user in blood_pressure_ranking
+            ]
+        print(serialized_blood_top_users)
+
+        #운동 랭킹 조회
+        exercise_ranking_by_center = (
+            UserExercise.objects
+            .filter(date__month=current_month, user__center=find_user.center)
+            .values('user__fullname')
+            .annotate(total_calories=Sum('exerciseamount__total_calorie'))
+            .order_by('-total_calories')[:3]
+        )
+
+        serialized_exercise_top_users_by_center = [
+            {'username': user['user__fullname'], 'total_calories': user['total_calories']}
+            for user in exercise_ranking_by_center
+        ]
+
+        print(serialized_exercise_top_users_by_center)
+
+        exercise_top_users = [
+            {'username' : user['user__fullname']}
+            for user in exercise_ranking_by_center
+        ]
+        
+        return Response({'blood_top_users': blood_top_users, 'exercise_top_users' : exercise_top_users}, status=status.HTTP_200_OK)
