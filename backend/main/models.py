@@ -73,3 +73,4 @@ class ExerciseAmount(models.Model):
     userexercise = models.ForeignKey(UserExercise, on_delete=models.CASCADE, related_name='exerciseamount')
     exercise = models.ForeignKey(ExerciseCategory, on_delete=models.CASCADE, related_name='exerciseamount')
     count = models.IntegerField()
+    total_calorie = models.FloatField()

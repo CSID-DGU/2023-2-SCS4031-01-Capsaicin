@@ -106,10 +106,11 @@ class ExerciseAmountSerializer(serializers.ModelSerializer):
     exercise_name = serializers.SerializerMethodField()
     calorie = serializers.FloatField(source='exercise.calorie', read_only=True)
     date = serializers.DateField(source='userexercise.date', read_only=True)
+    total_calorie = serializers.FloatField()
 
     class Meta:
         model = ExerciseAmount
-        fields = ["exercise_name", "calorie", "date"]
+        fields = ["exercise_name", "calorie", "date", "total_calorie"]
     
     def get_exercise_name(self, obj):
         return obj.exercise.name

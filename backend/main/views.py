@@ -199,11 +199,12 @@ class ExerciseAV(APIView):
         for entry in serializer_name:
                 del entry['calorie']
                 del entry['date']
+                del entry['total_calorie']
 
         calorie_by_date = defaultdict(float)
         for entry in serializer_data:
             date = entry['date']
-            calorie_by_date[date] += entry['calorie']
+            calorie_by_date[date] += entry['total_calorie']
 
         return Response({'last_exercise_name': serializer_name, 'calorie_by_date': dict(calorie_by_date)})
 
@@ -224,7 +225,8 @@ class ExerciseAV(APIView):
             
             try:
                 find_exercise = ExerciseCategory.objects.get(id=exercise_id)
-                ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count)
+                total_calories = count / 10 * find_exercise.calorie
+                ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count, total_calorie=total_calories)
             except ExerciseCategory.DoesNotExist:
                 return Response({"detail": f"Exercise with ID {exercise_id} does not exist."}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -309,8 +311,22 @@ class TopUsersAPIView(APIView):
                 for user in blood_pressure_ranking
             ]
         print(serialized_blood_top_users)
+
+        exercise_ranking_by_center = (
+            UserExercise.objects
+            .filter(user=find_user, date__month=11)
+            .annotate(total_calories=Sum('exerciseamount__exercise__calorie'))
+            .order_by('-total_calories')[:3]
+        )
+
+        serialized_exercise_top_users_by_center = [
+            {'username': user.user.fullname, 'total_calories': user.total_calories}
+            for user in exercise_ranking_by_center
+        ]
+
+        print(serialized_exercise_top_users_by_center)
         
-        return Response({'blood_top_users': blood_top_users}, status=status.HTTP_200_OK)
+        return Response({'blood_top_users': blood_top_users, 'exercise_top_users' : serialized_exercise_top_users_by_center}, status=status.HTTP_200_OK)
         # 운동 랭킹 조회
         # start_date = timezone.datetime(timezone.now().year, current_month, 1)
         # end_date = start_date.replace(month=current_month + 1) if current_month < 12 else start_date.replace(year=start_date.year + 1, month=1)
