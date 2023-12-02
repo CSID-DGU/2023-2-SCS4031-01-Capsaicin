@@ -275,55 +275,16 @@ class MealRecommendationView(APIView):
         top_natrium_foods = menu_names.get("top_natrium_foods", [])
         print(top_natrium_foods)
 
+        if total_natrium < 600:
+            return Response("저나트륨")
+        elif total_natrium >= 600 and total_natrium <2000:
+            return Response("정상")
+        else: 
+            result = run(total_natrium, top_natrium_foods, "음식분류")
 
-        result = run(total_natrium, top_natrium_foods, "음식분류")
+            return Response(result)
+            # return Response("고나트륨 {}".format(result))
 
-        return Response(result)
-
-        # last_meal = Meal.objects.filter(user=find_user).last()
-        # food_list = MealAmount.objects.filter(meal=last_meal)
-        # def meal_amount_to_dict(meal_amount):
-        #     return {
-        #         'food_name': meal_amount.food.foodName,
-        #         # 다른 필요한 필드들도 추가할 수 있음
-        #     }
-
-        # # food_list에 있는 MealAmount 인스턴스들을 딕셔너리로 변환
-        # data_to_serialize = [meal_amount_to_dict(meal_amount) for meal_amount in food_list]
-
-        # # Serializer에 전달
-        # # serializer = MealRecommendSerializer(data=data_to_serialize, many=True, context={'request': request})
-
-
-        # # # serializer = MealRecommendSerializer(data=list(food_list), many=True, context={'request':request})
-        # # if serializer.is_valid():
-        # #     # Serializer에서 'food_name'을 추출하여 리스트로 만듦
-        # #     print(serializer.data)
-        # #     menu_name_list = [item['food_name'] for item in serializer.data]
-        # #     # 이제 menu_name_list를 사용하면 됨
-        # #     data = serializer.data
-        # #     menu_name = menu_name_list
-        # # else:
-        # #     data = {'error': serializer.errors}
-        # menu = [item['food_name'] for item in data_to_serialize]
-        # menu_name = menu[1]
-        # print(menu_name)
-  
-        # try:
-        #     # 추천 로직 호출
-        #     recommended = recommend_menu(menu_name, name="음식분류", top=1)
-            
-        #     # # 나트륨을 기준으로 정렬
-        #     # sorted_recommended = recommended[['음 식 명', '나트륨(mg)']].sort_values(by='나트륨(mg)')
-
-        #     # # JSON 응답 생성
-        #     # result = {
-        #     #     'recommended_menu': sorted_recommended.to_dict(orient='records')
-        #     # }
-
-        #     return JsonResponse(recommended.to_dict(orient='records'), safe=False)
-        # except Exception as e:
-        #     return JsonResponse({'error': str(e)}, status=500)
         
 class TopUsersAPIView(APIView):
     permission_classes = [permissions.IsAuthenticated]
