@@ -314,19 +314,25 @@ class TopUsersAPIView(APIView):
 
         exercise_ranking_by_center = (
             UserExercise.objects
-            .filter(user=find_user, date__month=11)
-            .annotate(total_calories=Sum('exerciseamount__exercise__calorie'))
+            .filter(date__month=current_month, user__center=find_user.center)
+            .values('user__fullname')
+            .annotate(total_calories=Sum('exerciseamount__total_calorie'))
             .order_by('-total_calories')[:3]
         )
 
         serialized_exercise_top_users_by_center = [
-            {'username': user.user.fullname, 'total_calories': user.total_calories}
+            {'username': user['user__fullname'], 'total_calories': user['total_calories']}
             for user in exercise_ranking_by_center
         ]
 
         print(serialized_exercise_top_users_by_center)
+
+        exercise_top_users = [
+            {'username' : user['user__fullname']}
+            for user in exercise_ranking_by_center
+        ]
         
-        return Response({'blood_top_users': blood_top_users, 'exercise_top_users' : serialized_exercise_top_users_by_center}, status=status.HTTP_200_OK)
+        return Response({'blood_top_users': blood_top_users, 'exercise_top_users' : exercise_top_users}, status=status.HTTP_200_OK)
         # 운동 랭킹 조회
         # start_date = timezone.datetime(timezone.now().year, current_month, 1)
         # end_date = start_date.replace(month=current_month + 1) if current_month < 12 else start_date.replace(year=start_date.year + 1, month=1)
