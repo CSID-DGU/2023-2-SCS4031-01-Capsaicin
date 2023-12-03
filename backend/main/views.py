@@ -240,6 +240,7 @@ class ExerciseAV(APIView):
             exercise_info_data = serializer.validated_data.get('exercise_list', {})
             exercise_id = exercise_info_data.get('exercise_id')
             count = exercise_info_data.get('count')
+            exercise_list = []
             
             try:
                 find_exercise = ExerciseCategory.objects.get(id=exercise_id)
@@ -247,8 +248,12 @@ class ExerciseAV(APIView):
                 ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count, total_calorie=total_calories)
             except ExerciseCategory.DoesNotExist:
                 return Response({"detail": f"Exercise with ID {exercise_id} does not exist."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # 응답 데이터 형태 변경
+            response_data = {"exercise_list": [{"exercise_id": exercise_id, "count": count}]}
+            return Response(response_data)
 
-            return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
+            # return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
