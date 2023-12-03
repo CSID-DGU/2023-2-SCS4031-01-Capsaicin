@@ -83,8 +83,8 @@ export default function NormalJoin() {
                 <S.JoinBoxSex>
                     <S.JoinContent>성별</S.JoinContent>
                     <S.JoinChooseBox>
-                        <S.JoinInputButton  onClick={() => setGender('M')}>남</S.JoinInputButton>
-                        <S.JoinInputButton  onClick={() => setGender('F')}>여</S.JoinInputButton>
+                        <S.JoinInputButton className={gender === 'M' ? 'active' : ''}  onClick={() => setGender('M')}>남</S.JoinInputButton>
+                        <S.JoinInputButton className={gender === 'F' ? 'active' : ''} onClick={() => setGender('F')}>여</S.JoinInputButton>
                     </S.JoinChooseBox>
                 </S.JoinBoxSex>
 

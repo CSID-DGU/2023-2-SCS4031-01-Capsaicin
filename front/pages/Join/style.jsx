@@ -265,6 +265,10 @@ export const JoinInputButton = styled.button`
     font-size: 30px;
     background-color: #FFFFFF;
     margin-right: 20px;
+    &.active {
+        background-color: gray;
+        color: white;
+    }
     :hover {
         background-color: #aaaaaa; 
     }
