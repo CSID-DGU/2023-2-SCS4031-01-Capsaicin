@@ -3,6 +3,7 @@ import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 
 const Table = ({ data }) => {
@@ -106,7 +107,7 @@ export default function HealthRecord() {
     useEffect(() => {
         const fetchRecentFoods = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/meal', {
+                const response = await fetch(`${API}/main/meal`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
@@ -132,7 +133,7 @@ export default function HealthRecord() {
     useEffect(() => {
         const fetchBloodPressure = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/bloodpressure', {
+                const response = await fetch(`${API}/main/bloodpressure`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -153,7 +154,7 @@ export default function HealthRecord() {
 
         const fetchWeights = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/weights', {
+                const response = await fetch(`${API}/main/weights`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -174,7 +175,7 @@ export default function HealthRecord() {
 
         const fetchExerciseData = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/exercise', {
+                const response = await fetch(`${API}/main/exercise`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -227,15 +228,15 @@ export default function HealthRecord() {
                 </S.Info>
 
                 <S.InfoFood>
-                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>                    
-                        {recentFoods.map((food) => (
-                            <S.FoodContainer>
-                                <S.InfoFoodImage src={food.food_img} />
-                                <S.InfoFoodName>
-                                    <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
-                                </S.InfoFoodName>
-                            </S.FoodContainer>
-                        ))}
+                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
+                    {recentFoods.map((food) => (
+                        <S.FoodContainer>
+                            <S.InfoFoodImage src={food.food_img} />
+                            <S.InfoFoodName>
+                                <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
+                            </S.InfoFoodName>
+                        </S.FoodContainer>
+                    ))}
                 </S.InfoFood>
 
 

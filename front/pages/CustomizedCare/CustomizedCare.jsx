@@ -1,11 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function CustomizedCare() {
     const navigate = useNavigate();
+    const [recommendationData, setRecommendationData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${API}/main/recommend`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setRecommendationData(data);
+            } catch (error) {
+                console.error('추천 데이터를 가져오는 중 오류 발생:', error);
+            }
+        };
+
+        fetchData();
+    }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
+
+    // // 데이터가 로드되었는지 확인
+    // if (!recommendationData) {
+    //     return <p>Loading...</p>;
+    // }
+
+
+
+    // 데이터에 쉽게 접근하기 위해 구조분해할당
+    const { condition, message, data } = recommendationData;
 
     return (
         <>
@@ -16,19 +52,19 @@ export default function CustomizedCare() {
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
                 </S.Recommend>
                 <S.RecommendFood>
-                    <S.RecommendFoodTitle>김건강님은 단백질이 부족해요.</S.RecommendFoodTitle>
-                    <S.RecommendFoodContent>한식을 좋아하시니 한식을 추천해 드릴게요.</S.RecommendFoodContent>
+                    <S.RecommendFoodTitle>전날 섭취하신 나트륨 상태는 {condition}이에요.</S.RecommendFoodTitle>
+                    <S.RecommendFoodContent>{message}</S.RecommendFoodContent>
                     <S.Food>
-                        <S.RecommendFoodNames>
-                            <S.RecommendFoodName>1. 고등어구이</S.RecommendFoodName>
-                            <S.RecommendFoodName>2. 콩자반</S.RecommendFoodName>
-                            <S.RecommendFoodName>3. 두부조림</S.RecommendFoodName>
-                        </S.RecommendFoodNames>
-                        <S.RecommendFoodKcals>
-                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
-                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
-                            <S.RecommendFoodKcal>150kcal</S.RecommendFoodKcal>
-                        </S.RecommendFoodKcals>
+                        {data.map((food, index) => (
+                            <React.Fragment key={index}>
+                                <S.RecommendFoodNames>
+                                    <S.RecommendFoodName>{food[0]}</S.RecommendFoodName>
+                                </S.RecommendFoodNames>
+                                <S.RecommendFoodKcals>
+                                    <S.RecommendFoodKcal>{food[1]}</S.RecommendFoodKcal>
+                                </S.RecommendFoodKcals>
+                            </React.Fragment>
+                        ))}
                     </S.Food>
                 </S.RecommendFood>
 

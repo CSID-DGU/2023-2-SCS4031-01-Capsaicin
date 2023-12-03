@@ -123,7 +123,6 @@ export const ButtonContainer = styled.div`
 export const Box = styled.button`
   font-family: "Pretendard-SemiBold";
   width: 130px;
-  border: 0.5px solid black;
   border-radius: 5px;
   background-color: #ffffff;
   padding: 0;
@@ -180,7 +179,6 @@ export const Box2 = styled.button`
   font-family: "Pretendard-SemiBold";
   width: 130px;
   height: 170px;
-  border: 0.5px solid black;
   border-radius: 5px;
   background-color: #ffffff;
   padding: 0;
@@ -239,7 +237,7 @@ export const CustomSelect = ({ onChange }) => {
 
 export const CustomSelect_Rice = ({ onChange }) => {
   // 숟가락 선택 옵션 배열
-  const spoonOptions = [0.5,0.75,1,1.25,1.5];
+  const spoonOptions = [0.5, 0.75, 1, 1.25, 1.5];
 
   return (
     <Select onChange={onChange}>

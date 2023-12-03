@@ -5,6 +5,7 @@ import * as S from "../style";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { MealListState } from "../../../../store/mealList_store";
+import API from '../../../../api/api';
 // import {Swiper, SwiperSlide} from "swiper/react";
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
@@ -26,7 +27,7 @@ export default function Rice() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [foodCounts, setFoodCounts] = useState({});
   const [meal, setMeal] = useRecoilState(MealListState);
-  
+
   const searched = foods.filter((food) => food.foodName.includes(userInput));
 
   const getValue = (e) => {
@@ -36,23 +37,23 @@ export default function Rice() {
     console.log(meal)
     const fetchFoods = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/food/1', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch(`${API}/main/food/1`, {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
           },
-        }); 
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         setFoods(data);
       } catch (error) {
         console.error('Error fetching foods:', error);
       }
     };
-  
+
     fetchFoods();
   }, []);
 
@@ -81,14 +82,14 @@ export default function Rice() {
     const mealList = Object.keys(foodCounts).map((foodId) => ({
       food_id: parseInt(foodId, 10),
       count: foodCounts[foodId],
-      unit:"인분"
+      unit: "인분"
     }));
     setMeal((prev) => [...prev, ...mealList])
 
-  
+
     // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
     // 예를 들어, 전역 상태나 다른 상태 관리 라이브러리를 사용하여 mealList를 저장할 수 있습니다.
-  
+
     // 다음 페이지로 이동
     navigate(`/inputinfo_cate`);
   };
@@ -97,19 +98,19 @@ export default function Rice() {
     try {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
-        count:  parseFloat(foodCounts[foodId]), // foodCounts가 실수를 포함하는 것으로 가정
+        count: parseFloat(foodCounts[foodId]), // foodCounts가 실수를 포함하는 것으로 가정
         unit: "인분",
       }));
-  
+
       for (const mealItem of meal) {
         mealList.push(mealItem);
       }
-  
+
       console.log('전송 데이터:', JSON.stringify({
         meal_list: mealList,
       }));
-  
-      const response = await fetch('http://127.0.0.1:8000/main/meal', {
+
+      const response = await fetch(`${API}/main/meal`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -119,27 +120,27 @@ export default function Rice() {
           meal_list: mealList,
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log('식사 선택 성공:', data);
-  
+
       // 선택이 성공적으로 제출된 후 선택된 항목 상태를 재설정하는 것이 선택 사항입니다.
       setSelectedItems([]);
-  
+
       // openModal 함수를 여기에서 호출하지 않음
     } catch (error) {
       console.error('식사 선택 제출 오류:', error);
     }
     setMeal([]);
-  
+
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };
-  
+
 
 
   const handleSelectChange = (e, foodId) => {
@@ -151,7 +152,7 @@ export default function Rice() {
       [foodId]: selectedCount,
     }));
   };
-  
+
 
   return (
     <>
@@ -164,7 +165,7 @@ export default function Rice() {
           />
           <S.InputTitle>밥류</S.InputTitle>
         </S.Info>
-          <S.SearchContainer>
+        <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
         </S.SearchContainer>
         <S.UserBox>
@@ -189,10 +190,10 @@ export default function Rice() {
         </S.UserBox>
         <S.ButtonContainer>
           <S.NextButton onClick={handleNextFood} >다음 음식</S.NextButton>
-          
+
           <div>
             <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
-            
+
             {isModalOpen && (
               <S.Modal>
                 <S.ModalContent>

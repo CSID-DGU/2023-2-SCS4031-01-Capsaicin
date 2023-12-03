@@ -5,7 +5,6 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content:space-between;
-    height:100vh;
     position: relative;
 `;
 
@@ -20,6 +19,7 @@ export const Info = styled.div`
     align-items: center;
     padding-top: 50px;
     padding-right: 80px;
+    margin-bottom: 50px;
 `;
 
 export const Backward = styled.img`
@@ -44,7 +44,7 @@ export const GotoBloodPressureInput = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
     font-family: 'Pretendard-Medium';
-    margin-top: 60px;
+    margin-top: 20px;
     justify-content: center;
     align-items: center;
 `;
@@ -58,7 +58,7 @@ export const GotoWeightInput = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
     font-family: 'Pretendard-Medium';
-    margin-top: 60px;
+    margin-top: 20px;
     justify-content: center;
     align-items: center;
 `;
