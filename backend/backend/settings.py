@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'import_export',
     'corsheaders',
     'rest_framework.authtoken',
+    'guard',
 ]
 
 SITE_ID = 1
@@ -148,6 +149,10 @@ REST_FRAMEWORK = {
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.CustomUserDetailsSerializer',
 }
 
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'phone_number'

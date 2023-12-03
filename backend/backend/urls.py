@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from main import urls
+from  accounts.views import CustomLoginView
 
 
 from rest_framework import routers
@@ -28,6 +29,7 @@ router.register('user', UserViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
+    path('accounts/login/', CustomLoginView.as_view(), name='rest_login'),
     path('accounts/', include('dj_rest_auth.urls')),
     path('accounts/registration', include('dj_rest_auth.registration.urls')),
     #path('accounts/registration', UserAV.as_view(), name='user'),
@@ -36,4 +38,5 @@ urlpatterns = [
     path('accounts/registration/guard/', include('dj_rest_auth.registration.urls')),
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
+    path('guard/', include('guard.urls')),
 ]
