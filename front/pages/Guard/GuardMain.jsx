@@ -15,7 +15,7 @@ export default function GuardMain() {
     useEffect(() => {
         const fetchRecentFoods = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/meal', {
+                const response = await fetch(`${API}/main/meal`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
@@ -39,7 +39,7 @@ export default function GuardMain() {
 
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/weights/last', {
+        fetch(`${API}/main/weights/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -53,7 +53,7 @@ export default function GuardMain() {
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/bloodpressure/last', {
+        fetch(`${API}/main/bloodpressure/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -67,7 +67,7 @@ export default function GuardMain() {
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/center', {
+        fetch(`${API}/main/center`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -89,23 +89,23 @@ export default function GuardMain() {
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{centerData.fullname}</S.Name>
-                    
+
                     <S.User>님 보호자</S.User>
                 </S.UserName>
 
                 <S.Info>
                     <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>
-                    
+
                     <S.InfoHealth>
                         <S.InfoBoxes>
                             <S.InfoBox>몸무게</S.InfoBox>
                             <S.InfoNum>{userData.weight_figure}kg</S.InfoNum>
-                            
+
                         </S.InfoBoxes>
                         <S.InfoBoxes>
                             <S.InfoBox>혈압</S.InfoBox>
                             <S.InfoNum>{userBPData.systolic}mmHg</S.InfoNum>
-                            
+
                         </S.InfoBoxes>
                     </S.InfoHealth>
                 </S.Info>
@@ -114,19 +114,19 @@ export default function GuardMain() {
                     건강기록 열람
                 </S.GotoCare>
                 <S.GotoHealth onClick={() => navigate(`/customizedcare`)}>
-                   맞춤케어 열람
+                    맞춤케어 열람
                 </S.GotoHealth>
 
                 <S.InfoFood>
-                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>                    
+                    <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
                     {recentFoods.map((food) => (
-                            <div>
+                        <div>
                             {/* <S.InfoFoodImage src={food.food_img} /> */}
                             <S.InfoFoodName>
-                            <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
+                                <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
                             </S.InfoFoodName>
-                            </div>
-                        ))}
+                        </div>
+                    ))}
                 </S.InfoFood>
                 <Nav />
             </S.Container>

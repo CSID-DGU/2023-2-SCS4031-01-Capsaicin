@@ -3,6 +3,7 @@ import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function Main() {
     const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function Main() {
     const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/weights/last', {
+        fetch(`${API}/main/weights/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -26,7 +27,7 @@ export default function Main() {
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/bloodpressure/last', {
+        fetch(`${API}/main/bloodpressure/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -40,7 +41,7 @@ export default function Main() {
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch('http://127.0.0.1:8000/main/center', {
+        fetch(`${API}/main/center`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`

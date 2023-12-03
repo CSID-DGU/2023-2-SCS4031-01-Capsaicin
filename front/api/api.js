@@ -1,3 +1,5 @@
-import axios from "axios";
+// api.js
 
-const { VITE_APP_SERVER_PORT } = "http://127.0.0.1:8000";
+const API = "http://127.0.0.1:8000";
+
+export default API;

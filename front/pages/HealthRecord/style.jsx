@@ -89,6 +89,7 @@ export const InfoFoodTitle = styled.div`
     font-size: 20px;
     font-family: 'NotoSansKR-Regular';
     font-weight: bold;
+    margin-top: 20px;
 `;
 
 export const InfoFoodName = styled.div`
