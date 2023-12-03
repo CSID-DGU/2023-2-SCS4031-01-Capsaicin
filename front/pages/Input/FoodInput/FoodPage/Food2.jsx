@@ -69,7 +69,7 @@ export default function Food2() {
       if (!foodCounts[food.id]) {
         setFoodCounts((prevCounts) => ({
           ...prevCounts,
-          [food.id]: 1,
+          [food.id]: 0.5,
         }));}
     }
   };
@@ -133,7 +133,7 @@ export default function Food2() {
     } catch (error) {
       console.error('식사 선택 제출 오류:', error);
     }
-
+    setMeal([]);
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };

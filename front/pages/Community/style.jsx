@@ -76,3 +76,19 @@ export const Info = styled.div`
     font-family: 'Pretendard-Medium';
     line-height: 1.8;
 `;
+export const Info2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 250px;
+    border: 0.25px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-family: 'NotoSansKR-Bold';
+    margin-top: -20px;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-family: 'Pretendard-Medium';
+    line-height: 1.8;
+`;
