@@ -1,7 +1,11 @@
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
+from dj_rest_auth.serializers import LoginSerializer, UserDetailsSerializer
 from django.db import IntegrityError
 from .models import *
+
+UserModel = get_user_model()
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -15,11 +19,12 @@ class CustomRegisterSerializer(RegisterSerializer):
     weight = serializers.FloatField()
     systolic = serializers.IntegerField()
     center = serializers.CharField(required=False, allow_blank=True)
-    #diastolic = serializers.IntegerField()
+
+    # diastolic = serializers.IntegerField()
 
     def create(self, validated_data):
         user_phone_number = validated_data.pop('userPhoneNumber', None)
-        
+
         if user_phone_number:
             # 전화번호로 유저를 찾아서 연결
             try:
@@ -27,7 +32,7 @@ class CustomRegisterSerializer(RegisterSerializer):
                 validated_data['user_id'] = user.id
             except User.DoesNotExist:
                 raise serializers.ValidationError({'userPhoneNumber': '일치하는 유저가 없습니다.'})
-            
+
         try:
             return super().create(validated_data)
         except IntegrityError as e:
@@ -48,6 +53,28 @@ class CustomRegisterSerializer(RegisterSerializer):
         data['weight'] = self.validated_data.get("weight", "")
         data['systolic'] = self.validated_data.get("systolic", "")
         data['center'] = self.validated_data.get("center", "")
-        #data['diastolic'] = self.validated_data.get("diastolic", "")
+        # data['diastolic'] = self.validated_data.get("diastolic", "")
 
         return data
+
+
+class CustomLoginSerializer(LoginSerializer):
+    user_type = serializers.CharField(source='user.userType', read_only=True)
+
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
+class CustomUserDetailsSerializer(UserDetailsSerializer):
+
+    class Meta:
+        extra_fields = []
+        if hasattr(UserModel, "USERNAME_FIELD"):
+            extra_fields.append(UserModel.USERNAME_FIELD)
+        if hasattr(UserModel, "EMAIL_FIELD"):
+            extra_fields.append(UserModel.EMAIL_FIELD)
+
+        model = UserModel
+        fields = ('pk', *extra_fields, 'first_name', 'last_name', 'userType')
+        read_only_fields = ('email',)
