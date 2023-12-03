@@ -19,5 +19,5 @@ class LastBloodPressureAV(APIView):
         guard_user = request.user
         find_user = guard_user.user_id
         bloodpressure = BloodPressure.objects.filter(user=find_user).order_by('measurement_date', 'measurement_time').last()
-        serializer = BloodPressureSerializer(bloodpressure, context={'request':request})
+        serializer = guardBloodPressureSerializer(bloodpressure, context={'request':request})
         return Response(serializer.data)

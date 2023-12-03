@@ -12,7 +12,15 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
         model = BloodPressure
         fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
 
+class guardBloodPressureSerializer(serializers.ModelSerializer):
+    fullname = serializers.SerializerMethodField()
 
+    class Meta:
+        model = BloodPressure
+        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time", "fullname"]
+
+    def get_fullname(self, obj):
+        return obj.user.fullname
 
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
