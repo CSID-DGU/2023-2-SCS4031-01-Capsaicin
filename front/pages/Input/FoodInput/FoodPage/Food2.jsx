@@ -81,7 +81,7 @@ export default function Food2() {
       count: foodCounts[foodId],
       unit:"숟가락"
     }));
-    setMeal(mealList)
+    setMeal((prev) => [...prev, ...mealList])
 
   
     // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.

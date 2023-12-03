@@ -66,14 +66,29 @@ export const InfoFood = styled.div`
     font-family: 'NotoSansKR-Bold';
     margin-top: 20px;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        display:none;
+      }
+`;
+
+export const FoodContainer = styled.div`
+    width:100%;
+    display:flex;
+    // flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding:1rem;
+    border-bottom: 1px solid #000;
 `;
 
 export const InfoFoodTitle = styled.div`
     font-size: 20px;
     font-family: 'NotoSansKR-Regular';
     font-weight: bold;
-    margin: 0px 0px 20px 0px;
 `;
 
 export const InfoFoodName = styled.div`
@@ -83,7 +98,6 @@ export const InfoFoodName = styled.div`
 `;
 
 export const InfoFoodImage = styled.img`
-    width: 320px;
-    height: 85px;
-    margin: 20px 0px 20px 0px;
+    width: 100px;
+    height: 100px;
 `;

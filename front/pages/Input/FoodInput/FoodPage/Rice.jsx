@@ -56,6 +56,7 @@ export default function Rice() {
     fetchFoods();
   }, []);
 
+
   const toggleSelection = (food) => {
     const isSelected = selectedItems.some((item) => item.id === food.id);
     if (isSelected) {
@@ -69,8 +70,9 @@ export default function Rice() {
       if (!foodCounts[food.id]) {
         setFoodCounts((prevCounts) => ({
           ...prevCounts,
-          [food.id]: 1,
-        }));}
+          [food.id]: 0.5,
+        }));
+      }
     }
   };
 
@@ -81,7 +83,7 @@ export default function Rice() {
       count: foodCounts[foodId],
       unit:"인분"
     }));
-    setMeal(mealList)
+    setMeal((prev) => [...prev, ...mealList])
 
   
     // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
@@ -95,19 +97,18 @@ export default function Rice() {
     try {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
-        count: foodCounts[foodId],
+        count:  parseFloat(foodCounts[foodId]), // foodCounts가 실수를 포함하는 것으로 가정
         unit: "인분",
       }));
-
+  
       for (const mealItem of meal) {
         mealList.push(mealItem);
       }
-
-
+  
       console.log('전송 데이터:', JSON.stringify({
         meal_list: mealList,
       }));
-
+  
       const response = await fetch('http://127.0.0.1:8000/main/meal', {
         method: 'POST',
         headers: {
@@ -115,7 +116,7 @@ export default function Rice() {
           'Authorization': `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
-          meal_list: mealList, // 수정된 부분
+          meal_list: mealList,
         }),
       });
   
@@ -125,22 +126,24 @@ export default function Rice() {
   
       const data = await response.json();
       console.log('식사 선택 성공:', data);
-
+  
       // 선택이 성공적으로 제출된 후 선택된 항목 상태를 재설정하는 것이 선택 사항입니다.
       setSelectedItems([]);
-
+  
       // openModal 함수를 여기에서 호출하지 않음
     } catch (error) {
       console.error('식사 선택 제출 오류:', error);
     }
-
+  
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };
+  
 
 
   const handleSelectChange = (e, foodId) => {
-    const selectedCount = parseInt(e.target.value, 10);
+    const selectedCount = e.target.value;
+    console.log(selectedCount);
     // 선택된 숟가락의 값을 해당 음식 항목의 count로 설정
     setFoodCounts((prevCounts) => ({
       ...prevCounts,
@@ -174,9 +177,6 @@ export default function Rice() {
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
                 <S.CustomSelect_Rice onChange={(e) => handleSelectChange(e, food.id)}>
-                  <option value={1}>1인분</option>
-                  <option value={2}>2인분</option>
-                  <option value={3}>3인분</option>
                 </S.CustomSelect_Rice>
               </S.Box2>
             ))
