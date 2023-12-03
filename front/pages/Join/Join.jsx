@@ -16,7 +16,7 @@ export default function Join() {
                 <S.ChooseUser>회원 유형을 선택하세요.</S.ChooseUser>
                 <S.User>
                     <S.MyUser onClick={() => navigate(`/normaljoin`)}>일반<br></br>유저</S.MyUser>
-                    <S.GuardianUser>보호자<br></br>유저</S.GuardianUser>
+                    <S.GuardianUser onClick={() => navigate(`/guardjoin`)}>보호자<br></br>유저</S.GuardianUser>
                 </S.User>
                 <S.UserExplain>
                     <S.UserTitle>일반 유저</S.UserTitle>

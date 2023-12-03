@@ -229,12 +229,12 @@ export default function HealthRecord() {
                 <S.InfoFood>
                     <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>                    
                         {recentFoods.map((food) => (
-                            <div>
-                            {/* <S.InfoFoodImage src={food.food_img} /> */}
-                            <S.InfoFoodName>
-                            <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
-                            </S.InfoFoodName>
-                            </div>
+                            <S.FoodContainer>
+                                <S.InfoFoodImage src={food.food_img} />
+                                <S.InfoFoodName>
+                                    <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
+                                </S.InfoFoodName>
+                            </S.FoodContainer>
                         ))}
                 </S.InfoFood>
 
