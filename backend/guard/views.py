@@ -31,3 +31,15 @@ class LastWeightAV(APIView):
         weights = Weight.objects.filter(user=find_user).order_by('measurement_date').last()
         serializer = WeightSerializer(weights, context={'request':request})
         return Response(serializer.data)
+    
+class MealAV(APIView):    
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        guard_user = request.user
+        find_user = guard_user.user_id
+
+        last_meal = Meal.objects.filter(user=find_user).last()
+        food_list = MealAmount.objects.filter(meal=last_meal)
+        serializer = MealAmountSerializer(food_list, many=True, context={'request':request})
+        return Response(serializer.data)
