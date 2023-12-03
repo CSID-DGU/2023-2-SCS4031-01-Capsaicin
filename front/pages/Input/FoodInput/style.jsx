@@ -102,6 +102,15 @@ export const UserBox = styled.div`
   }
 `;
 
+export const UserBox2 = styled.div`
+  flex:auto;
+  display: flex;
+  width: 390px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+`;
+
 export const ButtonContainer = styled.div`
   flex:1;
   display: flex;
@@ -215,7 +224,7 @@ export const Select = styled.select`
 `;
 export const CustomSelect = ({ onChange }) => {
   // 숟가락 선택 옵션 배열
-  const spoonOptions = [1, 2, 3];
+  const spoonOptions = [1, 2, 3, 4, 5];
 
   return (
     <Select onChange={onChange}>
@@ -230,7 +239,7 @@ export const CustomSelect = ({ onChange }) => {
 
 export const CustomSelect_Rice = ({ onChange }) => {
   // 숟가락 선택 옵션 배열
-  const spoonOptions = [1, 2, 3];
+  const spoonOptions = [0.5,0.75,1,1.25,1.5];
 
   return (
     <Select onChange={onChange}>
@@ -245,7 +254,7 @@ export const CustomSelect_Rice = ({ onChange }) => {
 
 export const CustomSelect_3 = ({ onChange }) => {
   // 숟가락 선택 옵션 배열
-  const spoonOptions = [1, 2, 3];
+  const spoonOptions = [1, 2, 3, 4, 5];
 
   return (
     <Select onChange={onChange}>

@@ -7,7 +7,8 @@ import './App.css'
 import { createGlobalStyle } from "styled-components";
 import styled from "styled-components";
 import NormalJoin from '../pages/Join/NormalJoin';
-import GuardJoin from '../pages/Join/GuardJoin';
+import GuardJoin from '../pages/Guard/GuardJoin';
+import GuardMain from '../pages/Guard/GuardMain';
 import Term from '../pages/Join/Term';
 import InputMain from '../pages/Input/Main/InputMain';
 import BloodPressureInput from '../pages/Input/HealthInput/BloodPressureInput/BloodPressureInput';
@@ -15,7 +16,6 @@ import WeightInput from '../pages/Input/HealthInput/WeightInput/WeightInput';
 import InputInfo from '../pages/Join/InputInfo';
 import InputInfo_cate from '../pages/Input/FoodInput/InputInfo_cate';
 import SportsInput from '../pages/Input/SportsInput/SportsInput';
-import Strength from '../pages/Input/SportsInput/SportsPage/Strength';
 import Side from '../pages/Input/FoodInput/FoodPage/Side';
 import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
@@ -87,6 +87,7 @@ function App() {
           <Route path="/join" element={<Join />} />
           <Route path="/normaljoin" element={<NormalJoin />} />
           <Route path="/guardjoin" element={<GuardJoin />} />
+          <Route path="/guardmain" element={<GuardMain />} />
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
           <Route path="/inputmain" element={<InputMain />}></Route>
@@ -95,7 +96,6 @@ function App() {
           <Route path="/inputinfo" element={<InputInfo />} />
           <Route path="/inputinfo_cate" element={<InputInfo_cate />} />
           <Route path="/sportsinput" element={<SportsInput />} />
-          <Route path="/strength" element={<Strength />} />
           <Route path="/Rice" element={<Rice/>} />
           <Route path="/Side" element={<Side />} />
           <Route path="/Soup" element={<Soup />} />
@@ -104,6 +104,7 @@ function App() {
           <Route path="/Food6" element={<Food6 />} />
           <Route path="/Food7" element={<Food7 />} />
           <Route path="/Food8" element={<Food8 />} />
+
           {/* 맞춤케어 */}
           <Route path="/CustomizedCare" element={<CustomizedCare />} />
           {/* 건강기록 */}

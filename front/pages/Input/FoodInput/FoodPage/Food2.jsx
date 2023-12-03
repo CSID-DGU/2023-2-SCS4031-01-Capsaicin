@@ -69,7 +69,7 @@ export default function Food2() {
       if (!foodCounts[food.id]) {
         setFoodCounts((prevCounts) => ({
           ...prevCounts,
-          [food.id]: 1,
+          [food.id]: 0.5,
         }));}
     }
   };
@@ -81,7 +81,7 @@ export default function Food2() {
       count: foodCounts[foodId],
       unit:"숟가락"
     }));
-    setMeal(mealList)
+    setMeal((prev) => [...prev, ...mealList])
 
   
     // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
@@ -133,7 +133,7 @@ export default function Food2() {
     } catch (error) {
       console.error('식사 선택 제출 오류:', error);
     }
-
+    setMeal([]);
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };
