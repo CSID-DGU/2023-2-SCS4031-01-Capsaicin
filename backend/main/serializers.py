@@ -132,12 +132,13 @@ class UserExercisePostSerializer(serializers.Serializer):
 #     def get_food_name(self, obj):
 #         return obj.food.foodName
 
-class MealRecommendSerializer(serializers.ModelSerializer):
-    food_name = serializers.CharField(source='food.foodName', read_only=True)
+class MealRecommendSerializer(serializers.Serializer):
+    condition = serializers.CharField(required=True)
+    message = serializers.CharField(required=True)
+    data = serializers.ListField()
 
     class Meta:
-        model = MealAmount
-        fields = ["food_name"]
+        fields = ('condition', 'message', 'data')
 
 class BloodPressureRankSerializer(serializers.ModelSerializer):
     user = UserSerializer(source='user.blood_pressures', read_only=True)
