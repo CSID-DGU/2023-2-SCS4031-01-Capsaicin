@@ -240,7 +240,6 @@ class ExerciseAV(APIView):
             exercise_info_data = serializer.validated_data.get('exercise_list', {})
             exercise_id = exercise_info_data.get('exercise_id')
             count = exercise_info_data.get('count')
-            exercise_list = []
             
             try:
                 find_exercise = ExerciseCategory.objects.get(id=exercise_id)
