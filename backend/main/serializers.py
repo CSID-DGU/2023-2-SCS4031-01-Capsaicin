@@ -12,6 +12,8 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
         model = BloodPressure
         fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
 
+
+
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
         model = Weight
@@ -93,7 +95,7 @@ class ExerciseCategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ExerciseCategory
-        fields = ["name", "imgUrl", "calorie", "time"]
+        fields = ["name", "imgUrl", "calorie"]
 
 class UserExerciseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -104,10 +106,11 @@ class ExerciseAmountSerializer(serializers.ModelSerializer):
     exercise_name = serializers.SerializerMethodField()
     calorie = serializers.FloatField(source='exercise.calorie', read_only=True)
     date = serializers.DateField(source='userexercise.date', read_only=True)
+    total_calorie = serializers.FloatField()
 
     class Meta:
         model = ExerciseAmount
-        fields = ["exercise_name", "calorie", "date"]
+        fields = ["exercise_name", "calorie", "date", "total_calorie"]
     
     def get_exercise_name(self, obj):
         return obj.exercise.name
@@ -135,3 +138,17 @@ class MealRecommendSerializer(serializers.ModelSerializer):
     class Meta:
         model = MealAmount
         fields = ["food_name"]
+
+class BloodPressureRankSerializer(serializers.ModelSerializer):
+    user = UserSerializer(source='user.blood_pressures', read_only=True)
+    
+    class Meta:
+        model = BloodPressure
+        fields = ["user","systolic", "measurement_date"]
+
+class ExerciseRankSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(source='userexercise.user.fullname', read_only=True)
+
+    class Meta:
+        model = UserExercise
+        fields = ['user']

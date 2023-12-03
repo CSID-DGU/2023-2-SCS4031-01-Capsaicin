@@ -10,7 +10,7 @@ admin.site.register(Weight)
 admin.site.register(FoodCategory)
 admin.site.register(Center)
 admin.site.register(Notice)
-admin.site.register(ExerciseCategory)
+# admin.site.register(ExerciseCategory)
 #admin.site.register(Food)
 
 class FoodResource(resources.ModelResource):
@@ -24,5 +24,17 @@ class FoodAdmin(ImportExportModelAdmin):
     list_display = ('id','foodName', 'calorie', 'natrium', 'category', 'amount', 'foodImgUrl')
     resource_class = FoodResource
 
+class ExerciseResource(resources.ModelResource):
+    class Meta:
+        model = ExerciseCategory
+        fields = ('id', 'name', 'imgUrl', 'calorie')
+        export_order = fields
+
+class ExerciseAdmin(ImportExportModelAdmin):
+    fields = ('name', 'imgUrl', 'calorie')
+    list_display = ('id', 'name', 'imgUrl', 'calorie')
+    resource_class = ExerciseResource
+
 
 admin.site.register(Food, FoodAdmin)
+admin.site.register(ExerciseCategory, ExerciseAdmin)
