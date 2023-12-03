@@ -134,6 +134,7 @@ export default function Rice() {
     } catch (error) {
       console.error('식사 선택 제출 오류:', error);
     }
+    setMeal([]);
   
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();

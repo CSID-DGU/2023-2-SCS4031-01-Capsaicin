@@ -56,7 +56,6 @@ export default function SportsInput() {
       const exerciseList = Object.keys(minutes).map((exerciseId) => ({
         exercise_id: parseInt(exerciseId, 10),
         count:  parseFloat(minutes[exerciseId]), // minutes가 실수를 포함하는 것으로 가정
-        unit: "분",
       }));
   
       console.log('전송 데이터:', JSON.stringify({
@@ -86,7 +85,7 @@ export default function SportsInput() {
   
       // openModal 함수를 여기에서 호출하지 않음
     } catch (error) {
-      console.error('식사 선택 제출 오류:', error);
+      console.error('운동 선택 제출 오류:', error);
     }
   
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
@@ -157,7 +156,7 @@ export default function SportsInput() {
               <S.Modal>
                 <S.ModalContent>
                   <p>선택이 완료되었습니다!</p>
-                  <S.ModalButton onClick={() => navigate(`/inputinfo_cate`)}>
+                  <S.ModalButton onClick={() => navigate(`/main`)}>
                     확인
                   </S.ModalButton>
                 </S.ModalContent>
