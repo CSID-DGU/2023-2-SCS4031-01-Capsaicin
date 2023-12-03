@@ -128,6 +128,22 @@ class NoticeAV(APIView):
         notice = Notice.objects.filter(center=center).last()
         serializer = NoticeSerializer(notice, context={'request':request})
         return Response(serializer.data)
+    
+    def post(self, request):
+        find_user = request.user
+        center = Center.objects.get(id=find_user.center_id)
+        description = request.data.get('description', None)
+
+        if not description:
+            return Response({'error': 'Description은 필수 항목입니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # 새 Notice 인스턴스 생성
+        new_notice = Notice.objects.create(description=description, center=center)
+
+        # 새로 생성된 Notice 인스턴스를 시리얼라이즈
+        serializer = NoticeSerializer(new_notice, context={'request': request})
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class CenterAV(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -276,13 +292,18 @@ class MealRecommendationView(APIView):
         print(top_natrium_foods)
 
         if total_natrium < 600:
-            return Response("저나트륨")
+            serial = MealRecommendSerializer({'condition': "저나트륨", 'message': "섭취 나트륨이 부족한 것으로 보입니다. \n 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : []})
+            return Response(serial.data)
         elif total_natrium >= 600 and total_natrium <2000:
-            return Response("정상")
+            serial = MealRecommendSerializer({'condition': "정상", 'message': "섭취 나트륨이 정상인 것으로 보입니다. \n 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : []})
+
+            return Response(serial.data)
         else: 
             result = run(total_natrium, top_natrium_foods, "음식분류")
+            serial = MealRecommendSerializer({'condition': "고나트륨", 'message': "섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
+            
 
-            return Response(result)
+            return Response(serial.data)
             # return Response("고나트륨 {}".format(result))
 
         
