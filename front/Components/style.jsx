@@ -10,6 +10,7 @@ export const Title = styled.img`
     width: 390px;
     height: 50px;
     position: absolute;
+    top:0;
     z-index: 1;
 `;
 
@@ -29,6 +30,8 @@ export const Nav = styled.div`
     justify-content: space-around;
     background-color: #712EFF;
     color: white;
+    position: absolute;
+    bottom: -200px;
 `;
 
 export const NavButton = styled.div`
