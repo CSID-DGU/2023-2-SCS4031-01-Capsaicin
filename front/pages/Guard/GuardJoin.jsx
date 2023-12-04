@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from "../Join/style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function GuardJoin() {
 
@@ -57,13 +58,14 @@ export default function GuardJoin() {
 
     
           // openModal 함수를 여기에서 호출하지 않음
+
         } catch (error) {
-          console.error('회원가입 오류:', error);
+            console.error('회원가입 오류:', error);
         }
         navigate('/');
-    
+
         // 선택이 성공적으로 제출된 후에 openModal 함수 호출
-      };
+    };
 
 
     return (

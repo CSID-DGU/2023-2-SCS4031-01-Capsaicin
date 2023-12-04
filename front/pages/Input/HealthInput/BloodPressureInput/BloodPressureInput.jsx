@@ -3,6 +3,7 @@ import Title from '../../../../Components/Title';
 import Nav from '../../../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../../../api/api';
 
 export default function BloodPressureInput() {
     const navigate = useNavigate();
@@ -73,7 +74,7 @@ export default function BloodPressureInput() {
     const handleBloodPressureSubmit = async () => {
         try {
 
-            const response = await fetch('http://127.0.0.1:8000/main/bloodpressure', {
+            const response = await fetch(`${API}/main/bloodpressure`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

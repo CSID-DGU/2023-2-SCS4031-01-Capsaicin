@@ -131,6 +131,10 @@ class NoticeAV(APIView):
     
     def post(self, request):
         find_user = request.user
+
+        if not find_user.is_superuser:
+            return Response({'error': '관리자만이 공지를 작성할 수 있습니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
         center = Center.objects.get(id=find_user.center_id)
         description = request.data.get('description', None)
 
@@ -247,8 +251,12 @@ class ExerciseAV(APIView):
                 ExerciseAmount.objects.create(userexercise=new_exercise, exercise=find_exercise, count=count, total_calorie=total_calories)
             except ExerciseCategory.DoesNotExist:
                 return Response({"detail": f"Exercise with ID {exercise_id} does not exist."}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # 응답 데이터 형태 변경
+            response_data = {"exercise_list": [{"exercise_id": exercise_id, "count": count}]}
+            return Response(response_data)
 
-            return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
+            # return Response({"exercise_id": exercise_id, "count": count})  # 혹은 다른 적절한 응답을 반환
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -302,7 +310,7 @@ class MealRecommendationView(APIView):
             result = run(total_natrium, top_natrium_foods, "음식분류")
             serial = MealRecommendSerializer({'condition': "고나트륨", 'message': "섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
             
-
+            
             return Response(serial.data)
             # return Response("고나트륨 {}".format(result))
 

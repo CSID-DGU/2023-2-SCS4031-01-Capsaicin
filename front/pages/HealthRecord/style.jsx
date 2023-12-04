@@ -25,6 +25,7 @@ export const Infos = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-top: 20px;
 `;
 
 export const Info = styled.div`
@@ -38,6 +39,8 @@ export const Info = styled.div`
     font-family: 'NotoSansKR-Bold';
     margin-top: 20px;
     align-items: center;
+    overflow-y: scroll;
+    max-height: 300px;
 `;
 
 export const InfoTitle = styled.div`
@@ -70,7 +73,8 @@ export const InfoFood = styled.div`
     overflow-y: scroll;
     &::-webkit-scrollbar{
         display:none;
-      }
+    }
+    max-height: 350px;
 `;
 
 export const FoodContainer = styled.div`
@@ -89,6 +93,7 @@ export const InfoFoodTitle = styled.div`
     font-size: 20px;
     font-family: 'NotoSansKR-Regular';
     font-weight: bold;
+    margin-top: 20px;
 `;
 
 export const InfoFoodName = styled.div`

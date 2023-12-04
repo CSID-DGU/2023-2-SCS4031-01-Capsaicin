@@ -5,6 +5,8 @@ import * as S from "./style";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { MealListState } from "../../../store/mealList_store";
+import API from '../../../api/api';
+
 // import {Swiper, SwiperSlide} from "swiper/react";
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
@@ -25,7 +27,7 @@ export default function SportsInput() {
   const [exercises, setExercises] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [minutes, setMinutes] = useState({});
-  
+
   const searched = exercises.filter((exercise) => exercise.name.includes(userInput));
 
   const getValue = (e) => {
@@ -73,22 +75,22 @@ export default function SportsInput() {
         },
         body: JSON.stringify(requestData),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log('운동 선택 성공:', data);
-  
+
       // 선택이 성공적으로 제출된 후 선택된 항목 상태를 재설정하는 것이 선택 사항입니다.
       setSelectedItems([]);
-  
+
       // openModal 함수를 여기에서 호출하지 않음
     } catch (error) {
       console.error('운동 선택 제출 오류:', error);
     }
-  
+
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };
@@ -99,16 +101,16 @@ export default function SportsInput() {
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/exercisecategory', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch(`${API}/main/exercisecategory`, {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
           },
-        }); 
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         setExercises(data);
         console.log(data);
@@ -116,7 +118,7 @@ export default function SportsInput() {
         console.error('Error fetching exercises:', error);
       }
     };
-  
+
     fetchExercises();
   }, []);
 
@@ -131,7 +133,7 @@ export default function SportsInput() {
           />
           <S.InputTitle>운동정보 입력</S.InputTitle>
         </S.Info>
-          <S.SearchContainer>
+        <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
         </S.SearchContainer>
         <S.UserBox>
@@ -155,17 +157,17 @@ export default function SportsInput() {
           )}
         </S.UserBox>
         <S.ButtonContainer>
-            <S.ChoiceButton onClick={handleSelectionComplete}>선택 완료</S.ChoiceButton>
-            {isModalOpen && (
-              <S.Modal>
-                <S.ModalContent>
-                  <p>선택이 완료되었습니다!</p>
-                  <S.ModalButton onClick={() => navigate(`/main`)}>
-                    확인
-                  </S.ModalButton>
-                </S.ModalContent>
-              </S.Modal>
-            )}
+          <S.ChoiceButton onClick={handleSelectionComplete}>선택 완료</S.ChoiceButton>
+          {isModalOpen && (
+            <S.Modal>
+              <S.ModalContent>
+                <p>선택이 완료되었습니다!</p>
+                <S.ModalButton onClick={() => navigate(`/main`)}>
+                  확인
+                </S.ModalButton>
+              </S.ModalContent>
+            </S.Modal>
+          )}
         </S.ButtonContainer>
         <Nav />
       </S.Container>
