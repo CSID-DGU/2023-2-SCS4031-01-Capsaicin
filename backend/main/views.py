@@ -131,6 +131,10 @@ class NoticeAV(APIView):
     
     def post(self, request):
         find_user = request.user
+
+        if not find_user.is_superuser:
+            return Response({'error': '관리자만이 공지를 작성할 수 있습니다.'}, status=status.HTTP_403_FORBIDDEN)
+        
         center = Center.objects.get(id=find_user.center_id)
         description = request.data.get('description', None)
 
