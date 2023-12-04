@@ -9,4 +9,6 @@ urlpatterns = [
     path('bloodpressure',BloodPressureAV.as_view(), name='bloodpressure'),
     path('weights',WeightAV.as_view(), name='weights'),
     path('exercise', ExerciseAV.as_view(), name='exercise'),
+    path('meal/recommend',MealRecommendationView.as_view(), name='mealrecommend'),
+    path('exercise/recommend',ExerciseRecommendationView.as_view(), name='exerciserecommend'),
 ]

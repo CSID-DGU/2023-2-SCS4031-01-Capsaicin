@@ -9,6 +9,7 @@ from collections import defaultdict
 from django.db.models import Count, Sum
 from django.utils import timezone
 
+from main.recommend import run
 from rest_framework import permissions, status
 from datetime import datetime, timedelta
 
@@ -87,3 +88,131 @@ class ExerciseAV(APIView):
             calorie_by_date[date] += entry['total_calorie']
 
         return Response({'last_exercise_name': serializer_name, 'calorie_by_date': dict(calorie_by_date)})
+    
+class MealRecommendationView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        guard_user = request.user
+        find_user = User.objects.get(id=guard_user.user_id)
+
+        # 현재 날짜
+        today = datetime.now().date()
+
+        # 어제 날짜 계산
+        yesterday = today - timedelta(days=1)
+
+        # 어제 날짜의 식사에 대한 총 나트륨 합 계산
+        total_natrium = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).aggregate(Sum('natrium'))['natrium__sum'] or 0.0
+
+        # return Response({"user": find_user.fullname, "yesterday_total_natrium": total_natrium})
+        top_natrium_foods = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).order_by('-natrium')[:3]
+
+        # 결과 반환
+        response_data = {
+            "user": find_user.fullname,
+            "yesterday_total_natrium": total_natrium,
+            "top_natrium_foods": [
+                {"food": item.food.foodName, "natrium": item.natrium} for item in top_natrium_foods
+            ]
+        }
+        print(response_data)
+        menu_names = {
+            "top_natrium_foods": [item.food.foodName for item in top_natrium_foods]
+        }
+        top_natrium_foods = menu_names.get("top_natrium_foods", [])
+        print(top_natrium_foods)
+
+        if total_natrium < 600:
+            serial = guardMealRecommendSerializer({'user':find_user.fullname,'condition': "저나트륨", 'message': "섭취 나트륨이 부족한 것으로 보입니다. \n 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : []})
+            return Response(serial.data)
+        elif total_natrium >= 600 and total_natrium <2000:
+            serial = guardMealRecommendSerializer({'user':find_user.fullname,'condition': "정상", 'message': "섭취 나트륨이 정상인 것으로 보입니다. \n 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : []})
+
+            return Response(serial.data)
+        else: 
+            result = run(total_natrium, top_natrium_foods, "음식분류")
+            serial = guardMealRecommendSerializer({'user':find_user.fullname,'condition': "고나트륨", 'message': "섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
+            
+            
+            return Response(serial.data)
+        
+class ExerciseRecommendationView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        guard_user = request.user
+        find_user = User.objects.get(id=guard_user.user_id)
+
+        # 현재 날짜
+        today = datetime.now().date()
+
+        # 어제 날짜 계산
+        yesterday = today - timedelta(days=1)
+
+        # 어제 날짜의 식사에 대한 총 나트륨 합 계산
+        total_meal_calorie = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        ).aggregate(Sum('calorie'))['calorie__sum'] or 0.0
+
+        height = find_user.height
+        weight = Weight.objects.filter(user=find_user).order_by('measurement_date').last()
+        last_weight = weight.weight_figure
+        
+
+        # 생년월일을 날짜 형식으로 변환
+        birthdate = datetime.strptime(find_user.birth, '%Y-%m-%d').date()
+
+        # 나이 계산
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+
+        gender = find_user.gender
+
+        pre_bmr = (10*last_weight) + (6.25*height) - (5*age)
+        if gender == 'M':
+            bmr = pre_bmr + 5
+        else:
+            bmr = pre_bmr - 161
+        
+        user_exercise_yesterday = UserExercise.objects.filter(user=find_user, date=yesterday).first()
+
+        exercise_calories_yesterday = ExerciseAmount.objects.filter(userexercise=user_exercise_yesterday).aggregate(Sum('total_calorie'))['total_calorie__sum'] or 0.0
+        extra = total_meal_calorie - (exercise_calories_yesterday + bmr)
+        extra_rounded = round(extra, 3)
+
+        print({"user": find_user.fullname, "yesterday_total_calorie": total_meal_calorie, "height" : height, "weight" : last_weight, "age" : age, "gender" : gender, "pre_bmr" : pre_bmr, "bmr" : bmr, "calorie" : exercise_calories_yesterday, "extra":extra})
+
+        if extra > 0:
+            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":{"text": f"소모칼로리가 {extra_rounded}만큼 필요합니다. 가볍게 걸어보는게 어떨까요?"}}, status=status.HTTP_200_OK)
+        elif extra == 0:
+            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":"소모칼로리와 섭취칼로리가 동일한 것으로 보입니다."}, status=status.HTTP_200_OK)
+        elif extra < 0:
+            if gender == 'M' and age < 65:
+                if total_meal_calorie < 2000:
+                    message = "섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. \n 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
+                else:
+                    message = "하루 권장 섭취칼로리는 충족하셨네요! \n 운동하신 만큼 단백질을 보충하는건 어떨까요?"
+            elif gender == 'M' and age >= 65:
+                if total_meal_calorie < 1800:
+                    message = "섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. \n 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
+                else:
+                    message = "하루 권장 섭취칼로리는 충족하셨네요! \n 운동하신 만큼 단백질을 보충하는건 어떨까요?"
+            elif gender == 'F' and age < 65:
+                if total_meal_calorie < 1600:
+                    message = "섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. \n 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
+                else:
+                    message = "하루 권장 섭취칼로리는 충족하셨네요! \n 운동하신 만큼 단백질을 보충하는건 어떨까요?"
+            elif gender == 'F' and age > 65:
+                if total_meal_calorie < 1300:
+                    message = "섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. \n 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
+                else:
+                    message = "하루 권장 섭취칼로리는 충족하셨네요! \n 운동하신 만큼 단백질을 보충하는건 어떨까요?"
+            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":message}, status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
