@@ -59,7 +59,7 @@ class User(AbstractUser):
     password = models.CharField('password', max_length=4)
     username = models.CharField(max_length=1, null=True)
     
-    birth = models.IntegerField('birth', null=True, blank=True)
+    birth = models.CharField('birth', max_length=10, null=True, blank=True)
     gender = models.CharField('gender', max_length=1, null=True, blank=True)
     userType = models.CharField('userType', max_length=10)
     height = models.FloatField()

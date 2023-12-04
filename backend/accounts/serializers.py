@@ -11,7 +11,7 @@ UserModel = get_user_model()
 class CustomRegisterSerializer(RegisterSerializer):
     phone_number = serializers.CharField()
     fullname = serializers.CharField()
-    birth = serializers.IntegerField()
+    birth = serializers.CharField()
     gender = serializers.CharField()
     userType = serializers.CharField()
     userPhoneNumber = serializers.CharField(required=False, allow_blank=True)

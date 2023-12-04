@@ -57,6 +57,7 @@ class MealAmount(models.Model):
     unit = models.CharField(max_length=10)
     natrium = models.FloatField()
     date = models.DateField(auto_now=True)
+    calorie = models.FloatField()
 
 class ExerciseCategory(models.Model):
     name = models.CharField(max_length=20)
