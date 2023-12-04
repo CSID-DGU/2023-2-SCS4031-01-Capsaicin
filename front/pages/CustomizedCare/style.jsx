@@ -12,7 +12,7 @@ export const InputTitle = styled.div`
     font-size: 35px;
     padding-left: 30px;
     justify-content: flex-start;
-    padding: 20px 0px 20px 0px;
+    padding: 50px 0px 20px 0px;
 `;
 
 export const Recommend = styled.div`
@@ -49,6 +49,8 @@ export const RecommendFood = styled.div`
     justify-content: center;
     align-items: flex-start;
     text-align: left;
+    overflow-y: scroll;
+    max-height: 370px;
 `;
 
 export const RecommendFoodNames = styled.div`
@@ -102,6 +104,8 @@ export const RecommendExercise = styled.div`
     padding-left: 20px;
     justify-content: center;
     align-items: flex-start;
+    overflow-y: scroll;
+    max-height: 250px;
 `;
 
 export const RecommendExerciseTitle = styled.div`

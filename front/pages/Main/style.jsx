@@ -12,7 +12,7 @@ export const UserName = styled.div`
     display: flex;
     flex-direction: row;
     align-items: end;
-    margin: 20px 180px 10px 0px;
+    margin: 40px 200px 10px 0px;
 `;
 
 export const Name = styled.div`
