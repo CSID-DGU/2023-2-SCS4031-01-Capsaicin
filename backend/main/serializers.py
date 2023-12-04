@@ -148,6 +148,15 @@ class MealRecommendSerializer(serializers.Serializer):
     class Meta:
         fields = ('condition', 'message', 'data')
 
+class guardMealRecommendSerializer(serializers.Serializer):
+    condition = serializers.CharField(required=True)
+    message = serializers.CharField(required=True)
+    data = serializers.ListField()
+    user = serializers.CharField()
+
+    class Meta:
+        fields = ('condition', 'message', 'data', 'user')
+
 class BloodPressureRankSerializer(serializers.ModelSerializer):
     user = UserSerializer(source='user.blood_pressures', read_only=True)
     
