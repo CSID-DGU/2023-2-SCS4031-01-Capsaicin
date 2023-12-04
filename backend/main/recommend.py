@@ -28,7 +28,7 @@ PATH = pathlib.Path(__file__).parent.parent
 
 def get_data(name):
     df = pd.read_csv(os.path.join(PATH, f'{name}.csv'),encoding='UTF-8')
-    data = df[['분류', '음 식 명', '나트륨']]
+    data = df[['분류', '음 식 명', '나트륨','foodImgUrl']]
     data.fillna("", inplace=True)
     data = preprocessing(data = data)
     cv = CountVectorizer(ngram_range=(1,1))
@@ -65,8 +65,8 @@ def recommend_menu(menu_names, name="음식분류",top=1):
     for menu_name in menu_names:
         target_menu_idx = df[df['음 식 명'] == menu_name].index.values
         sim_idx = similarity_category[target_menu_idx, :top].reshape(-1)
-        #sim_idx = sim_idx[sim_idx != target_menu_idx]
-        result.append(df.iloc[sim_idx][['음 식 명', '나트륨']].values[0].tolist())
+        sim_idx = sim_idx[sim_idx != target_menu_idx]
+        result.append(df.iloc[sim_idx][['음 식 명', '나트륨','foodImgUrl']].values[0].tolist())
         # result = result.sort_values(by='나트륨', ascending=True)
     return result
 
@@ -78,7 +78,7 @@ def run(total_sodium_intake: int, menu_names: list=None, name: str="음식분류
         result, _ = get_data(name=name)
         # Find foods with sodium closest to the deficiency
         closest_foods = result.iloc[(result['나트륨'] - sodium_deficiency).abs().argsort()[:3]]
-        return closest_foods[['음 식 명', '나트륨']].values.tolist()
+        return closest_foods[['음 식 명', '나트륨', 'foodImgUrl']].values.tolist()
     
     elif total_sodium_intake >= 2000:
         return recommend_menu(menu_names=menu_names, top=1)
@@ -88,7 +88,7 @@ def run(total_sodium_intake: int, menu_names: list=None, name: str="음식분류
     
 
 if __name__ == "__main__":
-    recommended = run(total_sodium_intake=300, menu_names=["치킨가스", "도토리묵", "보리밥"])
+    recommended = run(total_sodium_intake=300, menu_names=["쌀밥", "도토리묵", "보리밥"])
 
     if not recommended:
         print("정상입니다")
