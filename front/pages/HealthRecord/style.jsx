@@ -38,6 +38,8 @@ export const Info = styled.div`
     font-family: 'NotoSansKR-Bold';
     margin-top: 20px;
     align-items: center;
+    overflow-y: scroll;
+    max-height: 300px;
 `;
 
 export const InfoTitle = styled.div`
@@ -70,7 +72,8 @@ export const InfoFood = styled.div`
     overflow-y: scroll;
     &::-webkit-scrollbar{
         display:none;
-      }
+    }
+    max-height: 350px;
 `;
 
 export const FoodContainer = styled.div`
