@@ -8,35 +8,30 @@ import API from '../../api/api';
 export default function CustomizedCare() {
     const navigate = useNavigate();
     const [recommendationData, setRecommendationData] = useState(null);
+    const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(`${API}/main/recommend`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setRecommendationData(data);
-            } catch (error) {
-                console.error('추천 데이터를 가져오는 중 오류 발생:', error);
+        console.log('API 호출 전');
+        fetch(`${API}/main/recommend`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
             }
-        };
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Response Data:', data);
+                setRecommendationData(data);
+            })
+            .catch((error) => console.error('Error:', error));
+    }, []);
 
-        fetchData();
-    }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
+    // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
 
-    // // 데이터가 로드되었는지 확인
-    // if (!recommendationData) {
-    //     return <p>Loading...</p>;
-    // }
+    // 데이터가 로드되었는지 확인
+    if (!recommendationData) {
+        return <p>Loading...</p>;
+    }
 
 
 
@@ -52,8 +47,8 @@ export default function CustomizedCare() {
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
                 </S.Recommend>
                 <S.RecommendFood>
-                    <S.RecommendFoodTitle>전날 섭취하신 나트륨 상태는 {condition}이에요.</S.RecommendFoodTitle>
-                    <S.RecommendFoodContent>{message}</S.RecommendFoodContent>
+                    <S.RecommendFoodTitle>전날 섭취하신 나트륨 상태는 <br></br>{recommendationData.condition}이에요.</S.RecommendFoodTitle>
+                    <S.RecommendFoodContent>{recommendationData.message}</S.RecommendFoodContent>
                     <S.Food>
                         {data.map((food, index) => (
                             <React.Fragment key={index}>

@@ -12,7 +12,7 @@ export const InputTitle = styled.div`
     font-size: 35px;
     padding-left: 30px;
     justify-content: flex-start;
-    padding: 20px 180px 20px 0px;
+    padding: 40px 200px 20px 0px;
 `;
 
 export const Notice = styled.div`

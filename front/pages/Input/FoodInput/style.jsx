@@ -23,6 +23,7 @@ export const Info = styled.div`
 export const Backward = styled.img`
   width: 18px;
   height: 26px;
+  padding-right: 30px;
   // margin-right:calc(100% / 2 - 54px)
 `;
 
@@ -30,6 +31,7 @@ export const InputTitle = styled.div`
   font-family: "NotoSansKR-Bold";
   font-size: 29px;
   text-align: center;
+  padding-right: 30px;
 `;
 
 export const JoinBox = styled.div`
@@ -132,6 +134,8 @@ export const Box = styled.button`
   align-items: center;
   font-size: 20px;
   position: relative; /* 상대 위치 지정 */
+  border: 0.5px solid black;
+  box-shadow: 0px 2px 4px 0.25px #7c7c7c;
 `;
 
 export const FoodIcon = styled.img`
@@ -157,6 +161,8 @@ export const SearchInput = styled.input`
   background-size: 20px; /* 이미지 크기 설정 */
   width: 250px;
   height: 40px;
+  border: 1px solid black;
+  box-shadow: 0px 2px 4px 0.25px #7c7c7c;
 `;
 export const SearchImage = styled.img`
   position: absolute;
@@ -183,12 +189,15 @@ export const Box2 = styled.button`
   background-color: #ffffff;
   padding: 0;
   margin-right: 10px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   font-size: 20px;
   position: relative; /* 상대 위치 지정 */
+  border: 0.5px solid black;
+  box-shadow: 0px 2px 4px 0.25px #7c7c7c;
 `;
 
 export const NextButton = styled.button`
