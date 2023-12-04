@@ -26,6 +26,7 @@ export default function Main() {
             })
             .catch((error) => console.error('Error:', error));
     }, []);
+
     useEffect(() => {
         fetch(`${API}/main/bloodpressure/last`, {
             headers: {

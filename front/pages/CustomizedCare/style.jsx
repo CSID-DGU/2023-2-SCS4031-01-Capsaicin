@@ -28,7 +28,6 @@ export const RecommendTitle = styled.div`
     font-family: 'NanumSquareRound';
     font-weight: bold;
     font-size: 25px;
-    padding-left: 30px;
     padding: 40px 0px 20px 0px;
 `;
 
@@ -41,15 +40,15 @@ export const Food = styled.div`
 export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
-    width: 350px;
+    width: 370px;
     height: 250px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
     font-family: 'Pretendard-Medium';
-    padding-left: 20px;
     justify-content: center;
     align-items: flex-start;
+    text-align: left;
 `;
 
 export const RecommendFoodNames = styled.div`
@@ -74,12 +73,13 @@ export const RecommendFoodTitle = styled.div`
     font-family: 'NotoSansKR-Bold';
     font-size: 25px;
     padding-bottom: 15px;
+    padding: 0px 10px 20px 10px;
 `;
 
 export const RecommendFoodContent = styled.div`
     font-family: 'NotoSansKR-Medium';
-    font-size: 18px;
-    padding-bottom: 30px;
+    font-size: 19px;
+    padding: 0px 10px 20px 10px;
 `;
 
 export const RecommendFoodName = styled.div`
