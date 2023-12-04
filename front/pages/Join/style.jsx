@@ -25,6 +25,7 @@ export const TitleSubText = styled.div`
     position: relative;
     z-index: 2;
     color: #FFFFFF;
+    padding: 15px 0px 0px 0px;
 `;
 
 export const TitleSubTitle = styled.div`
