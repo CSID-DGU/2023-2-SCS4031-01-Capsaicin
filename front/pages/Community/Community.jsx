@@ -3,6 +3,7 @@ import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function Community() {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function Community() {
         // 공지사항을 불러오는 API 요청
         const fetchNotice = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/notice', {
+                const response = await fetch(`${API}/main/notice`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export default function Community() {
         // 랭킹을 불러오는 API 요청
         const fetchRank = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/rank', {
+                const response = await fetch(`${API}/main/rank`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

@@ -1,6 +1,7 @@
 import React from 'react';
 import * as S from "../Join/style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function GuardJoin() {
 
@@ -23,47 +24,47 @@ export default function GuardJoin() {
     const handleSubmit = async () => {
         try {
             const formData = {
-                phone_number : phone_number,
-                password1 : parseInt(password1,10),
-                password2 : parseInt(password2,10),
-                fullname : fullname,
-                birth : parseInt(birth,10),
-                gender : gender,
-                userType : "사용자",
-                guardPhoneNumber : guardphoneNumber,
-                height : parseInt(height,10),
-                weight : parseInt(weight,10),
-                systolic : parseInt(systolic,10),
-                center : center
+                phone_number: phone_number,
+                password1: parseInt(password1, 10),
+                password2: parseInt(password2, 10),
+                fullname: fullname,
+                birth: parseInt(birth, 10),
+                gender: gender,
+                userType: "사용자",
+                guardPhoneNumber: guardphoneNumber,
+                height: parseInt(height, 10),
+                weight: parseInt(weight, 10),
+                systolic: parseInt(systolic, 10),
+                center: center
             };
-          console.log(formData);
-    
-          const response = await fetch('http://127.0.0.1:8000/accounts/registration', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${accessToken}`,
-            },
-            body: JSON.stringify(formData),
-          });
-      
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(`HTTP error! Status: ${response.status} , Message: ${errorData.message}`);
-          }
-      
-          const data = await response.json();
-          console.log('회원가입 성공:', data);
+            console.log(formData);
 
-    
-          // openModal 함수를 여기에서 호출하지 않음
+            const response = await fetch(`${API}/accounts/registration`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${accessToken}`,
+                },
+                body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`HTTP error! Status: ${response.status} , Message: ${errorData.message}`);
+            }
+
+            const data = await response.json();
+            console.log('회원가입 성공:', data);
+
+
+            // openModal 함수를 여기에서 호출하지 않음
         } catch (error) {
-          console.error('회원가입 오류:', error);
+            console.error('회원가입 오류:', error);
         }
         navigate('/');
-    
+
         // 선택이 성공적으로 제출된 후에 openModal 함수 호출
-      };
+    };
 
 
     return (

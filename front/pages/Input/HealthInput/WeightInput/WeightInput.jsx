@@ -3,6 +3,7 @@ import Title from '../../../../Components/Title';
 import Nav from '../../../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../../../api/api';
 
 export default function WeightInput() {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function WeightInput() {
 
             // 토큰이 있는 경우에만 요청을 보냄
             if (accessToken) {
-                const response = await fetch('http://127.0.0.1:8000/main/weights', {
+                const response = await fetch(`${API}/main/weights`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

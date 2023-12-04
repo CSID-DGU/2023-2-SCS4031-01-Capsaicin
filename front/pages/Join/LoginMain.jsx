@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
+import API from '../../api/api';
 
 export default function LoginPage() {
 
@@ -12,7 +13,7 @@ export default function LoginPage() {
     });
 
     const handleLogin = async () => {
-        const response = await fetch('http://127.0.0.1:8000/accounts/login/', {
+        const response = await fetch(`${API}/accounts/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

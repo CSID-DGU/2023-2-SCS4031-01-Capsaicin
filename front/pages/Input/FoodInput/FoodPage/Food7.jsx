@@ -5,6 +5,7 @@ import * as S from "../style";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { MealListState } from "../../../../store/mealList_store";
+import API from '../../../../api/api';
 // import {Swiper, SwiperSlide} from "swiper/react";
 // import "swiper/swiper.min.css";
 // import "swiper/components/navigation/navigation.min.css";
@@ -26,7 +27,7 @@ export default function Food7() {
   const [selectedItems, setSelectedItems] = useState([]);
   const [foodCounts, setFoodCounts] = useState({});
   const [meal, setMeal] = useRecoilState(MealListState);
-  
+
   const searched = foods.filter((food) => food.foodName.includes(userInput));
 
   const getValue = (e) => {
@@ -36,23 +37,23 @@ export default function Food7() {
     console.log(meal)
     const fetchFoods = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/main/food/7', {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch(`${API}/main/food/7`, {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
           },
-        }); 
+        });
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-  
+
         const data = await response.json();
         setFoods(data);
       } catch (error) {
         console.error('Error fetching foods:', error);
       }
     };
-  
+
     fetchFoods();
   }, []);
 
@@ -70,7 +71,8 @@ export default function Food7() {
         setFoodCounts((prevCounts) => ({
           ...prevCounts,
           [food.id]: 1,
-        }));}
+        }));
+      }
     }
   };
 
@@ -79,14 +81,14 @@ export default function Food7() {
     const mealList = Object.keys(foodCounts).map((foodId) => ({
       food_id: parseInt(foodId, 10),
       count: foodCounts[foodId],
-      unit:"숟가락"
+      unit: "숟가락"
     }));
     setMeal((prev) => [...prev, ...mealList])
 
-  
+
     // 여기에서 mealList를 어딘가에 저장하거나 활용하는 로직을 추가할 수 있습니다.
     // 예를 들어, 전역 상태나 다른 상태 관리 라이브러리를 사용하여 mealList를 저장할 수 있습니다.
-  
+
     // 다음 페이지로 이동
     navigate(`/inputinfo_cate`);
   };
@@ -108,7 +110,7 @@ export default function Food7() {
         meal_list: mealList,
       }));
 
-      const response = await fetch('http://127.0.0.1:8000/main/meal', {
+      const response = await fetch(`${API}/main/meal`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,11 +120,11 @@ export default function Food7() {
           meal_list: mealList, // 수정된 부분
         }),
       });
-  
+
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-  
+
       const data = await response.json();
       console.log('식사 선택 성공:', data);
 
@@ -147,7 +149,7 @@ export default function Food7() {
       [foodId]: selectedCount,
     }));
   };
-  
+
 
   return (
     <>
@@ -160,7 +162,7 @@ export default function Food7() {
           />
           <S.InputTitle>디저트/떡류</S.InputTitle>
         </S.Info>
-          <S.SearchContainer>
+        <S.SearchContainer>
           <S.SearchInput type="input" placeholder="검색" onChange={getValue} />
         </S.SearchContainer>
         <S.UserBox>
@@ -188,10 +190,10 @@ export default function Food7() {
         </S.UserBox>
         <S.ButtonContainer>
           <S.NextButton onClick={handleNextFood} >다음 음식</S.NextButton>
-          
+
           <div>
             <S.ChoiceButton onClick={handleSelectionComplete} >선택 완료</S.ChoiceButton>
-            
+
             {isModalOpen && (
               <S.Modal>
                 <S.ModalContent>
