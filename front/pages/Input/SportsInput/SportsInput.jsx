@@ -57,22 +57,23 @@ export default function SportsInput() {
     try {
       const exerciseList = Object.keys(minutes).map((exerciseId) => ({
         exercise_id: parseInt(exerciseId, 10),
-        count: parseFloat(minutes[exerciseId]), // minutes가 실수를 포함하는 것으로 가정
+        count: parseFloat(minutes[exerciseId]),
       }));
-
-      console.log('전송 데이터:', JSON.stringify({
-        exercise_list: exerciseList,
-      }));
-
-      const response = await fetch(`${API}/main/exercise`, {
+  
+      // 리스트 형태에서 객체로 변경
+      const requestData = {
+        exercise_list: exerciseList.length > 0 ? exerciseList[0] : {},
+      };
+  
+      console.log('전송 데이터:', JSON.stringify(requestData));
+  
+      const response = await fetch('http://127.0.0.1:8000/main/exercise', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`,
         },
-        body: JSON.stringify({
-          exercise_list: exerciseList,
-        }),
+        body: JSON.stringify(requestData),
       });
 
       if (!response.ok) {
@@ -93,7 +94,10 @@ export default function SportsInput() {
     // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     openModal();
   };
-
+  
+  
+  
+  
   useEffect(() => {
     const fetchExercises = async () => {
       try {
