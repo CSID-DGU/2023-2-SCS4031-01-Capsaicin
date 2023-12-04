@@ -306,7 +306,7 @@ class MealRecommendationView(APIView):
             result = run(total_natrium, top_natrium_foods, "음식분류")
             serial = MealRecommendSerializer({'condition': "고나트륨", 'message': "섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
             
-
+            
             return Response(serial.data)
             # return Response("고나트륨 {}".format(result))
 
