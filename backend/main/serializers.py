@@ -53,17 +53,23 @@ class UserSerializer(serializers.ModelSerializer):
 
 class CenterSerializer(serializers.ModelSerializer):
     fullname = serializers.SerializerMethodField()
+    user_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Center
-        fields = ["name", "fullname"]
+        fields = ["name", "fullname", "user_id"]
 
     def get_fullname(self, obj):
-       if obj.center is not None:
-            users_data = UserSerializer(obj.center.all(), many=True).data
-            return users_data[0]["fullname"]
-       else:
-            return None
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return request.user.fullname
+        return None
+
+    def get_user_id(self, obj):
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            return request.user.id
+        return None
     
 
 
