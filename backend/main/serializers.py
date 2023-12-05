@@ -68,6 +68,11 @@ class CenterSerializer(serializers.ModelSerializer):
 
 
 class NoticeSerializer(serializers.ModelSerializer):
+    center_name = serializers.SerializerMethodField()
+
+    def get_center_name(self, obj):
+        return obj.center.name
+
     class Meta:
         model = Notice
         fields = "__all__"
