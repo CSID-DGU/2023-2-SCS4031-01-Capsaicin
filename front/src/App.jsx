@@ -27,6 +27,8 @@ import Food5 from '../pages/Input/FoodInput/FoodPage/Food5';
 import Food6 from '../pages/Input/FoodInput/FoodPage/Food6';
 import Food7 from '../pages/Input/FoodInput/FoodPage/Food7';
 import Food8 from '../pages/Input/FoodInput/FoodPage/Food8';
+import GuardRecord from '../pages/Guard/GuardRecord';
+import GuardCare from '../pages/Guard/GuardCare';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -107,8 +109,10 @@ function App() {
 
           {/* 맞춤케어 */}
           <Route path="/CustomizedCare" element={<CustomizedCare />} />
+          <Route path="/GuardCare" element={<GuardCare />} />
           {/* 건강기록 */}
           <Route path="/HealthRecord" element={<HealthRecord />} />
+          <Route path="/guardrecord" element={<GuardRecord />} />
           {/* 커뮤니티 */}
           <Route path="/Community" element={<Community />} />
         </Routes>

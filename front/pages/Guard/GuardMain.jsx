@@ -15,7 +15,7 @@ export default function GuardMain() {
     useEffect(() => {
         const fetchRecentFoods = async () => {
             try {
-                const response = await fetch(`${API}/main/meal`, {
+                const response = await fetch(`${API}/guard/meal`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
@@ -36,6 +36,7 @@ export default function GuardMain() {
         fetchRecentFoods();
     }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
 
+    
 
 
     useEffect(() => {
@@ -110,25 +111,24 @@ export default function GuardMain() {
                     </S.InfoHealth>
                 </S.Info>
 
-                <S.GotoCare onClick={() => navigate(`/healthrecord`)}>
+                <S.GotoCare onClick={() => navigate(`/guardrecord`)}>
                     건강기록 열람
                 </S.GotoCare>
-                <S.GotoHealth onClick={() => navigate(`/customizedcare`)}>
+                <S.GotoHealth onClick={() => navigate(`/guardcare`)}>
                     맞춤케어 열람
                 </S.GotoHealth>
 
-                {/* <S.InfoFood>
+                <S.InfoFood2>
                     <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
                     {recentFoods.map((food) => (
-                        <div>
+                        <S.FoodContainer2>
                             <S.InfoFoodImage src={food.food_img} />
                             <S.InfoFoodName>
                                 <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
                             </S.InfoFoodName>
-                        </div>
+                        </S.FoodContainer2>
                     ))}
-                </S.InfoFood> */}
-                <Nav />
+                </S.InfoFood2>
             </S.Container>
         </>
     )

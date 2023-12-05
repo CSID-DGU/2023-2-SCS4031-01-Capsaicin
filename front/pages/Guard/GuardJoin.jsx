@@ -36,12 +36,12 @@ export default function GuardJoin() {
                 userType : "보호자",
                 height : 0,
                 weight : 0,
-                systolic : 0,
-                is_superuser: false
+                systolic : 0
             };
           console.log(formData);
+          
     
-          const response = await fetch('http://127.0.0.1:8000/accounts/registration/guard', {
+          const response = await fetch(`${API}/accounts/registration/guard`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -61,7 +61,9 @@ export default function GuardJoin() {
     
           // openModal 함수를 여기에서 호출하지 않음
 
-        } catch (error) {
+        } 
+        
+        catch (error) {
             console.error('회원가입 오류:', error);
         }
         navigate('/');
@@ -69,7 +71,7 @@ export default function GuardJoin() {
         // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     };
 
-
+    
     return (
         <>
             <S.Container>
