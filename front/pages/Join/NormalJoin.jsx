@@ -31,7 +31,7 @@ export default function NormalJoin() {
                 password1: parseInt(password1, 10),
                 password2: parseInt(password2, 10),
                 fullname: fullname,
-                birth: parseInt(birth, 10),
+                birth: birth,
                 gender: gender,
                 userType: "사용자",
                 guardPhoneNumber: guardphoneNumber,
