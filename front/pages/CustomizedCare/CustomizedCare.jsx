@@ -8,6 +8,7 @@ import API from '../../api/api';
 export default function CustomizedCare() {
     const navigate = useNavigate();
     const [recommendationData, setRecommendationData] = useState(null);
+    const [recommendationExerciseData, setRecommendationExerciseData] = useState(null);
     const accessToken = localStorage.getItem("accessToken");
 
     useEffect(() => {
@@ -22,6 +23,22 @@ export default function CustomizedCare() {
             .then((data) => {
                 console.log('Response Data:', data);
                 setRecommendationData(data);
+            })
+            .catch((error) => console.error('Error:', error));
+    }, []);
+
+    useEffect(() => {
+        console.log('API 호출 전');
+        fetch(`${API}/main/exercise/recommend`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`, // 실제 액세스 토큰 로직으로 대체하세요
+            }
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Response Data:', data);
+                setRecommendationExerciseData(data);
             })
             .catch((error) => console.error('Error:', error));
     }, []);
@@ -47,7 +64,7 @@ export default function CustomizedCare() {
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
                 </S.Recommend>
                 <S.RecommendFood>
-                    <S.RecommendFoodTitle>전날 섭취하신 나트륨 상태는 <br></br>{recommendationData.condition}이에요.</S.RecommendFoodTitle>
+                    <S.RecommendFoodTitle>{recommendationExerciseData.user}님의 전날 섭취하신<br></br> 나트륨 상태는 {recommendationData.condition}이에요.</S.RecommendFoodTitle>
                     <S.RecommendFoodContent>{recommendationData.message}</S.RecommendFoodContent>
                     <S.Food>
                         {data.map((food, index) => (
@@ -68,14 +85,10 @@ export default function CustomizedCare() {
                 </S.Recommend>
 
                 <S.RecommendExercise>
-                    <S.RecommendExerciseTitle>김건강님은 운동이 부족해요.</S.RecommendExerciseTitle>
-                    <S.RecommendExercisecontent>김건강님의 하루 권장 섭취 칼로리는
-                        <br></br>1800kcal입니다.
-                        <br></br>소모 칼로리가 800kcal만큼 필요해요.</S.RecommendExercisecontent>
+                    <S.RecommendExerciseTitle>{recommendationExerciseData.user}님의 운동 분석 결과입니다.</S.RecommendExerciseTitle>
 
-                    <S.RecommendExerciseName>1. 계단 오르내리기</S.RecommendExerciseName>
-                    <S.RecommendExerciseName>2. 앉았다 일어나기</S.RecommendExerciseName>
-                    <S.RecommendExerciseName>3. PT 체조</S.RecommendExerciseName>
+                    <S.RecommendExerciseName>{recommendationExerciseData.user}님의 어제 섭취 칼로리는<br></br>{recommendationExerciseData.yesterday_total_meal_calorie}입니다.</S.RecommendExerciseName>
+                    <S.RecommendExercisecontent>{recommendationExerciseData.message}</S.RecommendExercisecontent>
                 </S.RecommendExercise>
 
                 <Nav />
