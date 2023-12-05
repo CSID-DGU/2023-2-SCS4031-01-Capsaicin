@@ -20,6 +20,7 @@ export default function GuardJoin() {
     const [height, setHeight] = React.useState('');
     const [weight, setWeight] = React.useState('');
     const [systolic, setSystolic] = React.useState('');
+    const [is_superuser, setis_superuser] = React.useState('');
     const accessToken = localStorage.getItem("accessToken");
 
     const handleSubmit = async () => {
@@ -30,12 +31,13 @@ export default function GuardJoin() {
                 password2 : parseInt(password2,10),
                 userPhoneNumber : userphoneNumber,
                 fullname : fullname,
-                birth : 0,
+                birth : "0",
                 gender : "",
                 userType : "보호자",
                 height : 0,
                 weight : 0,
-                systolic : 0
+                systolic : 0,
+                is_superuser: false
             };
           console.log(formData);
     
