@@ -32,7 +32,7 @@ export default function GuardJoin() {
                 userPhoneNumber : userphoneNumber,
                 fullname : fullname,
                 birth : "0",
-                gender : "",
+                gender : "F",
                 userType : "보호자",
                 height : 0,
                 weight : 0,

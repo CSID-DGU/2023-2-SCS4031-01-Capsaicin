@@ -34,7 +34,7 @@ export default function NormalJoin() {
                 birth: birth,
                 gender: gender,
                 userType: "사용자",
-                guardPhoneNumber: guardphoneNumber,
+                guardPhoneNumber: "",
                 height: parseInt(height, 10),
                 weight: parseInt(weight, 10),
                 systolic: parseInt(systolic, 10),
@@ -102,7 +102,7 @@ export default function NormalJoin() {
 
                 <S.JoinBox>
                     <S.JoinContent>전화번호</S.JoinContent>
-                    <S.JoinInput type="text" placeholder='키(cm 생략, 숫자만 작성)' value={phone_number} onChange={(e) => setPhone_Number(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={phone_number} onChange={(e) => setPhone_Number(e.target.value)}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
@@ -118,11 +118,6 @@ export default function NormalJoin() {
                 <S.JoinBox>
                     <S.JoinContent>수축혈압</S.JoinContent>
                     <S.JoinInput type="text" placeholder='혈압(mmHg 생략, 숫자만 작성)' value={systolic} onChange={(e) => setSystolic(e.target.value)}></S.JoinInput>
-                </S.JoinBox>
-
-                <S.JoinBox>
-                    <S.JoinContent>보호자 전화번호</S.JoinContent>
-                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={guardphoneNumber} onChange={(e) => setGaurdPhoneNumber(e.target.value)}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>

@@ -13,31 +13,42 @@ export default function LoginPage() {
     });
 
     const handleLogin = async () => {
-        const response = await fetch(`${API}/accounts/login/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        try {
+            const response = await fetch(`${API}/accounts/login/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: loginData.username,
+                    password: loginData.password,
+                })
+            });
 
-            body: JSON.stringify({
-                username: loginData.username,
-                password: loginData.password,
-            })
-        });
-        const responseData = await response.json();
+            if (!response.ok) {
+                console.error('로그인 실패');
+                return;
+            }
 
-        const aceessToken = responseData.access_token;
-        localStorage.setItem("accessToken", aceessToken);
+            const responseData = await response.json();
+            const accessToken = responseData.access_token;
+            localStorage.setItem("accessToken", accessToken);
+            const userType = responseData.user.userType;
 
-        console.log(aceessToken);
+            console.log(accessToken);
+            console.log(userType)
 
-        if (response.ok) {
-
-            navigate('/main');
-            console.log('로그인 성공');
-
-        } else {
-            console.error('로그인 실패');
+            if (userType === "사용자") {
+                navigate('/main');
+                console.log('로그인 성공 - 사용자');
+            } else if (userType === "보호자") {
+                navigate('/guardmain');
+                console.log('로그인 성공 - 보호자');
+            } else {
+                console.error('로그인 실패: 알 수 없는 사용자 타입');
+            }
+        } catch (error) {
+            console.error('로그인 요청 중 오류 발생', error);
         }
     };
 

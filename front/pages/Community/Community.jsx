@@ -100,7 +100,7 @@ export default function Community() {
                 <S.InputTitle>커뮤니티</S.InputTitle>
 
                 <S.Notice>
-                    <S.NoticeTitle>장충경로당 공지</S.NoticeTitle>
+                    <S.NoticeTitle>경로당 공지</S.NoticeTitle>
                     <S.NoticeContent>{noticeContent}</S.NoticeContent>
                 </S.Notice>
 
