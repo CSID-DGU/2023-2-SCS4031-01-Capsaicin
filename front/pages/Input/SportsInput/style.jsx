@@ -244,7 +244,7 @@ export const CustomSelect_Rice = ({ onChange }) => {
 };
 
 export const CustomSelectExercise = ({onChange}) => {
-  const minuteOptions = [30, 60, 90, 120];
+  const minuteOptions = [10,20,30,40,50,60,70,80,90];
   return (
     <Select onChange={onChange}>
       {minuteOptions.map((minute) => (

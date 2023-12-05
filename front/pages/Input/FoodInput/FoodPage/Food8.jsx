@@ -81,7 +81,7 @@ export default function Food8() {
     const mealList = Object.keys(foodCounts).map((foodId) => ({
       food_id: parseInt(foodId, 10),
       count: foodCounts[foodId],
-      unit: "숟가락"
+      unit: "개"
     }));
     setMeal((prev) => [...prev, ...mealList])
 
@@ -98,7 +98,7 @@ export default function Food8() {
       const mealList = Object.keys(foodCounts).map((foodId) => ({
         food_id: parseInt(foodId, 10),
         count: foodCounts[foodId],
-        unit: "숟가락",
+        unit: "개",
       }));
 
       for (const mealItem of meal) {
@@ -175,11 +175,11 @@ export default function Food8() {
               >
                 {food.foodName}
                 <S.FoodIcon src={food.foodImgUrl} />
-                <S.CustomSelect_3 onChange={(e) => handleSelectChange(e, food.id)}>
+                <S.CustomSelect_4 onChange={(e) => handleSelectChange(e, food.id)}>
                   <option value={1}>1인분</option>
                   <option value={2}>2인분</option>
                   <option value={3}>3인분</option>
-                </S.CustomSelect_3>
+                </S.CustomSelect_4>
               </S.Box2>
             ))
           ) : (

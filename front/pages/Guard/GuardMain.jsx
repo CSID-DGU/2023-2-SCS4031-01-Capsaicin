@@ -3,7 +3,7 @@ import Title from '../../Components/Title';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
-
+import API from '../../api/api';
 export default function GuardMain() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
@@ -39,7 +39,7 @@ export default function GuardMain() {
 
 
     useEffect(() => {
-        fetch(`${API}/main/weights/last`, {
+        fetch(`${API}/guard/weights/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -53,7 +53,7 @@ export default function GuardMain() {
             .catch((error) => console.error('Error:', error));
     }, []);
     useEffect(() => {
-        fetch(`${API}/main/bloodpressure/last`, {
+        fetch(`${API}/guard/bloodpressure/last`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${accessToken}`
@@ -66,20 +66,20 @@ export default function GuardMain() {
             })
             .catch((error) => console.error('Error:', error));
     }, []);
-    useEffect(() => {
-        fetch(`${API}/main/center`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Center Data:', data);
-                setCenterData(data);
-            })
-            .catch((error) => console.error('Error:', error));
-    }, []);
+    // useEffect(() => {
+    //     fetch(`${API}/main/center`, {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${accessToken}`
+    //         }
+    //     })
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             console.log('Center Data:', data);
+    //             setCenterData(data);
+    //         })
+    //         .catch((error) => console.error('Error:', error));
+    // }, []);
 
     return (
         <>
@@ -88,13 +88,13 @@ export default function GuardMain() {
 
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
-                    <S.Name>{centerData.fullname}</S.Name>
+                    <S.Name>{userBPData.fullname}</S.Name>
 
                     <S.User>님 보호자</S.User>
                 </S.UserName>
 
                 <S.Info>
-                    <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>
+                    <S.InfoTitle>{userBPData.fullname}님의 최근 수치</S.InfoTitle>
 
                     <S.InfoHealth>
                         <S.InfoBoxes>
@@ -117,17 +117,17 @@ export default function GuardMain() {
                     맞춤케어 열람
                 </S.GotoHealth>
 
-                <S.InfoFood>
+                {/* <S.InfoFood>
                     <S.InfoFoodTitle>최근 먹은 음식</S.InfoFoodTitle>
                     {recentFoods.map((food) => (
                         <div>
-                            {/* <S.InfoFoodImage src={food.food_img} /> */}
+                            <S.InfoFoodImage src={food.food_img} />
                             <S.InfoFoodName>
                                 <div key={food.food_name}>{`${food.food_name} ${food.count}${food.unit}`}</div>
                             </S.InfoFoodName>
                         </div>
                     ))}
-                </S.InfoFood>
+                </S.InfoFood> */}
                 <Nav />
             </S.Container>
         </>
