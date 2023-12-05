@@ -76,12 +76,14 @@ export const RecommendFoodTitle = styled.div`
     font-size: 25px;
     padding-bottom: 15px;
     padding: 0px 10px 20px 10px;
+    line-height: 1.2;
 `;
 
 export const RecommendFoodContent = styled.div`
     font-family: 'NotoSansKR-Medium';
     font-size: 19px;
     padding: 0px 10px 20px 10px;
+    line-height: 1.2;
 `;
 
 export const RecommendFoodName = styled.div`
@@ -101,7 +103,7 @@ export const RecommendExercise = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
     font-family: 'Pretendard-Medium';
-    padding-left: 20px;
+padding: 0px 10px 0px 10px;
     justify-content: center;
     align-items: flex-start;
     overflow-y: scroll;
@@ -119,6 +121,7 @@ export const RecommendExercisecontent = styled.div`
     font-size: 18px;
     text-align: left;
     padding-bottom: 30px;
+    line-height: 1.1;
 `;
 
 export const RecommendExerciseName = styled.div`
@@ -126,4 +129,5 @@ export const RecommendExerciseName = styled.div`
     font-size: 20px;
     text-align: left;
     padding-bottom: 8px;
+    line-height: 1.2;
 `;
