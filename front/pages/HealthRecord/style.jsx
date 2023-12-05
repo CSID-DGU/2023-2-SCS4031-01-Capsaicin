@@ -7,11 +7,6 @@ export const Container = styled.div`
     position: relative;
 `;
 
-export const Backward = styled.img`
-    width: 18px;
-    height: 26px;
-    padding-right: 90px;
-`;
 
 export const InputTitle = styled.div`
     font-family: 'NotoSansKR-Bold';

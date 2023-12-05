@@ -488,7 +488,12 @@ export const InfoTitle = styled.div`
     font-family: 'NotoSansKR-Regular';
     margin: 20px 130px 0px 0px;
 `;
-
+export const InfoTitle2 = styled.div`
+    font-size: 23px;
+    font-family: 'NotoSansKR-SemiBold';
+    font-weight: bold;
+    margin: 20px 0px 20px 0px;
+`;
 export const InfoHealth = styled.div`
     display: flex;
     flex-direction: row;
@@ -633,6 +638,35 @@ export const GotoHealth = styled.div`
     
 `;
 
+export const InputTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 30px;
+    padding-left: 30px;
+    justify-content: flex-start;
+    padding: 20px 90px 20px 0px;
+`;
+
+
+export const Infos = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 20px;
+`;
+export const Info2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 300px;
+    border: 0.25px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-family: 'NotoSansKR-Bold';
+    margin-top: 20px;
+    align-items: center;
+    overflow-y: scroll;
+    max-height: 300px;
+`;
 
 export const InfoFood = styled.div`
     display: flex;
@@ -647,12 +681,37 @@ export const InfoFood = styled.div`
     align-items: center;
     justify-content: center;
 `;
+export const InfoFood2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 250px;
+    border: 0.25px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-family: 'NotoSansKR-Bold';
+    margin-top: 20px;
+    align-items: center;
+    gap: 10px;
+    overflow-y: scroll;
+    &::-webkit-scrollbar{
+        display:none;
+    }
+    max-height: 350px;
+    `;
+
 
 export const InfoFoodTitle = styled.div`
     font-size: 20px;
     font-family: 'NotoSansKR-Regular';
     font-weight: bold;
     margin: 0px 0px 20px 0px;
+`;
+export const InfoFoodTitle2 = styled.div`
+    font-size: 20px;
+    font-family: 'NotoSansKR-Regular';
+    font-weight: bold;
+    margin-top: 20px;
 `;
 
 export const InfoFoodName = styled.div`
@@ -662,7 +721,167 @@ export const InfoFoodName = styled.div`
 `;
 
 export const InfoFoodImage = styled.img`
-    width: 320px;
-    height: 85px;
-    margin: 20px 0px 20px 0px;
+    width: 100px;
+    height: 100px;
+`;
+
+
+
+
+export const InfoImage = styled.img`
+    width: 298px;
+    height: 278px;
+    padding-right: 20px;
+    margin: 10px 0px 0px 10px;
+`;
+
+
+export const FoodContainer = styled.div`
+    width:100%;
+    display:flex;
+    // flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding:1rem;
+    border-bottom: 1px solid #000;
+`;
+export const FoodContainer2 = styled.div`
+    width:100%;
+    height: 110px;
+    display:flex;
+    // flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    gap: 1rem;
+    box-sizing: border-box;
+    padding:1rem;
+    border-bottom: 1px solid #000;
+`;
+
+
+
+export const Backward = styled.img`
+    width: 18px;
+    height: 26px;
+    padding-right: 90px;
+`;
+
+
+export const Recommend = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 390px;
+    padding-left: 50px;
+`;
+
+export const RecommendTitle = styled.div`
+    font-family: 'NanumSquareRound';
+    font-weight: bold;
+    font-size: 25px;
+    padding: 40px 0px 20px 0px;
+`;
+
+export const Food = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+
+export const RecommendFood = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 370px;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-size: 35px;
+    font-family: 'Pretendard-Medium';
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+    overflow-y: scroll;
+    max-height: 370px;
+`;
+
+export const RecommendFoodNames = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const RecommendFoodKcals = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+`;
+
+export const RecommendFoodKcal = styled.div`
+    font-family: 'NanumSquareRound';
+    font-size: 15px;
+    padding-bottom: 17px;
+`;
+
+
+export const RecommendFoodTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding-bottom: 15px;
+    padding: 0px 10px 20px 10px;
+    line-height: 1.2;
+`;
+
+export const RecommendFoodContent = styled.div`
+    font-family: 'NotoSansKR-Medium';
+    font-size: 19px;
+    padding: 0px 10px 20px 10px;
+    line-height: 1.2;
+`;
+
+export const RecommendFoodName = styled.div`
+    font-family: 'NotoSansKR-Medium';
+    font-size: 20px;
+    text-align: left;
+    padding-bottom: 8px;
+`;
+
+// 운동
+export const RecommendExercise = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 250px;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px 0.25px #7c7c7c;
+    font-size: 35px;
+    font-family: 'Pretendard-Medium';
+padding: 0px 10px 0px 10px;
+    justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
+    max-height: 250px;
+`;
+
+export const RecommendExerciseTitle = styled.div`
+    font-family: 'NotoSansKR-Bold';
+    font-size: 25px;
+    padding-bottom: 15px;
+`;
+
+export const RecommendExercisecontent = styled.div`
+    font-family: 'NotoSansKR-Medium';
+    font-size: 18px;
+    text-align: left;
+    padding-bottom: 30px;
+    line-height: 1.1;
+`;
+
+export const RecommendExerciseName = styled.div`
+    font-family: 'NotoSansKR-Medium';
+    font-size: 20px;
+    text-align: left;
+    padding-bottom: 8px;
+    line-height: 1.2;
 `;
