@@ -56,7 +56,7 @@ class CustomUserManager(BaseUserManager):
 class User(AbstractUser):
     fullname = models.CharField(_('fullname'), max_length=4)
     phone_number = models.CharField(_('phone number'), unique=True, max_length=11)
-    password = models.CharField('password', max_length=4)
+    password = models.CharField('password', max_length=100)
     username = models.CharField(max_length=1, null=True)
     
     birth = models.CharField('birth', max_length=10, null=True, blank=True)

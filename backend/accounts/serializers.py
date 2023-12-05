@@ -67,6 +67,7 @@ class CustomLoginSerializer(LoginSerializer):
 
 
 class CustomUserDetailsSerializer(UserDetailsSerializer):
+    is_superuser = serializers.BooleanField(read_only=True)
 
     class Meta:
         extra_fields = []
@@ -76,5 +77,5 @@ class CustomUserDetailsSerializer(UserDetailsSerializer):
             extra_fields.append(UserModel.EMAIL_FIELD)
 
         model = UserModel
-        fields = ('pk', *extra_fields, 'first_name', 'last_name', 'userType')
+        fields = ('pk', *extra_fields, 'first_name', 'last_name', 'userType', 'is_superuser')
         read_only_fields = ('email',)
