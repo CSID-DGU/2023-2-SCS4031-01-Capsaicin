@@ -68,6 +68,7 @@ export const RecommendFoodKcal = styled.div`
     font-family: 'NanumSquareRound';
     font-size: 15px;
     padding-bottom: 17px;
+    flex-direction: column;
 `;
 
 
@@ -91,6 +92,7 @@ export const RecommendFoodName = styled.div`
     font-size: 20px;
     text-align: left;
     padding-bottom: 8px;
+    flex-direction: column;
 `;
 
 // 운동

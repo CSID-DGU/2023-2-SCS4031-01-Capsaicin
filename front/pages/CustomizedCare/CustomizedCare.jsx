@@ -70,10 +70,10 @@ export default function CustomizedCare() {
                         {data.map((food, index) => (
                             <React.Fragment key={index}>
                                 <S.RecommendFoodNames>
-                                    <S.RecommendFoodName>{food[0]}</S.RecommendFoodName>
+                                    <S.RecommendFoodName>{recommendationData.data[0]}</S.RecommendFoodName>
                                 </S.RecommendFoodNames>
                                 <S.RecommendFoodKcals>
-                                    <S.RecommendFoodKcal>{food[1]}</S.RecommendFoodKcal>
+                                    <S.RecommendFoodKcal>{recommendationData.data[1]}</S.RecommendFoodKcal>
                                 </S.RecommendFoodKcals>
                             </React.Fragment>
                         ))}

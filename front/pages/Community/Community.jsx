@@ -71,7 +71,7 @@ export default function Community() {
     useEffect(() => {
         const fetchBlood = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:8000/main/rank', {
+                const response = await fetch(`${API}/main/rank`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
