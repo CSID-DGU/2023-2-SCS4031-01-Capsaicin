@@ -101,3 +101,9 @@ export const InfoFoodImage = styled.img`
     width: 100px;
     height: 100px;
 `;
+
+export const Backward = styled.img`
+    width: 18px;
+    height: 26px;
+    padding-right: 90px;
+`;
