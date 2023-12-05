@@ -1,5 +1,5 @@
 // api.js
 
-const API = "http://127.0.0.1:8000";
+const API = "https://port-0-capsaicin-57lz2alppeg9sc.sel4.cloudtype.app";
 
 export default API;
