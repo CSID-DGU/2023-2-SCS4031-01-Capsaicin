@@ -36,7 +36,7 @@ export default function GuardMain() {
         fetchRecentFoods();
     }, []); // 빈 종속성 배열은 이 효과가 컴포넌트가 마운트될 때 한 번 실행되도록 보장합니다.
 
-    
+
 
 
     useEffect(() => {
