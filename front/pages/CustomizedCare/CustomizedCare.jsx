@@ -69,6 +69,7 @@ export default function CustomizedCare() {
                     <S.Food>
                         {data.map((food, index) => (
                             <React.Fragment key={index}>
+                                <S.FoodIcon src={food[2]} />
                                 <S.RecommendFoodNames>
                                     <S.RecommendFoodName>{food[0]}</S.RecommendFoodName>
                                 </S.RecommendFoodNames>
