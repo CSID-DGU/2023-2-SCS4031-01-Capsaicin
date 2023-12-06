@@ -34,6 +34,17 @@ export const RecommendTitle = styled.div`
 export const Food = styled.div`
     display: flex;
     flex-direction: column;
+    height: 200px;
+
+        /* 스크롤바 스타일링 */
+        ::-webkit-scrollbar {
+        width: 12px; /* 스크롤바 너비 */
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #888; /* 스크롤바 색상 */
+        border-radius: 6px; /* 스크롤바 모서리 둥글게 */
+    }
 `;
 
 
@@ -41,7 +52,7 @@ export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
     width: 370px;
-    height: 370px;
+    height: 400px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
@@ -49,20 +60,21 @@ export const RecommendFood = styled.div`
     justify-content: center;
     align-items: flex-start;
     text-align: left;
-    overflow-y: scroll;
-    max-height: 370px;
+    overflow-y: auto;
+    max-height: none;
+    align-items: center;
 `;
 
 export const RecommendFoodNames = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 0px 10px 0px 20px;
+    text-align: center;
 `;
 
 export const RecommendFoodKcals = styled.div`
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
+    text-align: center;
 `;
 
 export const RecommendFoodKcal = styled.div`
@@ -94,6 +106,7 @@ export const RecommendFoodName = styled.div`
     text-align: left;
     padding-bottom: 8px;
     flex-direction: column;
+    text-align: center;
 `;
 
 // 운동
@@ -133,4 +146,9 @@ export const RecommendExerciseName = styled.div`
     text-align: left;
     padding-bottom: 8px;
     line-height: 1.2;
+`;
+
+export const FoodIcon = styled.img`
+  width: 150px;
+  height: 150px;
 `;
