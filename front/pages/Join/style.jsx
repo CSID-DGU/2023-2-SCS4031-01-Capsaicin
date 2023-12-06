@@ -20,6 +20,7 @@ export const Title = styled.img`
 
 export const TitleSubText = styled.div`
     font-family: 'NanumSquareRoundEB';
+    src: url('/static/assets/font/NanumSquareRoundEB.ttf') format('truetype');
     font-size: 20px;
     text-align: center;
     position: relative;
