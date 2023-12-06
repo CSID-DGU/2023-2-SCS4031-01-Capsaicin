@@ -91,8 +91,6 @@ export default function CustomizedCare() {
                     <S.RecommendExerciseName>{recommendationExerciseData.user}님의 어제 섭취 칼로리는<br></br>{recommendationExerciseData.yesterday_total_meal_calorie}입니다.</S.RecommendExerciseName>
                     <S.RecommendExercisecontent>{recommendationExerciseData.message}</S.RecommendExercisecontent>
                 </S.RecommendExercise>
-
-                <Nav />
             </S.Container>
         </>
     )
