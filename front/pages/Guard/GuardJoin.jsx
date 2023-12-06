@@ -41,7 +41,7 @@ export default function GuardJoin() {
           console.log(formData);
           
     
-          const response = await fetch(`${API}/accounts/registration/guard`, {
+          const response = await fetch(`${API}/accounts/registration/guard/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

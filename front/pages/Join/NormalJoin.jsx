@@ -42,7 +42,7 @@ export default function NormalJoin() {
             };
             console.log(formData);
 
-            const response = await fetch(`${API}/accounts/registration`, {
+            const response = await fetch(`${API}/accounts/registration/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
