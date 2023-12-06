@@ -70,10 +70,10 @@ export default function CustomizedCare() {
                         {data.map((food, index) => (
                             <React.Fragment key={index}>
                                 <S.RecommendFoodNames>
-                                    <S.RecommendFoodName>{recommendationData.data[0]}</S.RecommendFoodName>
+                                    <S.RecommendFoodName>{food[0]}</S.RecommendFoodName>
                                 </S.RecommendFoodNames>
                                 <S.RecommendFoodKcals>
-                                    <S.RecommendFoodKcal>{recommendationData.data[1]}</S.RecommendFoodKcal>
+                                    <S.RecommendFoodKcal>{food[1]}</S.RecommendFoodKcal>
                                 </S.RecommendFoodKcals>
                             </React.Fragment>
                         ))}
@@ -87,7 +87,8 @@ export default function CustomizedCare() {
                 <S.RecommendExercise>
                     <S.RecommendExerciseTitle>{recommendationExerciseData.user}님의 운동 분석 결과입니다.</S.RecommendExerciseTitle>
 
-                    <S.RecommendExerciseName>{recommendationExerciseData.user}님의 어제 섭취 칼로리는<br></br>{recommendationExerciseData.yesterday_total_meal_calorie}입니다.</S.RecommendExerciseName>
+                    <S.RecommendExerciseName>    {recommendationExerciseData.user}님의 어제 섭취 칼로리는<br></br>
+                        {parseFloat(recommendationExerciseData.yesterday_total_meal_calorie).toFixed(2)}입니다.</S.RecommendExerciseName>
                     <S.RecommendExercisecontent>{recommendationExerciseData.message}</S.RecommendExercisecontent>
                 </S.RecommendExercise>
 
