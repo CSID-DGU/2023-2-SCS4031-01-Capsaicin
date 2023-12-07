@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'guard',
+    'ocr',
 ]
 
 SITE_ID = 1

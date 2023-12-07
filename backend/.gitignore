@@ -1,4 +1,5 @@
 drf_env
+config.json
 
 ### Django ###
 *.log
