@@ -39,4 +39,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('main/', include('main.urls')),
     path('guard/', include('guard.urls')),
+    path('ocr/', include('ocr.urls')),
 ]
