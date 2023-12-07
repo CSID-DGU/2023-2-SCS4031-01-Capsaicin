@@ -124,7 +124,7 @@ DATABASES = {
     }
 }
 
-
+GOOGLE_API_KEY = os.environ.get('google_api_key')
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
