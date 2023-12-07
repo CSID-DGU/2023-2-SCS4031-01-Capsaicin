@@ -12,6 +12,7 @@ from accounts.models import User
 from rest_framework.authentication import BaseAuthentication
 from rest_framework.permissions import BasePermission
 import pytz
+import backend.settings
 
 
 class NoAuthentication(BaseAuthentication):
@@ -57,12 +58,15 @@ def save_blood_pressure_data(phone_number, sys_value, dia_value):
 
 
 # JSON 파일에서 API 키 읽어오기
-with open('ocr/config.json') as config_file:
-    config = json.load(config_file)
-    google_cloud_api_key = config['private_key']
+# with open('ocr/config.json') as config_file:
+#     config = json.load(config_file)
+#     google_cloud_api_key = config['private_key']
+
+google_api_key = backend.settings.GOOGLE_API_KEY
 
 # Google Cloud Vision API 클라이언트 생성
-client = vision.ImageAnnotatorClient.from_service_account_info(config)
+# client = vision.ImageAnnotatorClient.from_service_account_info(config)
+client = vision.ImageAnnotatorClient(google_api_key=google_api_key)
 
 class OCRImageView(APIView):
     authentication_classes = [NoAuthentication]  # 인증 무시
