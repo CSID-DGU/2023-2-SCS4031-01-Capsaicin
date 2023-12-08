@@ -104,9 +104,9 @@ class OCRImageView(APIView):
 
         # 이미지 파일을 열어서 데이터를 읽음
         image_file = request.data['image']
-        # image_data = image_file.read()
+        image_data = image_file.read()
         # 이미지 데이터를 base64로 디코딩
-        image_data = base64.b64decode(image_file.read())
+        # image_data = base64.b64decode(image_file.read())
 
         # 클라이언트로부터 전화번호를 받아옴
         OCRImageView.phone_number = request.data.get('phone_number', '')
