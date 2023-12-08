@@ -125,7 +125,7 @@ class OCRImageView(APIView):
 
         # image_data = image_file.read()
         # # 이미지 데이터를 base64로 디코딩
-        # # image_data = base64.b64decode(image_file.read())
+        image_data = base64.b64decode(image_file.read())
 
         # # 클라이언트로부터 전화번호를 받아옴
         
@@ -155,7 +155,7 @@ class OCRImageView(APIView):
         #         return Response(data, status=status.HTTP_200_OK)
 
         # return Response({'error': 'No valid blood pressure values detected in the image'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(image_file, status=status.HTTP_400_BAD_REQUEST)
+        return Response(image_data, status=status.HTTP_400_BAD_REQUEST)
             
             # 숫자 추출 결과 확인
             # if len(numbers_only) >= 3:
