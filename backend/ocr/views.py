@@ -100,11 +100,18 @@ class OCRImageView(APIView):
 
     def post(self, request, *args, **kwargs):
         if 'image' not in request.data:
-            return Response({'error': 'No image provided'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': 'No image provided'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
 
         # 이미지 파일을 열어서 데이터를 읽음
         image_file = request.data['image']
-        image_data = image_file.read()
+
+        # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
+        image_file.seek(0)
+
+        # 이미지 데이터를 base64로 디코딩
+        image_data = base64.b64decode(image_file.read())
+
+        # image_data = image_file.read()
         # 이미지 데이터를 base64로 디코딩
         # image_data = base64.b64decode(image_file.read())
 
