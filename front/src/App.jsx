@@ -21,6 +21,7 @@ import Soup from '../pages/Input/FoodInput/FoodPage/Soup';
 import CustomizedCare from '../pages/CustomizedCare/CustomizedCare';
 import HealthRecord from '../pages/HealthRecord/HealthRecord';
 import Community from '../pages/Community/Community';
+import Write from '../pages/Community/Write';
 import Rice from '../pages/Input/FoodInput/FoodPage/Rice';
 import Food2 from '../pages/Input/FoodInput/FoodPage/Food2';
 import Food5 from '../pages/Input/FoodInput/FoodPage/Food5';
@@ -115,6 +116,7 @@ function App() {
           <Route path="/guardrecord" element={<GuardRecord />} />
           {/* 커뮤니티 */}
           <Route path="/Community" element={<Community />} />
+          <Route path="/write" element={<Write />} />
         </Routes>
       </BrowserRouter>
     </>

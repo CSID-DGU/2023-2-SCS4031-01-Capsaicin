@@ -34,9 +34,11 @@ export default function LoginPage() {
             const accessToken = responseData.access_token;
             localStorage.setItem("accessToken", accessToken);
             const userType = responseData.user.userType;
+            const is_superuser = responseData.user.is_superuser;
 
             console.log(accessToken);
             console.log(userType)
+            console.log(is_superuser)
 
             if (userType === "사용자") {
                 navigate('/main');
