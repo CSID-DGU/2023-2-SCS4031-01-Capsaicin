@@ -95,7 +95,7 @@ export const Info2 = styled.div`
 
 export const NoticeButton = styled.button`
     font-family: 'Pretendard-Medium';
-    width: 80px;
+    width: 100px;
     height: 60px;
     border: 0.5px solid black;
     border-radius: 5px;
@@ -107,7 +107,7 @@ export const NoticeButton = styled.button`
 `;
 export const NoticeButton2= styled.button`
     font-family: 'Pretendard-Medium';
-    width: 80px;
+    width: 100px;
     height: 60px;
     border: 0.5px solid black;
     border-radius: 5px;
