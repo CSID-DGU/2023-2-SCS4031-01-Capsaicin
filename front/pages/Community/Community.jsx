@@ -13,7 +13,8 @@ export default function Community() {
     const accessToken = localStorage.getItem("accessToken");
     const [exerciseTopUsers, setExerciseTopUsers] = useState([]);
     const [bloodTopUsers, setBloodTopUsers] = useState([]);
-    const [isSuperUser, setIsSuperUser] = useState(false);
+    const is_superuser = localStorage.getItem("is_superuser") === "true";
+
 
     useEffect(() => {
         // 공지사항을 불러오는 API 요청
@@ -94,39 +95,6 @@ export default function Community() {
         fetchBlood();
     }, [accessToken]); // accessToken이 변경될 때마다 다시 불러오도록 함
 
-    useEffect(() => {
-        const checkSuperUser = async () => {
-            // 로그인 시 서버에서 받아온 응답 데이터에서 is_superuser 값을 확인
-            try {
-                const response = await fetch(`${API}/accounts/login`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${accessToken}`,
-                    },
-                    // 로그인 데이터 예시 (필요에 따라 수정)
-                    body: JSON.stringify({
-                        username: 'your_username',
-                        password: 'your_password',
-                    }),
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-
-                const responseData = await response.json();
-                const is_superuser = responseData.user.is_superuser;
-                setIsSuperUser(is_superuser);
-                console.log(is_superuser)
-
-            } catch (error) {
-                console.error('Error checking superuser:', error);
-            }
-        };
-
-        checkSuperUser();
-    }, [accessToken]);
 
 
     return (
@@ -134,7 +102,7 @@ export default function Community() {
             <S.Container>
                 <Title />
                 <S.InputTitle>커뮤니티</S.InputTitle>
-                {isSuperUser && (
+                {is_superuser && (
                     <S.NoticeButton onClick={() => navigate('/write')}>
                         공지 등록
                     </S.NoticeButton>

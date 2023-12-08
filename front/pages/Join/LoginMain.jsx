@@ -32,9 +32,11 @@ export default function LoginPage() {
 
             const responseData = await response.json();
             const accessToken = responseData.access_token;
-            localStorage.setItem("accessToken", accessToken);
-            const userType = responseData.user.userType;
             const is_superuser = responseData.user.is_superuser;
+            localStorage.setItem("accessToken", accessToken);
+            localStorage.setItem("is_superuser", is_superuser);
+            const userType = responseData.user.userType;
+            
 
             console.log(accessToken);
             console.log(userType)
