@@ -108,6 +108,9 @@ class OCRImageView(APIView):
         # 클라이언트로부터 전화번호를 받아옴
         OCRImageView.phone_number = request.data.get('phone_number', '')
 
+        if not OCRImageView.phone_number:
+            return Response({'error': 'No phone number provided'}, status=status.HTTP_400_BAD_REQUEST)
+
         # 이미지 데이터를 Vision API에 전송
         image = vision.Image(content=image_data)
         response = client.text_detection(image=image)
