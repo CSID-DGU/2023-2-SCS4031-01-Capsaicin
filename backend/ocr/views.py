@@ -101,60 +101,61 @@ class OCRImageView(APIView):
     def post(self, request, *args, **kwargs):
         OCRImageView.phone_number = request.data.get('phone_number', '')
 
-        if not OCRImageView.phone_number:
-            return Response({'error': 'No phone number provided'}, status=status.HTTP_400_BAD_REQUEST)
+        # if not OCRImageView.phone_number:
+        #     return Response({'error': 'No phone number provided'}, status=status.HTTP_400_BAD_REQUEST)
         
-        try:
-        # 전화번호로 사용자 조회
-            user = User.objects.get(phone_number=OCRImageView.phone_number)
-        except User.DoesNotExist:
-            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        # try:
+        # # 전화번호로 사용자 조회
+        #     user = User.objects.get(phone_number=OCRImageView.phone_number)
+        # except User.DoesNotExist:
+        #     return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
         
-        
-        if 'image' not in request.data:
-            return Response({'error': 'No image provided'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
 
-        # 이미지 파일을 열어서 데이터를 읽음
+        # if 'image' not in request.data:
+        #     return Response({'error': 'No image provided'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+
+        # # 이미지 파일을 열어서 데이터를 읽음
         image_file = request.data['image']
 
-        # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
-        # image_file.seek(0)
+        # # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
+        # # image_file.seek(0)
 
+        # # # 이미지 데이터를 base64로 디코딩
+        # # image_data = base64.b64decode(image_file.read())
+
+        # image_data = image_file.read()
         # # 이미지 데이터를 base64로 디코딩
-        # image_data = base64.b64decode(image_file.read())
+        # # image_data = base64.b64decode(image_file.read())
 
-        image_data = image_file.read()
-        # 이미지 데이터를 base64로 디코딩
-        # image_data = base64.b64decode(image_file.read())
-
-        # 클라이언트로부터 전화번호를 받아옴
+        # # 클라이언트로부터 전화번호를 받아옴
         
 
-        # 이미지 데이터를 Vision API에 전송
-        image = vision.Image(content=image_data)
-        response = client.text_detection(image=image)
+        # # 이미지 데이터를 Vision API에 전송
+        # image = vision.Image(content=image_data)
+        # response = client.text_detection(image=image)
 
-        # API 응답에서 텍스트 추출
-        texts = response.text_annotations
+        # # API 응답에서 텍스트 추출
+        # texts = response.text_annotations
 
-        #숫자 배치로 구분 (good)
-        if texts:
-            # 추출된 숫자만 남기기
-            numbers_only = re.findall(r'\d+', texts[0].description)
-            print(numbers_only)
-            if len(numbers_only) >= 3:
-                model, sys_value, dia_value, pul_value = map(int, numbers_only[:4])
-                result_text = f"{model}, {sys_value}, {dia_value}, {pul_value}"
-                OCRImageView.sys_value = sys_value
-                OCRImageView.dia_value = dia_value
-                print(result_text)
-                print("2", OCRImageView.phone_number, OCRImageView.sys_value, OCRImageView.dia_value)
-                # result_text = f"{OCRImageView.sys_value}, {OCRImageView.dia_value}"
-                data = save_blood_pressure_data(OCRImageView.phone_number, OCRImageView.sys_value, OCRImageView.dia_value)
+        # #숫자 배치로 구분 (good)
+        # if texts:
+        #     # 추출된 숫자만 남기기
+        #     numbers_only = re.findall(r'\d+', texts[0].description)
+        #     print(numbers_only)
+        #     if len(numbers_only) >= 3:
+        #         model, sys_value, dia_value, pul_value = map(int, numbers_only[:4])
+        #         result_text = f"{model}, {sys_value}, {dia_value}, {pul_value}"
+        #         OCRImageView.sys_value = sys_value
+        #         OCRImageView.dia_value = dia_value
+        #         print(result_text)
+        #         print("2", OCRImageView.phone_number, OCRImageView.sys_value, OCRImageView.dia_value)
+        #         # result_text = f"{OCRImageView.sys_value}, {OCRImageView.dia_value}"
+        #         data = save_blood_pressure_data(OCRImageView.phone_number, OCRImageView.sys_value, OCRImageView.dia_value)
 
-                return Response(data, status=status.HTTP_200_OK)
+        #         return Response(data, status=status.HTTP_200_OK)
 
-        return Response({'error': 'No valid blood pressure values detected in the image'}, status=status.HTTP_400_BAD_REQUEST)
+        # return Response({'error': 'No valid blood pressure values detected in the image'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(image_file, OCRImageView.phone_number, status=status.HTTP_400_BAD_REQUEST)
             
             # 숫자 추출 결과 확인
             # if len(numbers_only) >= 3:
