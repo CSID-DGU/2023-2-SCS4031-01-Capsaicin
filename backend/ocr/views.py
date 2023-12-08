@@ -106,12 +106,12 @@ class OCRImageView(APIView):
         image_file = request.data['image']
 
         # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
-        image_file.seek(0)
+        # image_file.seek(0)
 
-        # 이미지 데이터를 base64로 디코딩
-        image_data = base64.b64decode(image_file.read())
+        # # 이미지 데이터를 base64로 디코딩
+        # image_data = base64.b64decode(image_file.read())
 
-        # image_data = image_file.read()
+        image_data = image_file.read()
         # 이미지 데이터를 base64로 디코딩
         # image_data = base64.b64decode(image_file.read())
 
