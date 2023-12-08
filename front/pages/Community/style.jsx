@@ -92,3 +92,48 @@ export const Info2 = styled.div`
     font-family: 'Pretendard-Medium';
     line-height: 1.8;
 `;
+
+export const NoticeButton = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 80px;
+    height: 60px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #712EFF;
+    color: white;
+    margin-left: auto; /* Move the button to the right */
+    margin-right: 20px;
+`;
+export const NoticeButton2= styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 80px;
+    height: 60px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #712EFF;
+    color: white;
+    margin-right: 20px;
+    margin-top: 20px;
+`;
+export const Text = styled.textarea`
+    font-family: 'Pretendard-Medium';
+    width: 60%;
+    height: 300px;
+    // border: 0.5px solid black;
+    // border-radius: 5px;
+    font-size: 20px;
+    // background-color: #712EFF;
+    // color: white;
+    // margin-left: auto; /* Move the button to the right */
+    margin-right: 20px;
+`;
+
+export const Backward = styled.img`
+  width: 18px;
+  height: 26px;
+  padding-right: 30px;
+  margin-left: 150px;
+  // margin-right:calc(100% / 2 - 54px)
+`;
