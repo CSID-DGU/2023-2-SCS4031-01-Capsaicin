@@ -77,7 +77,7 @@ credentials = service_account.Credentials.from_service_account_info(
         "type": "service_account",
         "project_id": project_id,
         "private_key_id": private_key_id,
-        "private_key": google_api_key,
+        "private_key": google_api_key.replace('\\n', '\n'),
         "client_email": client_email,
         "client_id": client_id,
         "auth_uri": "https://accounts.google.com/o/oauth2/auth",
