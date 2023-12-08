@@ -13,7 +13,7 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework.permissions import BasePermission
 import pytz
 import backend.settings
-
+from google.oauth2 import service_account
 
 class NoAuthentication(BaseAuthentication):
     def authenticate(self, request):
@@ -63,10 +63,32 @@ def save_blood_pressure_data(phone_number, sys_value, dia_value):
 #     google_cloud_api_key = config['private_key']
 
 google_api_key = backend.settings.GOOGLE_API_KEY
+project_id = backend.settings.PROJECT_ID
+private_key_id = backend.settings.PRIVATE_KEY_ID
+client_email = backend.settings.CLIENT_EMAIL
+client_id = backend.settings.CLIENT_ID
+client_x509_cert_url = backend.settings.CLIENT_X509_ERT_URL
 
 # Google Cloud Vision API 클라이언트 생성
 # client = vision.ImageAnnotatorClient.from_service_account_info(config)
-client = vision.ImageAnnotatorClient(google_api_key=google_api_key)
+# Google Cloud Vision API 클라이언트 생성
+credentials = service_account.Credentials.from_service_account_info(
+    {
+        "type": "service_account",
+        "project_id": project_id,
+        "private_key_id": private_key_id,
+        "private_key": google_api_key,
+        "client_email": client_email,
+        "client_id": client_id,
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://accounts.google.com/o/oauth2/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": client_x509_cert_url
+    }
+)
+
+# 클라이언트 생성
+client = vision.ImageAnnotatorClient(credentials=credentials)
 
 class OCRImageView(APIView):
     authentication_classes = [NoAuthentication]  # 인증 무시

@@ -125,6 +125,12 @@ DATABASES = {
 }
 
 GOOGLE_API_KEY = os.environ.get('google_api_key')
+PROJECT_ID = os.environ.get('project_id')
+PRIVATE_KEY_ID = os.environ.get('private_key_id')
+CLIENT_EMAIL = os.environ.get('client_email')
+CLIENT_ID = os.environ.get('client_id')
+CLIENT_X509_ERT_URL=os.environ.get('client_x509_cert_url')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
