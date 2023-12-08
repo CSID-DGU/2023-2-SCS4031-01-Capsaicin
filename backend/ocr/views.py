@@ -155,7 +155,7 @@ class OCRImageView(APIView):
         #         return Response(data, status=status.HTTP_200_OK)
 
         # return Response({'error': 'No valid blood pressure values detected in the image'}, status=status.HTTP_400_BAD_REQUEST)
-        return Response(image_file, OCRImageView.phone_number, status=status.HTTP_400_BAD_REQUEST)
+        return Response(request.data, status=status.HTTP_400_BAD_REQUEST)
             
             # 숫자 추출 결과 확인
             # if len(numbers_only) >= 3:
