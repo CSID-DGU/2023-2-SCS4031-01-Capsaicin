@@ -99,23 +99,6 @@ class OCRImageView(APIView):
     phone_number = None
 
     def post(self, request, *args, **kwargs):
-        if 'image' not in request.data:
-            return Response({'error': 'No image provided'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
-
-        # 이미지 파일을 열어서 데이터를 읽음
-        image_file = request.data['image']
-
-        # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
-        image_file.seek(0)
-
-        # 이미지 데이터를 base64로 디코딩
-        image_data = base64.b64decode(image_file.read())
-
-        # image_data = image_file.read()
-        # 이미지 데이터를 base64로 디코딩
-        # image_data = base64.b64decode(image_file.read())
-
-        # 클라이언트로부터 전화번호를 받아옴
         OCRImageView.phone_number = request.data.get('phone_number', '')
 
         if not OCRImageView.phone_number:
@@ -126,6 +109,26 @@ class OCRImageView(APIView):
             user = User.objects.get(phone_number=OCRImageView.phone_number)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        
+        if 'image' not in request.data:
+            return Response({'error': 'No image provided'}, status=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE)
+
+        # 이미지 파일을 열어서 데이터를 읽음
+        image_file = request.data['image']
+
+        # 이미지 파일에서 읽기 전에 파일 포인터를 시작으로 되돌림
+        # image_file.seek(0)
+
+        # # 이미지 데이터를 base64로 디코딩
+        # image_data = base64.b64decode(image_file.read())
+
+        image_data = image_file.read()
+        # 이미지 데이터를 base64로 디코딩
+        # image_data = base64.b64decode(image_file.read())
+
+        # 클라이언트로부터 전화번호를 받아옴
+        
 
         # 이미지 데이터를 Vision API에 전송
         image = vision.Image(content=image_data)
