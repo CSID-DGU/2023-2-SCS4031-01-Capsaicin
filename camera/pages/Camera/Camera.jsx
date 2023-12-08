@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import API from '../../api/api';
 
 const CameraContainer = styled.div`
   display: flex;
@@ -25,9 +27,16 @@ const CapturedImage = styled.img`
   margin-top: 20px;
 `;
 
+const PhoneNumberInput = styled.input`
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+`;
+
 const CameraPage = () => {
     const videoRef = useRef(null);
     const [capturedImage, setCapturedImage] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState('');
 
     useEffect(() => {
         const initializeCamera = async () => {
@@ -44,7 +53,7 @@ const CameraPage = () => {
         initializeCamera();
     }, []);
 
-    const handleCapture = () => {
+    const handleCapture = async () => {
         const video = videoRef.current;
 
         if (video) {
@@ -54,14 +63,48 @@ const CameraPage = () => {
             canvas.height = video.videoHeight;
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-            const imageDataURL = canvas.toDataURL('image/png');
-            setCapturedImage(imageDataURL);
+            canvas.toBlob(async (blob) => {
+                // Convert Blob to File
+                const file = new File([blob], 'captured_image.jpeg', { type: 'image/jpeg' });
+
+                // Output the data to console
+                console.log('Captured Image File:', file);
+                console.log('Phone Number:', phoneNumber);
+
+                // Update the captured image state
+                setCapturedImage(URL.createObjectURL(file));
+
+                // Send image and phone number to the server
+                try {
+                    const formData = new FormData();
+                    formData.append('image', file);
+                    formData.append('phone_number', phoneNumber);
+
+                    await axios.post(`${API}/ocr/photo`, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data',
+                        },
+                    });
+
+                    // Handle success, e.g., show a success message
+                    console.log('Image and phone number sent successfully');
+                } catch (error) {
+                    // Handle error, e.g., show an error message
+                    console.error('Error sending image and phone number:', error);
+                }
+            }, 'image/jpeg');
         }
     };
 
     return (
         <CameraContainer>
             <CameraView ref={videoRef} autoPlay />
+            <PhoneNumberInput
+                type="text"
+                placeholder="Enter phone number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+            />
             <CaptureButton onClick={handleCapture}>Capture</CaptureButton>
             {capturedImage && <CapturedImage src={capturedImage} alt="Captured" />}
         </CameraContainer>
