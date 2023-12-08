@@ -113,7 +113,7 @@ class OCRImageView(APIView):
         
         try:
         # 전화번호로 사용자 조회
-            user = User.objects.get(username=OCRImageView.phone_number)
+            user = User.objects.get(phone_number=OCRImageView.phone_number)
         except User.DoesNotExist:
             return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
