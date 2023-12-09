@@ -41,6 +41,8 @@ export const NoticeContent = styled.div`
     align-items: center;
     font-size: 25px;
     padding-top: 15px;
+    word-wrap: break-word;
+    overflow:auto;
 `;
 
 export const InfoTitle = styled.div`
