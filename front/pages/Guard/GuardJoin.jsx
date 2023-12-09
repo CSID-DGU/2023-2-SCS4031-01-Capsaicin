@@ -90,7 +90,7 @@ export default function GuardJoin() {
                 </S.JoinBox>
 
                 <S.JoinBox>
-                    <S.JoinContent>노인 전화번호</S.JoinContent>
+                    <S.JoinContent>기존 유저 전화번호</S.JoinContent>
                     <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={userphoneNumber} onChange={(e) => setUserPhoneNumber(e.target.value)}></S.JoinInput>
                 </S.JoinBox>
 
