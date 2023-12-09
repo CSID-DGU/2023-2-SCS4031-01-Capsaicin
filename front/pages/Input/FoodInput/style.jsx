@@ -194,7 +194,7 @@ export const Box2 = styled.button`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  font-size: 20px;
+  font-size: 17px;
   position: relative; /* 상대 위치 지정 */
   border: 0.5px solid black;
   box-shadow: 0px 2px 4px 0.25px #7c7c7c;
