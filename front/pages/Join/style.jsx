@@ -305,7 +305,7 @@ export const ContractTitle = styled.div`
     padding-left: 20px;
 `;
 
-export const ContractButton = styled.button`
+export const ContractButton = styled.input`
     font-family: 'Pretendard-Bold';
     width: 40px;
     height: 40px;
@@ -313,18 +313,12 @@ export const ContractButton = styled.button`
     border-style: none;
     font-size: 25px;
     border: 1px solid black;
-        // 체크표시 스타일 적용
-        &:checked::before {
-        content: 'V'; // 체크 아이콘을 여기에 넣어주세요.
-        display: inline-block;
-        width: 12px; // 체크표시 너비
-        height: 12px; // 체크표시 높이
-        margin-right: 6px; // 체크표시와 텍스트 사이 여백
-        font-size: 12px; // 폰트 크기
-        color: #ff0000; // 체크표시 색상
+
+    // 체크표시 스타일 적용
+    &:checked + ${ContractTitle} {
+        color: #ff0000; // 체크 시 텍스트 색상 변경
     }
 `;
-
 export const JoinButton = styled.button`
     font-family: 'Pretendard-Bold';
     width: 150px;
@@ -472,3 +466,9 @@ export const ImgFood = styled.img`
 //     position: absolute;
 //     z-index: 1;
 // `;
+export const Backward = styled.img`
+  width: 18px;
+  height: 26px;
+  padding-right: 30px;
+  // margin-right:calc(100% / 2 - 54px)
+`;
