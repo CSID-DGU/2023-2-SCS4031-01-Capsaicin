@@ -66,9 +66,9 @@ export default function Main() {
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{centerData.fullname}</S.Name>
-                    <S.User>님</S.User>
+                    <S.User>님 </S.User>
                 </S.UserName>
-
+                <S.logout onClick={() => navigate(`/`)}>로그아웃</S.logout>
                 <S.Info>
                     {/* <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle> */}
                     <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>

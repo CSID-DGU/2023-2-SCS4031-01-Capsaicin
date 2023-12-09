@@ -18,6 +18,7 @@ export const TitleLogo = styled.img`
     position: relative;
     width: 140px;
     height: 40px;
+    top:0;
     z-index: 2;
 `;
 
