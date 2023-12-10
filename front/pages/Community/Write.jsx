@@ -41,10 +41,9 @@ export default function Community() {
         <>
             <S.Container>
                 <Title />
-                <S.InputTitle><S.Backward
-            src="../../../assets/images/backward.png"
-            onClick={() => navigate(`/community`)}
-          />공지 작성</S.InputTitle>
+                <S.Infos>
+                <S.InputTitle>공지 작성</S.InputTitle>
+                </S.Infos>
                 <S.Text
                     value={text}
                     onChange={(e) => setText(e.target.value)}

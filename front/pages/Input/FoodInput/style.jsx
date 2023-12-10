@@ -18,6 +18,7 @@ export const Info = styled.div`
   flex-direction: row;
   justify-content:center;
   align-items: center;
+  margin-top:30px;
 `;
 
 export const Backward = styled.img`
@@ -120,6 +121,7 @@ export const ButtonContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  margin-bottom:150px;
 `;
 
 export const Box = styled.button`
@@ -229,6 +231,15 @@ export const Select = styled.select`
   margin: 5px;
   cursor: pointer;
 `;
+
+export const BoxContainer = styled.div`
+width:100%;
+display:flex;
+flex-direction:column;
+gap:15px;
+  margin-bottom:150px;
+`;
+
 export const CustomSelect = ({ onChange }) => {
   // 숟가락 선택 옵션 배열
   const spoonOptions = [1, 2, 3, 4, 5];

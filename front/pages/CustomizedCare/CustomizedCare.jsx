@@ -93,8 +93,9 @@ export default function CustomizedCare() {
                     <S.RecommendExercisecontent>{recommendationExerciseData.message}</S.RecommendExercisecontent>
                 </S.RecommendExercise>
 
-                <Nav />
+                
             </S.Container>
+            <Nav />
         </>
     )
 }
