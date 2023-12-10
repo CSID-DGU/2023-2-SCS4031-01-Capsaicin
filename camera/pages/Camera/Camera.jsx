@@ -53,20 +53,33 @@ const CameraPage = () => {
         initializeCamera();
     }, []);
 
+
     const handleCapture = () => {
         const video = videoRef.current;
 
         if (video) {
             const canvas = document.createElement('canvas');
             const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
+
+            // 이미지 크기를 1024px로 조정
+            const targetWidth = 1024;
+            const aspectRatio = video.videoWidth / video.videoHeight;
+            const targetHeight = Math.round(targetWidth / aspectRatio);
+
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
             context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
             const imageDataURL = canvas.toDataURL('image/jpg');
-            setCapturedImage(imageDataURL);
+            // 이전 상태를 기반으로 상태를 업데이트
+            setCapturedImage(prevImage => {
+                // 새로운 상태를 반환
+                return imageDataURL;
+            });
         }
     };
+
 
     const handleSendToServer = async () => {
         try {
@@ -75,44 +88,90 @@ const CameraPage = () => {
                 return;
             }
 
+            if (!phoneNumber) {
+                console.error('No phone number provided');
+                return;
+            }
+
+            // 유효한 전화번호 형식인지 확인 (예: 숫자로만 이루어진 10자리 이상의 문자열)
+            const phoneNumberRegex = /^\d{10,}$/;
+            if (!phoneNumberRegex.test(phoneNumber)) {
+                console.error('Invalid phone number format');
+                return;
+            }
+
             // 이미지 데이터URL을 Blob으로 변환
-            const blob = await fetch(capturedImage).then(res => res.blob());
+            const blob = dataURLtoBlob(capturedImage);
 
             // 바운더리 생성
             const boundary = generateBoundary();
 
             // FormData 생성 및 이미지와 전화번호 추가
             const formData = new FormData();
-            formData.append('image', blob);
+            formData.append('image', blob, 'captured-image.jpg'); // 파일 이름 지정
             formData.append('phone_number', phoneNumber);
 
-            // Fetch API를 사용하여 백엔드에 전송
-            await fetch(`${API}/ocr/photo/`, {
+            // 서버에 OCR 요청을 보내는 부분
+            const ocrResponse = await fetch(`${API}/ocr/photo/`, {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'Content-Type': `multipart/form-data; boundary=${boundary}`,
+                    // 서버가 form-data 형식을 기대하므로 Content-Type은 지정하지 않습니다.
                 },
             });
 
-            // 성공 처리, 예를 들어 성공 메시지 표시
-            console.log('이미지와 전화번호가 성공적으로 전송되었습니다.');
+            // OCR 서버 응답이 성공인 경우에만 JSON으로 파싱
+            if (ocrResponse.ok) {
+                const ocrData = await ocrResponse.json();
+                console.log('OCR 서버 응답:', ocrData);
+                // 나머지 처리...
+            } else {
+                // OCR 서버 응답이 실패인 경우
+                const ocrErrorText = await ocrResponse.text();
+                console.error('Error from OCR server:', ocrErrorText);
+            }
 
             // 전송한 데이터 콘솔에 출력
             console.log('전송된 이미지:', capturedImage);
             console.log('전송된 폰번호:', phoneNumber);
         } catch (error) {
-            // 오류 처리, 예를 들어 오류 메시지 표시
-            console.error('이미지와 전화번호 전송 중 오류 발생:', error);
+            console.error('Error sending image to server:', error);
         }
     };
 
+
+
+    const dataURLtoBlob = (dataURL) => {
+        try {
+            const arr = dataURL.split(',');
+            const mime = arr[0].match(/:(.*?);/)[1];
+            const bstr = atob(arr[1]);
+            let n = bstr.length;
+            const u8arr = new Uint8Array(n);
+            while (n--) {
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new Blob([u8arr], { type: mime });
+        } catch (error) {
+            console.error('Error creating Blob:', error);
+            throw error;
+        }
+    };
+
+
+
+
     // 바운더리 생성 함수
     const generateBoundary = () => {
-        const randomArray = new Uint32Array(1);
-        crypto.getRandomValues(randomArray);
-        return `----boundary${randomArray[0]}`;
+        return (
+            '----' +
+            Array(32)
+                .fill(null)
+                .map(() => Math.floor(Math.random() * 16).toString(16))
+                .join('')
+        );
     };
+
 
     return (
         <CameraContainer>
