@@ -195,10 +195,10 @@ class ExerciseRecommendationView(APIView):
 
         random_category = ExerciseCategory.objects.order_by('?').first()
 
-        print({"user": find_user.fullname, "yesterday_total_calorie": total_meal_calorie, "height" : height, "weight" : last_weight, "age" : age, "gender" : gender, "pre_bmr" : pre_bmr, "bmr" : bmr, "calorie" : exercise_calories_yesterday, "extra":extra, "category": random_category})
+        print({"user": find_user.fullname, "yesterday_total_calorie": total_meal_calorie, "height" : height, "weight" : last_weight, "age" : age, "gender" : gender, "pre_bmr" : pre_bmr, "bmr" : bmr, "calorie" : exercise_calories_yesterday, "extra":extra, "category": random_category.name})
 
         if extra > 0:
-            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":{"text": f"소모칼로리가 {extra_rounded}만큼 필요합니다. 가볍게 산책하는게 어떨까요?"}}, status=status.HTTP_200_OK)
+            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":{"text": f"소모칼로리가 {extra_rounded}만큼 필요합니다. 가볍게 산책해보시면 어떨까요?"}}, status=status.HTTP_200_OK)
         elif extra == 0:
             return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":"소모칼로리와 섭취칼로리가 동일한 것으로 보입니다."}, status=status.HTTP_200_OK)
         elif extra < 0:
