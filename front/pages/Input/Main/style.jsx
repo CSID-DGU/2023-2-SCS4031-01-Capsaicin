@@ -20,6 +20,7 @@ export const Info = styled.div`
     padding-top: 50px;
     padding-right: 80px;
     margin-bottom: 50px;
+    margin-top : 50px;
 `;
 
 export const Backward = styled.img`

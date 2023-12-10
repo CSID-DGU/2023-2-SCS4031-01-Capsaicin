@@ -129,7 +129,7 @@ export default function SportsInput() {
         <S.Info>
           <S.Backward
             src="../../../assets/images/backward.png"
-            onClick={() => navigate(`/inputinfo_cate`)}
+            onClick={() => navigate(`/inputmain`)}
           />
           <S.InputTitle>운동정보 입력</S.InputTitle>
         </S.Info>

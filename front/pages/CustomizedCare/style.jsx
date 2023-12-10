@@ -22,6 +22,7 @@ export const Recommend = styled.div`
     justify-content: center;
     width: 390px;
     padding-left: 50px;
+    margin-top:30px;
 `;
 
 export const RecommendTitle = styled.div`
@@ -119,6 +120,7 @@ export const RecommendExercise = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
     font-family: 'Pretendard-Medium';
+    margin-bottom:120px;
 padding: 0px 10px 0px 10px;
     justify-content: center;
     align-items: flex-start;
