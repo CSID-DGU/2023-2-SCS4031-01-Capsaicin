@@ -30,6 +30,7 @@ import Food7 from '../pages/Input/FoodInput/FoodPage/Food7';
 import Food8 from '../pages/Input/FoodInput/FoodPage/Food8';
 import GuardRecord from '../pages/Guard/GuardRecord';
 import GuardCare from '../pages/Guard/GuardCare';
+import GuardTerm from '../pages/Guard/GuardTerm';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -91,6 +92,7 @@ function App() {
           <Route path="/normaljoin" element={<NormalJoin />} />
           <Route path="/guardjoin" element={<GuardJoin />} />
           <Route path="/guardmain" element={<GuardMain />} />
+          <Route path="/guardterm" element={<GuardTerm />} />
           <Route path="/main" element={<Main />} />
           <Route path="/term" element={<Term />} />
           <Route path="/inputmain" element={<InputMain />}></Route>

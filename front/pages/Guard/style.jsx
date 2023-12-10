@@ -768,6 +768,11 @@ export const Backward = styled.img`
     height: 26px;
     padding-right: 90px;
 `;
+export const Backward2 = styled.img`
+    width: 18px;
+    height: 26px;
+    padding-right: 30px;
+`;
 
 
 export const Recommend = styled.div`
