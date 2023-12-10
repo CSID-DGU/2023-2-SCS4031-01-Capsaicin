@@ -293,7 +293,7 @@ class MealRecommendationView(APIView):
         yesterday_foods_names = {
             "yesterday_foods": [item.food.foodName for item in yesterday_foods]
         }
-        yesterday_food_name = yesterday_foods_names.get("yesterday_foods", [])
+        yesterday_food_name = ', '.join(yesterday_foods_names.get("yesterday_foods", []))
 
         # 결과 반환
         response_data = {
