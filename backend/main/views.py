@@ -285,6 +285,12 @@ class MealRecommendationView(APIView):
             date=yesterday
         ).order_by('-natrium')[:3]
 
+        #어제 식사
+        yesterday_foods = MealAmount.objects.filter(
+            meal__user=find_user,
+            date=yesterday
+        )
+
         # 결과 반환
         response_data = {
             "user": find_user.fullname,
@@ -301,15 +307,15 @@ class MealRecommendationView(APIView):
         print(top_natrium_foods)
 
         if total_natrium < 600:
-            serial = MealRecommendSerializer({'condition': "저나트륨", 'message': "섭취 나트륨이 부족한 것으로 보입니다. \n 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : []})
+            serial = MealRecommendSerializer({'condition': "저나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 하루 권장 섭취 나트륨은 600g으로, 섭취 나트륨이 부족한 것으로 보입니다. \n 끼니를 거르지 마시고, 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : [0]})
             return Response(serial.data)
         elif total_natrium >= 600 and total_natrium <2000:
-            serial = MealRecommendSerializer({'condition': "정상", 'message': "섭취 나트륨이 정상인 것으로 보입니다. \n 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : []})
+            serial = MealRecommendSerializer({'condition': "정상", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식은 {yesterday_foods}입니다. 섭취 나트륨이 정상인 것으로 보입니다. \n 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : [0]})
 
             return Response(serial.data)
         else: 
             result = run(total_natrium, top_natrium_foods, "음식분류")
-            serial = MealRecommendSerializer({'condition': "고나트륨", 'message': "섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
+            serial = MealRecommendSerializer({'condition': "고나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식 중 나트륨이 높은 음식은 {top_natrium_foods}입니다. 섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
             
             
             return Response(serial.data)
