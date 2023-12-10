@@ -12,13 +12,14 @@ const CameraContainer = styled.div`
 const CameraView = styled.video`
   max-width: 100%;
   border: 1px solid #ccc;
-  margin-bottom: 20px;
+  margin: 10px 0px 20px 0px;
 `;
 
 const CaptureButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 10px;
 `;
 
 const CapturedImage = styled.img`
@@ -26,10 +27,19 @@ const CapturedImage = styled.img`
   margin-top: 20px;
 `;
 
+export const TitleLogo = styled.img`
+    position: relative;
+    width: 250px;
+    height: 70px;
+    padding-bottom: 10px;
+`;
+
+
 const PhoneNumberInput = styled.input`
   padding: 10px;
   font-size: 16px;
   margin-bottom: 20px;
+  margin-top: 10px;
 `;
 
 const CameraPage = () => {
@@ -175,6 +185,8 @@ const CameraPage = () => {
 
     return (
         <CameraContainer>
+            <TitleLogo src="/assets/img/logo_purple.png" />
+            <h3>혈압계 사진을 찍어주세요. <br></br> 회원가입 시 입력하신 휴대폰번호를 입력하세요.</h3>
             <CameraView ref={videoRef} autoPlay />
             <CaptureButton onClick={handleCapture}>사진 찍기</CaptureButton>
             <PhoneNumberInput
