@@ -12,6 +12,14 @@ export default function Main() {
     const [centerData, setCenterData] = useState({});
     const accessToken = localStorage.getItem("accessToken");
 
+    const handleLogout = () => {
+        // 토큰 삭제 (로그아웃)
+        localStorage.removeItem("accessToken");
+
+        // 로그인 페이지로 이동
+        navigate(`/`);
+    };
+
     useEffect(() => {
         fetch(`${API}/main/weights/last`, {
             headers: {
@@ -66,9 +74,9 @@ export default function Main() {
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{centerData.fullname}</S.Name>
-                    <S.User>님</S.User>
+                    <S.User>님 </S.User>
                 </S.UserName>
-
+                <S.logout onClick={handleLogout}>로그아웃</S.logout>
                 <S.Info>
                     {/* <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle> */}
                     <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>

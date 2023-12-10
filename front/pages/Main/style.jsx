@@ -177,3 +177,15 @@ export const GoalWalkingNum = styled.div`
     font-family: 'NotoSansKR-Regular';
     margin-top: 20px;
 `;
+export const logout = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 120px;
+    height: 60px;
+    border: 0.5px solid black;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: #712EFF;
+    color: white;
+    margin-left: auto; /* Move the button to the right */
+    margin-right: 20px;
+`;

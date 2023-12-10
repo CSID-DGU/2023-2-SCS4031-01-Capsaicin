@@ -59,16 +59,39 @@ def preprocessing(data):
 
 
 # def recommend_menu(df, menu_name, top=10):
-def recommend_menu(menu_names, name="음식분류",top=1):
+def recommend_menu(menu_names, name="음식분류", top=2):
     df, similarity_category = get_data(name=name)
     result = []
     for menu_name in menu_names:
         target_menu_idx = df[df['음 식 명'] == menu_name].index.values
+
+        if len(target_menu_idx) == 0:  # Check if the menu_name exists in the DataFrame
+            print(f"No data found for {menu_name}")
+            continue
+
         sim_idx = similarity_category[target_menu_idx, :top].reshape(-1)
         sim_idx = sim_idx[sim_idx != target_menu_idx]
-        result.append(df.iloc[sim_idx][['음 식 명', '나트륨','foodImgUrl']].values[0].tolist())
-        # result = result.sort_values(by='나트륨', ascending=True)
+
+        if len(sim_idx) == 0:  # Check if there are similar items
+            print(f"No similar items found for {menu_name}")
+            continue
+
+        recommended_items = df.iloc[sim_idx][['음 식 명', '나트륨', 'foodImgUrl']].values
+        # Ensure unique recommendations
+        unique_recommended_items = []
+        for item in recommended_items:
+            if item[0] not in [x[0] for x in unique_recommended_items]:
+                unique_recommended_items.append(item)
+                if len(unique_recommended_items) == 1:
+                    break
+
+        if len(unique_recommended_items) > 0:
+            result.append(unique_recommended_items[-1].tolist())
+        else:
+            print(f"No unique recommendations available for {menu_name}")
+
     return result
+
 
 
 def run(total_sodium_intake: int, menu_names: list=None, name: str="음식분류"):
