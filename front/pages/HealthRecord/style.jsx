@@ -21,6 +21,7 @@ export const Infos = styled.div`
     flex-direction: row;
     align-items: center;
     padding-top: 20px;
+    margin-top:30px;
 `;
 
 export const Info = styled.div`
@@ -63,6 +64,7 @@ export const InfoFood = styled.div`
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-family: 'NotoSansKR-Bold';
     margin-top: 20px;
+    margin-bottom: 150px;
     align-items: center;
     gap: 10px;
     overflow-y: scroll;
@@ -70,6 +72,7 @@ export const InfoFood = styled.div`
         display:none;
     }
     max-height: 350px;
+    
 `;
 
 export const FoodContainer = styled.div`

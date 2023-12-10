@@ -16,6 +16,7 @@ export default function InputInfo() {
                     <S.Backward src="../../../assets/images/backward.png" onClick={() => navigate(`/inputmain`)} />
                     <S.InputTitle>음식 정보 입력</S.InputTitle>
                 </S.Info>
+                <S.BoxContainer>
                 <S.UserBox2>
                     <S.Box onClick={() => navigate(`/rice`)}>밥류
                     <S.FoodIcon src="../../../assets/images/rice.png" />
@@ -27,7 +28,7 @@ export default function InputInfo() {
                 </S.UserBox2>
                 <S.UserBox2>
                     <S.Box onClick={() => navigate(`/soup`)}>국류
-                    <S.FoodIcon src="../../../assets/images/soup.png" />
+                    <S.FoodIcon src="../../../assets/images/soup4.png" />
                     </S.Box>
 
                     <S.Box onClick={() => navigate(`/side`)}>반찬류
@@ -52,6 +53,7 @@ export default function InputInfo() {
                     <S.FoodIcon src="../../../assets/images/fruit.png" />
                     </S.Box>
                 </S.UserBox2>
+                </S.BoxContainer>
                 <Nav />
             </S.Container>
         </>

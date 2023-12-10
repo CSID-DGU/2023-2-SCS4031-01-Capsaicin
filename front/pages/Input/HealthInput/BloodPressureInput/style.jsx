@@ -13,6 +13,7 @@ export const Info = styled.div`
     align-items: center;
     padding-top: 50px;
     padding-right: 80px;
+    margin-top: 30px;
 `;
 
 export const Backward = styled.img`
@@ -65,4 +66,5 @@ export const CompleteButton = styled.button`
     background-color: #48268F;
     border-radius: 5px;
     margin-top: 50px;
+    margin-bottom: 150px;
 `;

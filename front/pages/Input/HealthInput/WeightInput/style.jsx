@@ -13,6 +13,7 @@ export const Info = styled.div`
     align-items: center;
     padding-top: 50px;
     padding-right: 60px;
+    margin-top:30px;
 `;
 
 export const Backward = styled.img`

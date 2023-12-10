@@ -2,11 +2,15 @@ import React from 'react';
 import * as S from "../Join/style";
 import { useNavigate } from "react-router-dom";
 import API from '../../api/api';
+import { useRecoilState } from 'recoil';
+import { GuardSignupStore } from '../../store/guardsignup_store';
 
 export default function GuardJoin() {
 
     const [contract, setContract] = React.useState(false);
     const navigate = useNavigate();
+
+    const [user, setUser] = useRecoilState(GuardSignupStore);
 
     const [phone_number, setPhone_Number] = React.useState('');
     const [password1, setPassword1] = React.useState('');
@@ -71,6 +75,11 @@ export default function GuardJoin() {
         // 선택이 성공적으로 제출된 후에 openModal 함수 호출
     };
 
+    const nameHandler = (e) => {
+        setUser((prev) => ({...prev, fullname:e.target.value}))
+    }
+
+
     
     return (
         <>
@@ -80,33 +89,33 @@ export default function GuardJoin() {
                 <S.LoginTitle2>보호자 회원가입</S.LoginTitle2>
                 <S.JoinBox>
                     <S.JoinContent>이름</S.JoinContent>
-                    <S.JoinInput type="text" placeholder='이름' value={fullname} onChange={(e) => setFullName(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="text" placeholder='이름' value={user.fullname} onChange={nameHandler}></S.JoinInput>
                 </S.JoinBox>
 
 
                 <S.JoinBox>
                     <S.JoinContent>전화번호</S.JoinContent>
-                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={phone_number} onChange={(e) => setPhone_Number(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={user.phone_number} onChange={nameHandler}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
                     <S.JoinContent>기존 유저 전화번호</S.JoinContent>
-                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={userphoneNumber} onChange={(e) => setUserPhoneNumber(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="text" placeholder='010부터 작성(- 제외)' value={user.userphoneNumber} onChange={nameHandler}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
                     <S.JoinContent>비밀번호</S.JoinContent>
-                    <S.JoinInput type="password" placeholder='비밀번호(숫자 4자리)' value={password1} onChange={(e) => setPassword1(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="password" placeholder='비밀번호(숫자 4자리)' value={user.password1} onChange={nameHandler}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.JoinBox>
                     <S.JoinContent>비밀번호 확인</S.JoinContent>
-                    <S.JoinInput type="password" placeholder='비밀번호 확인' value={password2} onChange={(e) => setPassword2(e.target.value)}></S.JoinInput>
+                    <S.JoinInput type="password" placeholder='비밀번호 확인' value={user.password2} onChange={nameHandler}></S.JoinInput>
                 </S.JoinBox>
 
                 <S.Contract>
                     <S.ContractButton type="checkbox" checked={contract} onChange={() => setContract(!contract)} />
-                    <S.ContractTitle onClick={() => navigate(`/term`)}>이용약관에 동의 (필수)</S.ContractTitle>
+                    <S.ContractTitle onClick={() => navigate(`/guardterm`)}>이용약관에 동의 (필수)</S.ContractTitle>
                 </S.Contract>
 
 

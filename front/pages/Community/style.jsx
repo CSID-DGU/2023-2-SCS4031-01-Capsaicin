@@ -7,12 +7,15 @@ export const Container = styled.div`
     position: relative;
 `;
 
+
 export const InputTitle = styled.div`
     font-family: 'NotoSansKR-Bold';
-    font-size: 35px;
+    font-size: 30px;
+    flex-direction: row;
     padding-left: 30px;
     justify-content: flex-start;
     padding: 40px 200px 20px 0px;
+    margin-top:30px;
 `;
 
 export const Notice = styled.div`
@@ -61,6 +64,14 @@ export const InfoTitle = styled.div`
     font-family: 'Pretendard-Bold';
     z-index: 1;
 `;
+export const Infos = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    margin-top:0px;
+`;
+
 
 export const Info = styled.div`
     display: flex;
@@ -77,6 +88,7 @@ export const Info = styled.div`
     font-size: 30px;
     font-family: 'Pretendard-Medium';
     line-height: 1.8;
+    margin-bottom:130px;
 `;
 export const Info2 = styled.div`
     display: flex;
@@ -121,8 +133,8 @@ export const NoticeButton2= styled.button`
 `;
 export const Text = styled.textarea`
     font-family: 'Pretendard-Medium';
-    width: 60%;
-    height: 300px;
+    width: 80%;
+    height: 500px;
     // border: 0.5px solid black;
     // border-radius: 5px;
     font-size: 20px;
@@ -136,6 +148,6 @@ export const Backward = styled.img`
   width: 18px;
   height: 26px;
   padding-right: 30px;
-  margin-left: 150px;
+//   margin-left: 150px;
   // margin-right:calc(100% / 2 - 54px)
 `;

@@ -52,6 +52,15 @@ export default function SportsInput() {
       }
     }
   };
+  const handleSelectChange = (e, foodId) => {
+    const selectedCount = e.target.value;
+    console.log(selectedCount);
+    // 선택된 숟가락의 값을 해당 음식 항목의 count로 설정
+    setMinutes((prevCounts) => ({
+      ...prevCounts,
+      [foodId]: selectedCount,
+    }));
+  };
 
   const handleSelectionComplete = async () => {
     try {
@@ -67,7 +76,7 @@ export default function SportsInput() {
   
       console.log('전송 데이터:', JSON.stringify(requestData));
   
-      const response = await fetch('http://127.0.0.1:8000/main/exercise', {
+      const response = await fetch(`${API}/main/exercise`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -101,7 +110,7 @@ export default function SportsInput() {
   useEffect(() => {
     const fetchExercises = async () => {
       try {
-        const response = await fetch(`${API}/main/exercisecategory`, {// 여기서 1은 카테고리 번호입니다. 필요에 따라 동적으로 변경 가능
+        const response = await fetch(`${API}/main/exercisecategory`, {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`, // 인증 토큰을 헤더에 추가합니다.
@@ -129,7 +138,7 @@ export default function SportsInput() {
         <S.Info>
           <S.Backward
             src="../../../assets/images/backward.png"
-            onClick={() => navigate(`/inputinfo_cate`)}
+            onClick={() => navigate(`/inputmain`)}
           />
           <S.InputTitle>운동정보 입력</S.InputTitle>
         </S.Info>

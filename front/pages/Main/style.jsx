@@ -2,17 +2,22 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
-    height:100vh;
     flex-direction: column;
     align-items: center;
     position: relative;
+    flex:auto;
+    overflow-y : scroll;
+    &::-webkit-scrollbar{
+        display:none;
+    }
 `;
 
 export const UserName = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: end;
-    margin: 40px 200px 10px 0px;
+    justify-content: space-between;
+    margin-top:100px;
+    width: 350px;
 `;
 
 export const Name = styled.div`
@@ -148,6 +153,7 @@ export const Walking = styled.div`
     font-size: 25px;
     font-family: 'Pretendard-Medium';
     margin-top: 40px;
+    margin-bottom:150px;
     justify-content: center;
     align-items: center;
 `;

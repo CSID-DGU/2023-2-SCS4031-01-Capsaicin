@@ -69,14 +69,14 @@ export default function Main() {
     return (
         <>
             <S.Container>
-                <Title />
-
+            <Title />
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{centerData.fullname}</S.Name>
                     <S.User>님 </S.User>
+                    <S.logout onClick={handleLogout}>로그아웃</S.logout>
                 </S.UserName>
-                <S.logout onClick={handleLogout}>로그아웃</S.logout>
+                
                 <S.Info>
                     {/* <S.InfoTitle>김건강님의 최근 수치</S.InfoTitle> */}
                     <S.InfoTitle>{centerData.fullname}님의 최근 수치</S.InfoTitle>
@@ -113,9 +113,10 @@ export default function Main() {
                         <S.TodayWalkingNum>{centerData.name}경로당</S.TodayWalkingNum>
                     </S.WalkingNum>
                 </S.Walking>
-
                 <Nav />
             </S.Container>
+
+
         </>
     )
 }

@@ -18,6 +18,7 @@ export const Info = styled.div`
   flex-direction: row;
   justify-content:center;
   align-items: center;
+  margin-top:50px;
 `;
 
 export const Backward = styled.img`
@@ -109,6 +110,7 @@ export const ButtonContainer = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
+  margin-bottom:120px;
 `;
 
 export const Box = styled.button`
