@@ -1,6 +1,6 @@
 import {atom} from "recoil"
 export const GuardSignupStore = atom({
-    key:"SignupState",
+    key:"GuardSignupState",
     default:{
         phone_number:"",
         password1:"",
