@@ -10,6 +10,7 @@ export default function Community() {
     const [noticeContent, setNoticeContent] = useState("");
     const [id, setId] = useState("");
     const [center, setCenter] = useState("");
+    const [center_name, setcenter_name] = useState("");
     const accessToken = localStorage.getItem("accessToken");
     const [exerciseTopUsers, setExerciseTopUsers] = useState([]);
     const [bloodTopUsers, setBloodTopUsers] = useState([]);
@@ -36,6 +37,7 @@ export default function Community() {
                 setNoticeContent(data.description);
                 setId(data.id);
                 setCenter(data.center);
+                setcenter_name(data.center_name)
             } catch (error) {
                 console.error('Error fetching notice:', error);
             }
@@ -108,7 +110,7 @@ export default function Community() {
                     </S.NoticeButton>
                 )}
                 <S.Notice>
-                    <S.NoticeTitle>경로당 공지</S.NoticeTitle>
+                    <S.NoticeTitle>{center_name}경로당 공지</S.NoticeTitle>
                     <S.NoticeContent>{noticeContent}</S.NoticeContent>
                 </S.Notice>
 
