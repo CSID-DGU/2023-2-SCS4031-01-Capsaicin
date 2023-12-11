@@ -311,15 +311,15 @@ class MealRecommendationView(APIView):
         print(top_natrium_foods)
 
         if total_natrium < 600:
-            serial = MealRecommendSerializer({'condition': "저나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 하루 권장 섭취 나트륨은 600g으로, 섭취 나트륨이 부족한 것으로 보입니다. \n 끼니를 거르지 마시고, 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : []})
+            serial = MealRecommendSerializer({'condition': "저나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 하루 권장 섭취 나트륨은 600g으로, 섭취 나트륨이 부족한 것으로 보입니다. 끼니를 거르지 마시고, 조금 더 영양가 있는 식사를 해보시는게 어떨까요?", 'data' : []})
             return Response(serial.data)
         elif total_natrium >= 600 and total_natrium <2000:
-            serial = MealRecommendSerializer({'condition': "정상", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식은 {yesterday_food_name}입니다. 섭취 나트륨이 정상인 것으로 보입니다. \n 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : []})
+            serial = MealRecommendSerializer({'condition': "정상", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식은 {yesterday_food_name}입니다. 섭취 나트륨이 정상인 것으로 보입니다. 지금처럼 영양가 있는 식사를 꾸준히 유지해시는게 어떨까요?", 'data' : []})
 
             return Response(serial.data)
         else: 
             result = run(total_natrium, top_natrium_foods, "음식분류")
-            serial = MealRecommendSerializer({'condition': "고나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식 중 나트륨이 높은 음식은 {top_natrium_foods}입니다. 섭취 나트륨이 과도한 것으로 보입니다. \n 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
+            serial = MealRecommendSerializer({'condition': "고나트륨", 'message': f"어제 섭취하신 나트륨은 {total_natrium}g입니다. 어제 드신 음식 중 나트륨이 높은 음식은 {top_natrium_foods}입니다. 섭취 나트륨이 과도한 것으로 보입니다. 아래와 같은 음식을 드셔보는건 어떨까요?", 'data' : result})
             
             
             return Response(serial.data)
@@ -434,14 +434,14 @@ class ExerciseRecommendationView(APIView):
             recommend_calorie = 1300
 
         if extra > 0:
-            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":{"text": f"소모칼로리가 {extra_rounded}만큼 필요합니다. 가볍게 산책해보시면 어떨까요?"}}, status=status.HTTP_200_OK)
+            return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":{"text": f"소모칼로리가 {extra_rounded}만큼 필요합니다. 가볍게 {random_category.name}해보시면 어떨까요?"}}, status=status.HTTP_200_OK)
         elif extra == 0:
             return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":"소모칼로리와 섭취칼로리가 동일한 것으로 보입니다."}, status=status.HTTP_200_OK)
         elif extra < 0:
             if total_meal_calorie < recommend_calorie:
-                message = f"{find_user.fullname}님의 하루 권장 섭취칼로리는 {recommend_calorie}입니다. 섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. \n 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
+                message = f"{find_user.fullname}님의 하루 권장 섭취칼로리는 {recommend_calorie}입니다. 섭취 칼로리가 하루 권장 섭취칼로리보다 적은 것으로 보입니다. 끼니를 거르지 말고 영양가 있는 식사를 해보는게 어떨까요?"
             else:
-                message = f"{find_user.fullname}님의 하루 권장 섭취칼로리는 {recommend_calorie}입니다. 하루 권장 섭취칼로리는 충족하셨네요! \n 운동하신 만큼 단백질을 보충하는건 어떨까요?"
+                message = f"{find_user.fullname}님의 하루 권장 섭취칼로리는 {recommend_calorie}입니다. 하루 권장 섭취칼로리는 충족하셨네요! 운동하신 만큼 단백질을 보충하는건 어떨까요?"
 
             return Response({"user": find_user.fullname, "yesterday_total_meal_calorie": total_meal_calorie, "extra" : extra, "message":message}, status=status.HTTP_200_OK)
         return Response(status=status.HTTP_400_BAD_REQUEST)
