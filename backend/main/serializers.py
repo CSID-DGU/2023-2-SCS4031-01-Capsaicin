@@ -3,7 +3,7 @@ from accounts.models import User
 from main.models import *
 
 class BloodPressureSerializer(serializers.ModelSerializer):
-    measurement_time = serializers.TimeField(format='%H:%M')
+    measurement_time = serializers.CharField(source='measurement_time.strftime("%H:%M")', read_only=True)
 
     class Meta:
         model = BloodPressure
@@ -16,7 +16,7 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
 
 class guardBloodPressureSerializer(serializers.ModelSerializer):
     fullname = serializers.SerializerMethodField()
-    measurement_time = serializers.TimeField(format='%H:%M')
+    measurement_time = serializers.CharField(source='measurement_time.strftime("%H:%M")', read_only=True)
 
     class Meta:
         model = BloodPressure
