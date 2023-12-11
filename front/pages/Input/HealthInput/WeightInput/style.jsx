@@ -66,5 +66,5 @@ export const CompleteButton = styled.button`
     background-color: #48268F;
     border-radius: 5px;
     margin-top: 50px;
-    margin-bottom: 35px;
+    margin-bottom: 150px;
 `;

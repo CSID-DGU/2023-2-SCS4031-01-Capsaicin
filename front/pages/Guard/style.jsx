@@ -462,7 +462,7 @@ export const UserName = styled.div`
     display: flex;
     flex-direction: row;
     align-items: end;
-    margin: 20px 180px 10px 0px;
+    margin: 40px 0px 0px 10px;
 `;
 
 export const Name = styled.div`
@@ -912,4 +912,19 @@ export const RecommendExerciseName = styled.div`
 export const FoodIcon2 = styled.img`
   width: 150px;
   height: 150px;
+`;
+
+export const logout2 = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 100px;
+    height: 50px;
+    border: 0.5px solid white;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    margin-left: 50px;
+    margin-top: 10px;
+    // margin-right: 20px;
+    text-decoration: underline;
 `;

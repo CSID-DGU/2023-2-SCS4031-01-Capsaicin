@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Title from '../../Components/Title';
+import Title2 from '../../Components/Title2';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ export default function CustomizedCare() {
     return (
         <>
             <S.Container>
-                <Title />
+                <Title2 />
                 <S.Recommend>
                     <S.InputTitle><S.Backward src="../assets/images/backward.png" onClick={() => navigate(`/guardmain`)} />맞춤케어</S.InputTitle>
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
