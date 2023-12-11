@@ -3,11 +3,14 @@ from accounts.models import User
 from main.models import *
 
 class BloodPressureSerializer(serializers.ModelSerializer):
-    measurement_time = serializers.CharField(source='measurement_time.strftime("%H:%M")', read_only=True)
+    measurement_time_display = serializers.CharField(source='get_formatted_measurement_time', read_only=True)
 
     class Meta:
         model = BloodPressure
-        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time"]
+        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time_display"]
+
+    def get_formatted_measurement_time(self, obj):
+        return obj.measurement_time.strftime("%H:%M")
 
 class BloodPressurePostSerializer(serializers.ModelSerializer):
     class Meta:
@@ -16,14 +19,17 @@ class BloodPressurePostSerializer(serializers.ModelSerializer):
 
 class guardBloodPressureSerializer(serializers.ModelSerializer):
     fullname = serializers.SerializerMethodField()
-    measurement_time = serializers.CharField(source='measurement_time.strftime("%H:%M")', read_only=True)
+    measurement_time_display = serializers.CharField(source='get_formatted_measurement_time', read_only=True)
 
     class Meta:
         model = BloodPressure
-        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time", "fullname"]
+        fields = ["systolic", "diastolic",  "measurement_date", "measurement_time_display", "fullname"]
 
     def get_fullname(self, obj):
         return obj.user.fullname
+    
+    def get_formatted_measurement_time(self, obj):
+        return obj.measurement_time.strftime("%H:%M")
 
 class WeightSerializer(serializers.ModelSerializer):
     class Meta:
