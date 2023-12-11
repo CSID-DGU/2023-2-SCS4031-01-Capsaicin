@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Title from '../../Components/Title';
+import Title2 from '../../Components/Title2';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
@@ -204,7 +204,7 @@ export default function GuardHealthRecord() {
 
         <>
             <S.Container>
-                <Title />
+                <Title2 />
                 <S.Infos>
                     <S.Backward src="../assets/images/backward.png" onClick={() => navigate(`/guardmain`)} />
                     <S.InputTitle>건강기록</S.InputTitle>
