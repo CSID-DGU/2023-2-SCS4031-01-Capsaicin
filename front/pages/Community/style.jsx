@@ -29,6 +29,7 @@ export const Notice = styled.div`
     font-family: 'NotoSansKR-Bold';
     margin-top: 20px;
     align-items: center;
+    overflow: hidden;
 `;
 
 export const NoticeTitle = styled.div`
@@ -46,6 +47,7 @@ export const NoticeContent = styled.div`
     padding-top: 15px;
     word-wrap: break-word;
     overflow:auto;
+    overflow: hidden;
 `;
 
 export const InfoTitle = styled.div`
@@ -62,7 +64,7 @@ export const InfoTitle = styled.div`
     justify-content: center;
     font-size: 30px;
     font-family: 'Pretendard-Bold';
-    z-index: 1;
+    z-index: 0;
 `;
 export const Infos = styled.div`
     display: flex;
