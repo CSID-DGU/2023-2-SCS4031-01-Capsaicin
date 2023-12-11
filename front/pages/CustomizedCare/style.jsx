@@ -53,10 +53,11 @@ export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
     width: 370px;
-    height: 400px;
+    height: 250px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
+    padding: 30px 0px 20px 0px;
     font-family: 'Pretendard-Medium';
     justify-content: center;
     align-items: flex-start;
@@ -64,6 +65,7 @@ export const RecommendFood = styled.div`
     overflow-y: auto;
     max-height: none;
     align-items: center;
+    overflow-y: auto;
 `;
 
 export const RecommendFoodNames = styled.div`
