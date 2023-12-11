@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Title from '../../Components/Title';
+import Title2 from '../../Components/Title2';
 import Nav from '../../Components/Nav';
 import * as S from "./style";
 import { useNavigate } from "react-router-dom";
@@ -67,6 +67,15 @@ export default function GuardMain() {
             })
             .catch((error) => console.error('Error:', error));
     }, []);
+
+    const handleLogout = () => {
+        // 토큰 삭제 (로그아웃)
+        localStorage.removeItem("accessToken");
+
+        // 로그인 페이지로 이동
+        navigate(`/`);
+    };
+
     // useEffect(() => {
     //     fetch(`${API}/main/center`, {
     //         headers: {
@@ -85,14 +94,17 @@ export default function GuardMain() {
     return (
         <>
             <S.Container>
-                <Title />
+                <Title2 />
 
                 <S.UserName>
                     {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{userBPData.fullname}</S.Name>
 
                     <S.User>님 보호자</S.User>
+                    <S.logout2 onClick={handleLogout}>로그아웃</S.logout2>
                 </S.UserName>
+                
+                
 
                 <S.Info>
                     <S.InfoTitle>{userBPData.fullname}님의 최근 수치</S.InfoTitle>

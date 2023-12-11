@@ -19,8 +19,8 @@ export const Info = styled.div`
     align-items: center;
     padding-top: 50px;
     padding-right: 80px;
-    margin-bottom: 50px;
-    margin-top : 50px;
+    margin-bottom: 20px;
+    margin-top : 30px;
 `;
 
 export const Backward = styled.img`
@@ -96,6 +96,7 @@ export const GotoHealthInput = styled.div`
     font-size: 35px;
     font-family: 'Pretendard-Medium';
     margin-top: 20px;
+    margin-bottom: 150px;
     justify-content: center;
     align-items: center;
 `;
