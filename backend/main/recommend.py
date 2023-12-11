@@ -66,15 +66,13 @@ def recommend_menu(menu_names, name="음식분류", top=2):
         target_menu_idx = df[df['음 식 명'] == menu_name].index.values
 
         if len(target_menu_idx) == 0:  # Check if the menu_name exists in the DataFrame
-            print(f"No data found for {menu_name}")
-            continue
+            continue  # Skip to the next menu_name
 
         sim_idx = similarity_category[target_menu_idx, :top].reshape(-1)
         sim_idx = sim_idx[sim_idx != target_menu_idx]
 
         if len(sim_idx) == 0:  # Check if there are similar items
-            print(f"No similar items found for {menu_name}")
-            continue
+            continue  # Skip to the next menu_name
 
         recommended_items = df.iloc[sim_idx][['음 식 명', '나트륨', 'foodImgUrl']].values
         # Ensure unique recommendations
@@ -87,8 +85,6 @@ def recommend_menu(menu_names, name="음식분류", top=2):
 
         if len(unique_recommended_items) > 0:
             result.append(unique_recommended_items[-1].tolist())
-        else:
-            print(f"No unique recommendations available for {menu_name}")
 
     return result
 
@@ -111,7 +107,7 @@ def run(total_sodium_intake: int, menu_names: list=None, name: str="음식분류
     
 
 if __name__ == "__main__":
-    recommended = run(total_sodium_intake=300, menu_names=["쌀밥", "도토리묵", "보리밥"])
+    recommended = run(total_sodium_intake=2300, menu_names=["김치볶음밥", "닭튀김", "어묵볶음"])
 
     if not recommended:
         print("정상입니다")
