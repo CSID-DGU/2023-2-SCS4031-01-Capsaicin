@@ -53,11 +53,11 @@ export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
     width: 370px;
-    height: 250px;
+    height: 320px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
-    padding: 30px 0px 20px 0px;
+    padding: 60px 0px 20px 0px;
     font-family: 'Pretendard-Medium';
     justify-content: center;
     align-items: flex-start;
