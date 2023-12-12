@@ -50,10 +50,10 @@ export default function CustomizedCare() {
         return <p>Loading...</p>;
     }
 
-    // // 추가된 부분: data가 존재하면서 비어있는 경우 setRecommendationData(null) 호출
-    // if (recommendationData.data && recommendationData.data.length === 0) {
-    //     setRecommendationData(null);
-    // }
+
+
+    // 데이터에 쉽게 접근하기 위해 구조분해할당
+    const { condition, message, data } = recommendationData;
 
     return (
         <>
@@ -64,21 +64,19 @@ export default function CustomizedCare() {
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
                 </S.Recommend>
                 <S.RecommendFood>
-                    <S.RecommendFoodTitle>전날 섭취하신 나트륨 상태는 {recommendationData.condition}이에요.</S.RecommendFoodTitle>
-                    <S.RecommendFoodContent>{recommendationData.message}</S.RecommendFoodContent>
-                    <S.Food>
-                        {recommendationData.data.map((food, index) => (
-                            <React.Fragment key={index}>
-                                <S.FoodIcon src={data[2]} />
-                                <S.RecommendFoodNames>
-                                    <S.RecommendFoodName>{food[0]}</S.RecommendFoodName>
-                                </S.RecommendFoodNames>
-                                <S.RecommendFoodKcals>
-                                    <S.RecommendFoodKcal>{food[1]}</S.RecommendFoodKcal>
-                                </S.RecommendFoodKcals>
-                            </React.Fragment>
-                        ))}
-                    </S.Food>
+                    <S.RecommendFoodTitle>{recommendationExerciseData.user}님의 전날 섭취하신<br></br> 나트륨 상태는 {condition}이에요.</S.RecommendFoodTitle>
+                    <S.RecommendFoodContent>{message}</S.RecommendFoodContent>
+                    {data && data.map((foodData, index) => (
+                        <S.Food key={index}>
+                            <S.FoodIcon src={foodData[2]} />
+                            <S.RecommendFoodNames>
+                                <S.RecommendFoodName>{foodData[0]}</S.RecommendFoodName>
+                            </S.RecommendFoodNames>
+                            <S.RecommendFoodKcals>
+                                <S.RecommendFoodKcal>{foodData[1]}</S.RecommendFoodKcal>
+                            </S.RecommendFoodKcals>
+                        </S.Food>
+                    ))}
                 </S.RecommendFood>
 
                 <S.Recommend>
@@ -92,8 +90,9 @@ export default function CustomizedCare() {
                         {parseFloat(recommendationExerciseData.yesterday_total_meal_calorie).toFixed(2)}입니다.</S.RecommendExerciseName>
                     <S.RecommendExercisecontent>{recommendationExerciseData.message}</S.RecommendExercisecontent>
                 </S.RecommendExercise>
+
+                <Nav />
             </S.Container>
-            <Nav />
         </>
     )
 }
