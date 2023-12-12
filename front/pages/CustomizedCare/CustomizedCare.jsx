@@ -64,7 +64,7 @@ export default function CustomizedCare() {
                     <S.RecommendTitle>1. 추천 식단</S.RecommendTitle>
                 </S.Recommend>
                 <S.RecommendFood>
-                    <S.RecommendFoodTitle>전날 섭취하신<br></br> 나트륨 상태는 {condition}이에요.</S.RecommendFoodTitle>
+                    <S.RecommendFoodTitle>{recommendationExerciseData.user}님의 전날 섭취하신<br></br> 나트륨 상태는 {condition}이에요.</S.RecommendFoodTitle>
                     <S.RecommendFoodContent>{message}</S.RecommendFoodContent>
                     {data && data.map((foodData, index) => (
                         <S.Food key={index}>
