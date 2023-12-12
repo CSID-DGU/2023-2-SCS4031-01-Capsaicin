@@ -93,14 +93,12 @@ export default function GuardMain() {
 
     return (
         <>
-            <S.Container>
+            <S.Container2>
                 <Title2 />
 
                 <S.UserName>
-                    {/* <S.Name>김건강</S.Name> */}
                     <S.Name>{userBPData.fullname}</S.Name>
-
-                    <S.User>님 보호자</S.User>
+                    <S.User2>님 보호자</S.User2>
                     <S.logout2 onClick={handleLogout}>로그아웃</S.logout2>
                 </S.UserName>
                 
@@ -141,7 +139,7 @@ export default function GuardMain() {
                         </S.FoodContainer2>
                     ))}
                 </S.InfoFood2>
-            </S.Container>
+            </S.Container2>
         </>
     )
 }
