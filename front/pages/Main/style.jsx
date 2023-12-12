@@ -15,7 +15,7 @@ export const Container = styled.div`
 export const UserName = styled.div`
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: ;
     margin-top:100px;
     width: 350px;
 `;
@@ -28,7 +28,8 @@ export const Name = styled.div`
 export const User = styled.div`
     font-size: 25px;
     font-family: 'NotoSansKR-Medium';
-    padding-left: 5px;
+    padding-left: 0px;
+    margin-top:10px;
 `;
 
 
@@ -192,7 +193,7 @@ export const logout = styled.button`
     font-size: 20px;
     background-color: white;
     color: black;
-    margin-left: 50px;
+    margin-left: 100px;
     margin-top: 10px;
     // margin-right: 20px;
     text-decoration: underline;

@@ -6,7 +6,17 @@ export const Container = styled.div`
     align-items: center;
     // position: relative;
 `;
-
+export const Container2 = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    flex:auto;
+    overflow-y : scroll;
+    &::-webkit-scrollbar{
+        display:none;
+    }
+`;
 
 export const Title = styled.img`
     width: 390px;
@@ -461,14 +471,23 @@ export const ImgFood = styled.img`
 export const UserName = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: end;
-    margin: 40px 0px 0px 10px;
+    justify-content: ;
+    margin-top:100px;
+    width: 350px;
 `;
 
 export const Name = styled.div`
     font-size: 40px;
     font-family: 'NotoSansKR-Bold';
 `;
+
+export const User2 = styled.div`
+    font-size: 25px;
+    font-family: 'NotoSansKR-Medium';
+    padding-left: 0px;
+    margin-top:10px;
+`;
+
 
 export const Info = styled.div`
     display: flex;
@@ -914,6 +933,21 @@ export const FoodIcon2 = styled.img`
   height: 150px;
 `;
 
+export const logout = styled.button`
+    font-family: 'Pretendard-Medium';
+    width: 100px;
+    height: 50px;
+    border: 0.5px solid white;
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    margin-left: 100px;
+    margin-top: 10px;
+    // margin-right: 20px;
+    text-decoration: underline;
+`;
+
 export const logout2 = styled.button`
     font-family: 'Pretendard-Medium';
     width: 100px;
@@ -923,8 +957,8 @@ export const logout2 = styled.button`
     font-size: 20px;
     background-color: white;
     color: black;
-    margin-left: 50px;
-    margin-top: 10px;
+    margin-left: 20px;
+    margin-bottom: 20px;
     // margin-right: 20px;
     text-decoration: underline;
 `;
