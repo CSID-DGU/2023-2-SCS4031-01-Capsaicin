@@ -671,6 +671,7 @@ export const Infos = styled.div`
     flex-direction: row;
     align-items: center;
     padding-top: 20px;
+    margin-top:20px;
 `;
 export const Info2 = styled.div`
     display: flex;
@@ -801,6 +802,7 @@ export const Recommend = styled.div`
     justify-content: center;
     width: 390px;
     padding-left: 50px;
+    margin-top:20px;
 `;
 
 export const RecommendTitle = styled.div`
