@@ -12,7 +12,7 @@ export const InputTitle = styled.div`
     font-size: 35px;
     padding-left: 30px;
     justify-content: flex-start;
-    padding: 50px 0px 20px 0px;
+    padding: 50px 0px 0px 0px;
 `;
 
 export const Recommend = styled.div`
@@ -53,7 +53,7 @@ export const RecommendFood = styled.div`
     display: flex;
     flex-direction: column;
     width: 370px;
-    height: 320px;
+    height: 600px;
     border-radius: 5px;
     box-shadow: 0px 2px 4px 0.25px #7c7c7c;
     font-size: 35px;
